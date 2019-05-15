@@ -1,3 +1,34 @@
+/* Set gradient here */
+body {
+     /* background: linear-gradient(-90deg, purple, yellow);  */
+    /* background: linear-gradient(-90deg, black, pink, green ); */
+    /* background: linear-gradient(-90deg, yellow, orange, red, green, blue); */
+}
+
+canvas {
+    display:block; /* remove scrollbars */
+    position: absolute;  /* position at top left corner for overlay */
+    left: 0;
+    top: 0;
+    z-index: -999;
+}
+
+h1 {
+    color: #111;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+    color: #111;
+    font-family: 'Open Sans',sans-serif;
+}
+
+p {
+    color: #685206;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+
 body {
   font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
   color: #333;
@@ -6,29 +37,4 @@ body {
   letter-spacing: 0.8px;
   word-break: break-all;
 
-}
-
-ul.box {
-    display:table;
-    table-layout:fixed;
-    width:750px;
-    padding-bottom: 40px;
-}
-
-ul.box li {
-    display:table-cell;
-    vertical-align:middle;
-    text-align:center;
-    background-color:red;
-    border-left:1px solid white;
-}
-
-ul.box li:first-child {
-    border:none;
-}
-
-ul.box li a {
-    display:block;
-    text-decoration:none;
-    color:white;
 }
