@@ -42,3 +42,39 @@ body {
   word-break: break-all;
 
 }
+
+/* https://moonnote.hateblo.jp/entry/2015/12/03/200718 */
+.follow-me {
+  list-style: none;
+  margin: 0 0 -8px;
+  overflow: hidden;
+  padding: 0;
+}
+.follow-me li {
+  float: left;
+  margin: 0 8px 8px 0;
+  padding: 0;
+}
+.follow-me li a::before {
+  background-color: #eee;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  color: #333;
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 16px;
+  height: 44px; /* Button height */
+  line-height: 44px; /* Button height */
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  text-align: center;
+  width: 44px; /* Button width */
+}
+.follow-me li a:hover::before {
+  background-color: #333;
+  color: #fff;
+}
+.follow-me li a[href*="facebook.com"]::before       { content: "\f09a"; }
+.follow-me li a[href*="github.com"]::before         { content: "\f09b"; }
+.follow-me li a[href*="instagram.com"]::before      { content: "\f16d"; }
+.follow-me li a[href*="twitter.com"]::before        { content: "\f099"; }
