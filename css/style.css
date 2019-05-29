@@ -77,5 +77,5 @@ body {
 .follow-me li a[href*="facebook.com"]::before       { content: "\f09a"; }
 .follow-me li a[href*="github.com"]::before         { content: "\f09b"; }
 .follow-me li a[href*="instagram.com"]::before      { content: "\f16d"; }
-.follow-me li a[href*="twitter.com"]::before        { content: "\f099"; }
+/* .follow-me li a[href*="twitter.com"]::before        { content: "\f099"; } */
 .follow-me li a[href*="soundcloud.com"]::before        { content: "\f099"; }
