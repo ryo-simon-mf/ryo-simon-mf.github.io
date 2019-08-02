@@ -1,17 +1,13 @@
-let bn = 3;//box number
-let bs = 80;//box size
-let bm = 140;//box margin
+let bn = 10;//box number
+let bs = 40;//box size
+let bm = 60;//box margin
 
 function setup() {
     createCanvas(windowWidth, windowHeight,WEBGL);
 }
 
 function draw() {
-  // background(255);
-  background(20, 20, 45);
-  stroke(255);
-  strokeWeight(3);
-  noFill()
+  background(255);
   rotateX(radians(60));
   rotateZ(frameCount / 150);
    for (var ix = 0; ix < bn; ix++) {
@@ -38,4 +34,3 @@ function draw() {
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
 }
-
