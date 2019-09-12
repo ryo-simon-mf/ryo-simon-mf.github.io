@@ -78,7 +78,7 @@ p {
 
 
 /* hover */
-a:link {
+  a:link {
   color: #000000;	/* リンクをクリックしていない時の色 */
   }
   a:visited {
