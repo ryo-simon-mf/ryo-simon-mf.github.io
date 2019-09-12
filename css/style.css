@@ -8,7 +8,7 @@ body {
 
 }
 
-
+/* p5.js */
 canvas {
     display:block; /* remove scrollbars */
     position: absolute; /* position at top left corner for overlay */
@@ -25,12 +25,12 @@ canvas {
 h2 {
     color: #111;
     font-family: 'Open Sans',sans-serif;
-} */
+} 
 
 p {
     color: #685206;
     font-family: 'Helvetica Neue', sans-serif;
-}
+} */
 
 
 
@@ -72,24 +72,30 @@ p {
 .follow-me li a[href*="github.com"]::before         { content: "\f09b"; }
 .follow-me li a[href*="instagram.com"]::before      { content: "\f16d"; }
 /* .follow-me li a[href*="soundcloud.com"]::before        { content: "\f099"; } */
-.follow-me li a[href*="twitter.com"]::before        { content: "\f099"; 
+.follow-me li a[href*="twitter.com"]::before        { content: "\f099"; }
 /* .follow-me li a[href*="twitter.com"]::before        { content: "\f099"; } */
 
 
+/* aタグ下線消し */
+  a { text-decoration: none; }
 
-/* hover */
-  a:link {
+/* link hover */
+  .list:link {
   color: #000000;	/* リンクをクリックしていない時の色 */
   }
-  a:visited {
+  .list:visited {
   color: #FF9696; /* すでにリンクをクリックした時の色 */
   }
-  a:hover {
+  .list:hover {
   color: #006DD9;	/* マウスオーバーした時に色を変える */
   }
-  a:active {
+  .list:active {
   color: #B20000;	/* 要素をマウスでクリックした時の色 */
   }
 
-/* aタグ下線消し */
-  a { text-decoration: none; }
+
+
+  div#content {
+    width:560px; margin:10px 20px 10px 0px;	/*幅の指定と位置調整*/
+    float:right;				/*2カラム全体を右寄せにする*/
+  } 
