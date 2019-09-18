@@ -8,8 +8,8 @@ function setup() {
 
 function draw() {
   
-  let size_w = round(windowWidth / 200);
-  let size_h = round(windowWidth / 200);
+  let size_w = round(windowWidth / 400);
+  let size_h = round(windowWidth / 400);
    
   bm = bm_1 * size_w * 0.1;
   bs = bs_1 * size_w * 0.1;
