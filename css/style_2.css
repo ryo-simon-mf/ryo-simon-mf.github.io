@@ -92,35 +92,33 @@ div#content_in {
     /* border: 1px solid #B20000; */
 }
 
-p.back_1 {
+
+/* p.back_1 {
     /* background-color: rgba(0, 0, 0, 0.1); */
+
+
 }
-
-
+*/
 /* link hover */
-
 .list:link {
     color: #000000;
     /* リンクをクリックしていない時の色 */
 }
-
 .list:visited {
     color: #000000;
     /* すでにリンクをクリックした時の色 */
 }
-
 .list:hover {
     color: #006DD9;
     /* マウスオーバーした時に色を変える */
 }
-
 .list:active {
     color: #B20000;
     /* 要素をマウスでクリックした時の色 */
 }
-
 div#menu {
     /* 幅の指定 */
+    
     width: 25%;
     /* width: auto; */
     /* width:300px;			 */
@@ -128,31 +126,27 @@ div#menu {
     /* 位置調整（IE6のバグに注意） */
     /* display:inline;			 */
     /* IE6のマージン算出のバグ対策 */
+    
     float: left;
     /* サブメニューのカラムを左寄せにする */
     /* background-color: rgb(199, 10, 216); */
     /* border: 1px solid #006DD9; */
 }
 
-
 /* sns icon */
 
-
 /* https://moonnote.hateblo.jp/entry/2015/12/03/200718 */
-
 .follow-me {
     list-style: none;
     margin: 0 0 -8px;
     overflow: hidden;
     padding: 0;
 }
-
 .follow-me li {
     float: left;
     margin: 0 8px 8px 0;
     padding: 0;
 }
-
 .follow-me li a::before {
     background-color: #eee;
     -webkit-border-radius: 2px;
@@ -163,38 +157,33 @@ div#menu {
     font-size: 16px;
     height: 44px;
     /* Button height */
+    
     line-height: 44px;
     /* Button height */
+    
     -webkit-transition: all .3s ease;
     transition: all .3s ease;
     text-align: center;
     width: 44px;
     /* Button width */
 }
-
 .follow-me li a:hover::before {
     background-color: #333;
     color: #fff;
 }
-
 .follow-me li a[href*="facebook.com"]::before {
     content: "\f09a";
 }
-
 .follow-me li a[href*="github.com"]::before {
     content: "\f09b";
 }
-
 .follow-me li a[href*="instagram.com"]::before {
     content: "\f16d";
 }
 
-
 /* .follow-me li a[href*="soundcloud.com"]::before        { content: "\f099"; } */
-
 .follow-me li a[href*="twitter.com"]::before {
     content: "\f099";
 }
-
 
 /* .follow-me li a[href*="twitter.com"]::before        { content: "\f099"; } */
