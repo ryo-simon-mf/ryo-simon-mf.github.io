@@ -13,7 +13,8 @@ body {
 canvas {
     display: block;
     /* remove scrollbars */
-    position: absolute;
+    /* position: absolute; */
+    position: fixed;
     /* position at top left corner for overlay */
     left: 0;
     top: 0;
@@ -52,6 +53,8 @@ div#title {
     color: #000000;
     /* background-color: #006DD9; */
     /* border: 1px solid #B20000; */
+    position: relative;
+    z-index: 9;
 }
 
 .title:link {
@@ -127,6 +130,8 @@ div#menu {
     /* サブメニューのカラムを左寄せにする */
     /* background-color: rgb(199, 10, 216); */
     /* border: 1px solid #006DD9; */
+    position: fixed;
+    z-index: 10;
 }
 
 
