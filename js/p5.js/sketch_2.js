@@ -7,6 +7,26 @@ function setup() {
 }
 
 function draw() {
+<<<<<<< HEAD
+=======
+  
+  let size_w = round(windowWidth / 400) - 5;
+  let size_h = round(windowWidth / 400) - 5;
+   
+  bm = bm_1 * size_w * 0.1;
+  bs = bs_1 * size_w * 0.1;
+  bn = bn_1 * size_w * 0.1;
+  
+  background(255);
+  rotateX(radians(60));
+  rotateZ(frameCount / 150);
+   for (var ix = 0; ix < bn; ix++) {
+    let x = (ix - 0.5 * bn + 0.5) * bm;
+    for (var iy = 0; iy < bn; iy++) {
+      let y = (iy - 0.5 * bn + 0.5) * bm;
+      for (var iz = 0; iz < bn; iz++) {
+        let z = (ix - 0.5 * bn + 0.5) * bm;
+>>>>>>> 20024150b73494ce815425d65962f4051c3f74f3
 
     let size_w = round(windowWidth / 200);
     let size_h = round(windowWidth / 200);
