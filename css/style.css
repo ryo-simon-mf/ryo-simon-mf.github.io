@@ -98,7 +98,7 @@ div#content_in {
 }
 
 .list:visited {
-    color: #FF9696;
+    color: #000000;
     /* すでにリンクをクリックした時の色 */
 }
 
