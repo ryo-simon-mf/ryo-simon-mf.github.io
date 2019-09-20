@@ -83,6 +83,7 @@ div#content {
     float: right;
     /* 2カラム全体を右寄せにする */
     /* background-color: rgba(0, 0, 0, 0.5); */
+    top: 10px;
 }
 
 div#content_in {
