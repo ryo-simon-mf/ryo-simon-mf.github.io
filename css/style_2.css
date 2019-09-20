@@ -119,8 +119,7 @@ div#menu {
     /* 幅の指定 */
     width: 25%;
     /* width: auto; */
-    /* width:300px;			 */
-    /* padding:0px 0px 0px 15px;	 */
+    /* padding: 0px 0px 0px 15px; */
     /* 位置調整（IE6のバグに注意） */
     /* display:inline;			 */
     /* IE6のマージン算出のバグ対策 */

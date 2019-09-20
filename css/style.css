@@ -21,22 +21,6 @@ canvas {
 }
 
 
-/* h1 {
-    color: #111;
-    font-family: 'Helvetica Neue', sans-serif;
-}
-
-h2 {
-    color: #111;
-    font-family: 'Open Sans',sans-serif;
-} 
-
-p {
-    color: #685206;
-    font-family: 'Helvetica Neue', sans-serif;
-} */
-
-
 /* aタグ下線消し */
 
 a {
@@ -125,6 +109,7 @@ div#menu {
     /* サブメニューのカラムを左寄せにする */
     /* background-color: rgb(199, 10, 216); */
     /* border: 1px solid #006DD9; */
+    z-index: 100;
 }
 
 

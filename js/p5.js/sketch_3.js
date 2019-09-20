@@ -3,7 +3,8 @@ let bs = 1; //box size
 let bm = 11.5; //box margin
 
 function setup() {
-    createCanvas(windowWidth / 5 - 100, 1100, WEBGL);
+    // createCanvas(windowWidth / 5 - 100, 1100, WEBGL);
+    createCanvas(300, 1100, WEBGL);
     // canvas.parent('canvas');
 }
 
