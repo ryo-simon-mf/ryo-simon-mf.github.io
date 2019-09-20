@@ -84,8 +84,9 @@ div#content {
 
 div#content_in {
     width: auto;
-    float: left;
-    background-color: rgba(0, 0, 0, 0.1);
+    /* float: left; */
+    float: auto;
+    /* background-color: rgba(0, 0, 0, 0.1); */
     padding: 30px 30px 30px 30px;
     幅の指定と位置調整
     /* border: 1px solid #B20000; */

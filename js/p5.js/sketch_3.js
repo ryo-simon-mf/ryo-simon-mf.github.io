@@ -1,9 +1,10 @@
 let bn = 10; //box number
-let bs = 40; //box size
-let bm = 60; //box margin
+let bs = 1; //box size
+let bm = 11.5; //box margin
 
 function setup() {
-    createCanvas(windowWidth, windowHeight, WEBGL);
+    createCanvas(windowWidth / 5 - 100, 1100, WEBGL);
+    // canvas.parent('canvas');
 }
 
 function draw() {
@@ -24,16 +25,12 @@ function draw() {
                 　 // translate((60 * i)-270,0);
                 　 // translate(0,(60 * j)-270);
                 　
-                translate(0, 0, (bm * iz) - 200);
+                translate(0, 0, (bm * iz) - 30);
                 // box(bs);
                 　
-                box(bs + 10 * cos(frameCount / 25));
+                box(bs + 10 * abs(cos(frameCount / 50)));
                 pop();
             }
         }
     }
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
 }
