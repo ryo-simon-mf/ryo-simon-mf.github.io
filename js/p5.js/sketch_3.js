@@ -26,7 +26,7 @@ function draw() {
                 　 // translate((60 * i)-270,0);
                 　 // translate(0,(60 * j)-270);
                 　
-                translate(0, 0, (bm * iz) - 30);
+                translate(0, 0, (bm * iz) - 100);
                 // box(bs);
                 　
                 box(bs + 10 * abs(cos(frameCount / 50)));
