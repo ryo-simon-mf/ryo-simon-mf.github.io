@@ -198,3 +198,18 @@ div#menu {
 
 
 /* .follow-me li a[href*="twitter.com"]::before        { content: "\f099"; } */
+
+.credit {
+    text-align: right;
+    /* 文章を左寄せする(※) */
+}
+
+.back {
+    text-align: right;
+    /* 文章を左寄せする(※) */
+    float: left;
+}
+
+#p2 {
+    text-align: right;
+}

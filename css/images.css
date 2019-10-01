@@ -22,3 +22,21 @@
     transform: scale(1.2);
     transition-duration: 0.5s;
 }
+
+.img_w {
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+    display: inline-block;
+    background: #FFFFFF;
+}
+
+.img_w img {
+    width: 85%;
+    /* 横幅を割合で指定 */
+    height: auto;
+    /* 高さは自動指定 */
+    transform: scale(1.1);
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
