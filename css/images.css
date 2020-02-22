@@ -39,6 +39,15 @@
     transform: scale(1.1);
     cursor: pointer;
     transition-duration: 0.5s;
+    text-align: center;
+}
+
+.img_w2 {
+    /* margin: auto; */
+    text-align: center;
+    overflow: hidden;
+    /* display: inline-block; */
+    background: #FFFFFF;
 }
 
 .img_w2 img {
