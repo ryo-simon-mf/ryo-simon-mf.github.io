@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="../css/style_2.css" type="text/css">
     <link rel="stylesheet" href="../css/images.css" type="text/css">
+    <link rel="stylesheet" href="../css/swiper/swiper.css">
 
     <!-- icon -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -19,6 +20,10 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script type="text/javascript" src="js/sample.js"></script>
+
+    <!-- swiper-->
+    <script src="../js/swiper/swiper.js"></script>
+    <!-- <script src="../js/swiper/ownoption.js"></script> -->
 
 
     <!-- p5.js -->
@@ -44,9 +49,41 @@
             <h1>Eye Have You</h1>
 
             <hr>
-            <div class="img_w">
-                <img src="https://raw.githubusercontent.com/ryo-simon-mf/stl-Eye-Have-You/master/image/image.jpg">
+
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="img_w">
+                            <img src="../image/eyehaveyou/eyehaveyou_1.png" alt="eyehaveyou_1">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="img_w">
+                            <img src="../image/eyehaveyou/eyehaveyou_2.jpg" alt="eyehaveyou_2">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="img_w">
+                            <img src="../image/eyehaveyou/eyehaveyou_3.jpg" alt="eyehaveyou_3">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="img_w">
+                            <img src="../image/eyehaveyou/eyehaveyou_4.jpeg" alt="eyehaveyou_4">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
+
+
+            <!-- Original Custom -->
+            <script src="../js/swiper/ownoption.js"></script>
+
+
+
             <h3>Eye Have You [アイハブユー]</h3>
             <div id="content_in">
                 <!-- <dl> -->
@@ -69,23 +106,9 @@
                     <dd>Soma Sakata, Mizuki Hamazaki</dd>
                 </dl>
             </div>
-            <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+            <hr>
             <hr>
 
-            <!-- <br><br><br><br><br><br><br><br><br><br><br><br> -->
-
-
-            <!-- <hr> -->
-            <!-- <h3>Exhibition</h3>
-            <div id="content_in"> -->
-            <!-- <dl> -->
-            <!-- <dt>2019</dt>
-                <dd><a class="list" href="http://kata-gallery.net/schedule/xmusicexvol-0">x Music Exhibition Keio SFC x-Music Lab vol.0</a> [Aug 24,2019]</dd>
-                </dl>
-
-            </div> -->
-            <!-- <br><br><br><br><br><br><br><br><br><br><br><br> -->
-            <hr>
             <p class="credit">© 2020 ryo-simon-mf</p>
             <br>
         </div>
@@ -135,6 +158,12 @@
         </div>
 
     </div>
+
+
+
+
+
+
 </body>
 
 </html>
