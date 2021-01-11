@@ -51,9 +51,9 @@
 }
 
 .img_w2 img {
-    width: 50%;
+    width: 85%;
     /* 横幅を割合で指定 */
-    height: 20%;
+    height: auto;
     /* 高さは自動指定 */
     transform: scale(1.0);
     cursor: pointer;
