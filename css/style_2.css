@@ -277,3 +277,15 @@ div#menu {
 .cp_cssslider input[name='cp_switch']:checked+label+img {
     opacity: 1;
 }
+
+.mgr-10 {
+    margin-right: 10px;
+}
+
+.mgr-40 {
+    margin-right: 40px;
+}
+
+.mgr-20 {
+    margin-right: 20px;
+}
