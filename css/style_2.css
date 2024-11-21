@@ -289,3 +289,10 @@ div#menu {
 .mgr-20 {
     margin-right: 20px;
 }
+
+
+
+/* magic */
+.list-style-none li {
+    list-style: none;
+}
