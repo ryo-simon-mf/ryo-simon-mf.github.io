@@ -1,2 +1,5 @@
 .DS_Store
 .vscode/*
+CLAUDE.md
+Conversation_Summary/
+.claude/
