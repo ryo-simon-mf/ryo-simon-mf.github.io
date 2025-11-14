@@ -16,18 +16,19 @@ $(document).ready(function() {
         $(this).addClass('active');
 
         // Show/hide projects based on filter
-        if (filterValue === 'all') {
-            // Show all projects
-            $('.img_wrap').fadeIn(400);
-        } else {
-            // Hide all first
-            $('.img_wrap').fadeOut(400);
+        // Always fade out first for smooth animation
+        $('.img_wrap').fadeOut(400);
 
-            // Show only matching category after a short delay
-            setTimeout(function() {
+        // Then fade in the filtered items
+        setTimeout(function() {
+            if (filterValue === 'all') {
+                // Show all projects
+                $('.img_wrap').fadeIn(400);
+            } else {
+                // Show only matching category
                 $('.img_wrap[data-category="' + filterValue + '"]').fadeIn(400);
-            }, 400);
-        }
+            }
+        }, 400);
     });
 
     // Set "All" as active by default
