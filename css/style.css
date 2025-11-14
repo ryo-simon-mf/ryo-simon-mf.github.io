@@ -132,14 +132,12 @@ div#menu {
     padding: 0;
 }
 
-.follow-me li a::before {
+.follow-me li a {
     background-color: #eee;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     color: #333;
     display: inline-block;
-    font-family: FontAwesome;
-    font-size: 16px;
     height: 44px;
     /* Button height */
     line-height: 44px;
@@ -149,30 +147,16 @@ div#menu {
     text-align: center;
     width: 44px;
     /* Button width */
+    padding: 12px;
 }
 
-.follow-me li a:hover::before {
+.follow-me li a:hover {
     background-color: #333;
     color: #fff;
 }
 
-.follow-me li a[href*="facebook.com"]::before {
-    content: "\f09a";
-}
-
-.follow-me li a[href*="github.com"]::before {
-    content: "\f09b";
-}
-
-.follow-me li a[href*="instagram.com"]::before {
-    content: "\f16d";
-}
-
-
-/* .follow-me li a[href*="soundcloud.com"]::before        { content: "\f099"; } */
-
-.follow-me li a[href*="twitter.com"]::before {
-    content: "\f099";
+.follow-me li a svg {
+    vertical-align: middle;
 }
 
 
