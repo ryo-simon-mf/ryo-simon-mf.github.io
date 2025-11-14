@@ -124,6 +124,11 @@ div#content_in {
     font-weight: bold;
 }
 
+/* Accessibility: Strikethrough for deprecated content */
+.strikethrough {
+    text-decoration: line-through;
+}
+
 div#menu {
     /* 幅の指定 */
     width: 25%;
