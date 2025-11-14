@@ -118,6 +118,12 @@ div#content_in {
     /* 要素をマウスでクリックした時の色 */
 }
 
+/* Filter button active state */
+.filter-btn.active {
+    color: #006DD9;
+    font-weight: bold;
+}
+
 div#menu {
     /* 幅の指定 */
     width: 25%;
