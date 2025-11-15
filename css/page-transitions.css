@@ -1,0 +1,64 @@
+/*
+ * Page Transition Animations
+ * Provides smooth fade effects for content area only
+ * Menu (#menu) remains static for better UX
+ * Uses overlay to prevent white flicker during page transitions
+ */
+
+/* Fade-in animation on page load - only for #content */
+#content {
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-out class for page transitions - only for #content */
+#content.fade-out {
+    animation: fadeOut 0.3s ease-in;
+    opacity: 0;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+/* Prevent flickering during transitions */
+#content {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Transition overlay - covers white flicker during page load */
+#page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#page-transition-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
