@@ -6,7 +6,7 @@
     overflow: hidden;
     display: inline-block;
     background: #000;
-    text-align: center;
+    position: relative;
 }
 
 .img_wrap img {
@@ -14,15 +14,16 @@
     cursor: pointer;
     /* filter: grayscale(100%); */
     transition-duration: 0.5s;
-    position: relative;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%) scale(1.1);
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 .img_wrap img:hover {
     filter: grayscale(0);
     opacity: 0.6;
-    transform: translateX(-50%) scale(1.2);
+    transform: translate(-50%, -50%) scale(1.2);
     transition-duration: 0.5s;
 }
 
