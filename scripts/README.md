@@ -48,8 +48,102 @@ python3 remove_deprecated_attrs.py
 - Removes `align` attributes from elements with existing classes
 - Reports number of changes made
 
-**Last used:** 2025-11-15 (Session 07)
+**Last used:** 2025-11-16 (Session 07)
 **Result:** Removed 41 deprecated align attributes from 6 HTML files
+
+---
+
+### `add_page_transitions.py`
+
+Adds page transition CSS and JavaScript to all HTML files.
+
+**Purpose:**
+- Provides smooth fade effects when navigating between pages
+- Animations apply to content area only (menu remains static)
+
+**Usage:**
+```bash
+python3 add_page_transitions.py
+```
+
+**What it does:**
+- Scans all HTML files in the repository
+- Adds `<link>` to page-transitions.css in `<head>`
+- Adds `<script>` to page-transitions.js before `</body>`
+- Calculates correct relative paths based on file location
+
+**Last used:** 2025-11-16 (Session 07)
+**Result:** Added transitions to 51 HTML files (101 changes total)
+**Status:** WIP - white flicker issue unresolved
+
+---
+
+### `fix_page_transitions_paths.py`
+
+Fixes incorrect page-transitions.css/js paths in HTML files.
+
+**Purpose:**
+- Corrects path calculation errors from initial script
+- Ensures CSS/JS files load correctly from all subdirectories
+
+**Usage:**
+```bash
+python3 fix_page_transitions_paths.py
+```
+
+**What it does:**
+- Removes any existing page-transitions references
+- Recalculates correct relative paths based on file depth
+- Adds corrected `<link>` and `<script>` tags
+
+**Last used:** 2025-11-16 (Session 07)
+**Result:** Fixed paths in 51 HTML files
+
+---
+
+### `fix_sample_js_paths.py`
+
+Fixes incorrect sample.js paths in HTML files in subdirectories.
+
+**Purpose:**
+- Corrects `src="js/sample.js"` to `src="../js/sample.js"`
+- Ensures JavaScript loads correctly from subdirectory pages
+
+**Usage:**
+```bash
+python3 fix_sample_js_paths.py
+```
+
+**What it does:**
+- Scans all HTML files in subdirectories
+- Replaces incorrect relative paths with correct ones
+- Skips files in root directory (already correct)
+
+**Last used:** 2025-11-16 (Session 07)
+**Result:** Fixed 47 files with incorrect sample.js paths
+
+---
+
+### `add_css_standard_properties.py`
+
+Adds standard CSS properties alongside -webkit- prefixed properties.
+
+**Purpose:**
+- Improves browser compatibility
+- Ensures both prefixed and standard versions exist
+
+**Usage:**
+```bash
+python3 add_css_standard_properties.py
+```
+
+**What it does:**
+- Scans CSS files for -webkit- only properties
+- Adds standard equivalents (e.g., `transform` after `-webkit-transform`)
+- Maintains existing formatting and indentation
+
+**Last used:** 2025-11-16 (Session 07)
+**Result:** All properties already have standard versions (no changes needed)
 
 ---
 
