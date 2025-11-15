@@ -147,6 +147,32 @@ python3 add_css_standard_properties.py
 
 ---
 
+### `remove_page_transitions.py`
+
+Removes page transition CSS and JavaScript references from all HTML files.
+
+**Purpose:**
+- Cleans up incomplete page transition implementation
+- Removes CSS/JS file references from HTML
+
+**Usage:**
+```bash
+python3 remove_page_transitions.py
+```
+
+**What it does:**
+- Scans all HTML files in the repository
+- Removes `<link>` to page-transitions.css
+- Removes `<script>` to page-transitions.js
+- Reports number of references removed
+
+**Last used:** 2025-11-16 (Session 07)
+**Result:** Removed 101 references from 51 HTML files
+
+**Note:** Use this after deleting the actual CSS/JS files to clean up HTML references.
+
+---
+
 ## Requirements
 
 - Python 3.x
@@ -159,6 +185,26 @@ python3 add_css_standard_properties.py
 - Test changes locally before pushing to GitHub Pages
 - Scripts are idempotent (safe to run multiple times)
 
+## Archived/Deprecated Scripts
+
+These scripts were created for features that were later removed or are no longer needed:
+
+### `add_page_transitions.py` (Archived)
+- **Created:** 2025-11-16
+- **Deprecated:** 2025-11-16 (same day)
+- **Reason:** Page transitions had unresolved white flicker issue
+- **Replacement:** Removed feature entirely, see `remove_page_transitions.py`
+
+### `fix_page_transitions_paths.py` (Archived)
+- **Created:** 2025-11-16
+- **Deprecated:** 2025-11-16 (same day)
+- **Reason:** Supporting script for removed page transitions feature
+- **Note:** Fixed path calculation errors, but feature was ultimately removed
+
+**Note:** These scripts remain in the repository for reference but should not be used.
+
+---
+
 ## Future Scripts
 
 Potential scripts for future maintenance:
@@ -167,3 +213,4 @@ Potential scripts for future maintenance:
 - `cleanup_css.py` - Remove duplicate CSS rules
 - `add_meta_tags.py` - Standardize meta tags across pages
 - `generate_sitemap.py` - Create XML sitemap
+- `rename_css_files.py` - Rename style.css → style-home.css, etc.
