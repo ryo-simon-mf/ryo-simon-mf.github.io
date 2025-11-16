@@ -1,0 +1,134 @@
+/*
+ * Common Styles - Shared across all pages
+ * Load this BEFORE style.css or style_2.css
+ *
+ * IMPORTANT: This file contains only truly identical styles
+ * Layout-critical properties (position, float, width) remain in page-specific files
+ */
+
+/* ============================================
+   Typography Foundation
+   ============================================ */
+body {
+    font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    color: #333;
+    font-size: 15px;
+    line-height: 1.8;
+    letter-spacing: 0.8px;
+}
+
+/* ============================================
+   Base Canvas Styles (position set per-page)
+   ============================================ */
+canvas {
+    display: block;
+    left: 0;
+    top: 0;
+    z-index: -999;
+}
+
+/* ============================================
+   Link Reset
+   ============================================ */
+a {
+    text-decoration: none;
+}
+
+/* ============================================
+   Layout Container Base
+   ============================================ */
+div#zentai {
+    width: auto;
+}
+
+div#title {
+    color: #000000;
+}
+
+/* Layout containers - shared width/float properties */
+div#content {
+    width: 75%;
+    float: right;
+}
+
+div#content_in {
+    width: auto;
+}
+
+div#menu {
+    width: 25%;
+    float: left;
+}
+
+/* ============================================
+   Title Link States
+   ============================================ */
+.title:link {
+    color: #000000;
+}
+
+.title:visited {
+    color: #000000;
+}
+
+.title:hover {
+    color: #000000;
+}
+
+.title:active {
+    color: #000000;
+}
+
+/* ============================================
+   Navigation Link States (Brand Colors)
+   ============================================ */
+.list:link {
+    color: #000000;
+}
+
+.list:visited {
+    color: #000000;
+}
+
+.list:hover {
+    color: #006DD9;
+}
+
+.list:active {
+    color: #B20000;
+}
+
+/* ============================================
+   SNS Icon Component
+   ============================================ */
+.follow-me {
+    list-style: none;
+    margin: 0 0 -8px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.follow-me li {
+    float: left;
+    margin: 0 8px 8px 0;
+    padding: 0;
+}
+
+.follow-me li a {
+    background-color: #eee;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    width: 44px;
+}
+
+.follow-me li a:hover {
+    background-color: #333;
+    color: #fff;
+}

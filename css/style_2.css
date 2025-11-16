@@ -1,121 +1,29 @@
-body {
-    font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
-    color: #333;
-    font-size: 15px;
-    line-height: 1.8;
-    letter-spacing: 0.8px;
-    /*word-break: break-all;*/
-}
+/*
+ * Subpage-specific styles (all pages except index.html)
+ * Loaded AFTER common.css
+ */
 
-
-/* p5.js */
-
+/* Subpage-specific: canvas fixed to viewport */
 canvas {
-    display: block;
-    /* remove scrollbars */
-    /* position: absolute; */
     position: fixed;
-    /* position at top left corner for overlay */
-    left: 0;
-    top: 0;
-    z-index: -999;
 }
 
-
-/* h1 {
-    color: #111;
-    font-family: 'Helvetica Neue', sans-serif;
-}
-
-h2 {
-    color: #111;
-    font-family: 'Open Sans',sans-serif;
-} 
-
-p {
-    color: #685206;
-    font-family: 'Helvetica Neue', sans-serif;
-} */
-
-
-/* aタグ下線消し */
-
-a {
-    text-decoration: none;
-}
-
-div#zentai {
-    width: auto;
-    /* border: 1px solid #B20000; */
-}
-
+/* Subpage-specific: title z-index for layering above fixed canvas */
 div#title {
-    color: #000000;
-    /* background-color: #006DD9; */
-    /* border: 1px solid #B20000; */
     position: relative;
     z-index: 9;
 }
 
-.title:link {
-    color: #000000;
-}
-
-.title:visited {
-    color: #000000;
-}
-
-.title:hover {
-    color: #000000;
-    /* マウスオーバーした時に色を変える */
-}
-
-.title:active {
-    color: #000000;
-    /* 要素をマウスでクリックした時の色 */
-}
-
-div#content {
-    /* width:840px;  */
-    /* width: 73%; */
-    width: 75%;
-    /* margin:10px 20px 10px 0px;	幅の指定と位置調整 */
-    float: right;
-    /* 2カラム全体を右寄せにする */
-    /* background-color: rgba(0, 0, 0, 0.5); */
-}
-
+/* Subpage-specific: content_in with padding */
 div#content_in {
-    width: auto;
-    /* float: left; */
     float: auto;
-    /* background-color: rgba(0, 0, 0, 0.1); */
     padding: 30px 30px 30px 30px;
-    /* 幅の指定と位置調整 */
-    /* border: 1px solid #B20000; */
 }
 
-
-/* link hover */
-
-.list:link {
-    color: #000000;
-    /* リンクをクリックしていない時の色 */
-}
-
-.list:visited {
-    color: #000000;
-    /* すでにリンクをクリックした時の色 */
-}
-
-.list:hover {
-    color: #006DD9;
-    /* マウスオーバーした時に色を変える */
-}
-
-.list:active {
-    color: #B20000;
-    /* 要素をマウスでクリックした時の色 */
+/* Subpage-specific: menu fixed to viewport */
+div#menu {
+    position: fixed;
+    z-index: 10;
 }
 
 /* Filter button active state */
@@ -129,79 +37,16 @@ div#content_in {
     text-decoration: line-through;
 }
 
-div#menu {
-    /* 幅の指定 */
-    width: 25%;
-    /* width: auto; */
-    /* padding: 0px 0px 0px 15px; */
-    /* 位置調整（IE6のバグに注意） */
-    /* display:inline;			 */
-    /* IE6のマージン算出のバグ対策 */
-    float: left;
-    /* サブメニューのカラムを左寄せにする */
-    /* background-color: rgb(199, 10, 216); */
-    /* border: 1px solid #006DD9; */
-    position: fixed;
-    z-index: 10;
-}
-
-
-/* sns icon */
-
-
-/* https://moonnote.hateblo.jp/entry/2015/12/03/200718 */
-
-.follow-me {
-    list-style: none;
-    margin: 0 0 -8px;
-    overflow: hidden;
-    padding: 0;
-}
-
-.follow-me li {
-    float: left;
-    margin: 0 8px 8px 0;
-    padding: 0;
-}
-
-.follow-me li a {
-    background-color: #eee;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    color: #333;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    /* Button height */
-    -webkit-transition: all .3s ease;
-    transition: all .3s ease;
-    width: 44px;
-    /* Button width */
-}
-
-.follow-me li a:hover {
-    background-color: #333;
-    color: #fff;
-}
-
-
-/* .follow-me li a[href*="twitter.com"]::before        { content: "\f099"; } */
-
 .credit {
     text-align: right;
-    /* 文章を左寄せする(※) */
 }
 
 .back {
     text-align: right;
-    /* 文章を左寄せする(※) */
     float: left;
 }
 
-
-/* add */
-
+/* Box-sizing reset */
 *,
 *:before,
 *:after {
@@ -209,10 +54,10 @@ div#menu {
     box-sizing: border-box;
 }
 
+/* CSS Slider Component */
 .cp_cssslider {
     width: 300px;
     padding-top: 200px;
-    /* 画像の高さ */
     position: relative;
     margin: 2em auto;
     text-align: center;
@@ -230,9 +75,6 @@ div#menu {
 .cp_cssslider input[name='cp_switch'] {
     display: none;
 }
-
-
-/* サムネイル */
 
 .cp_cssslider label {
     margin: 15px 5px 0 5px;
@@ -267,6 +109,7 @@ div#menu {
     opacity: 1;
 }
 
+/* Utility classes */
 .mgr-10 {
     margin-right: 10px;
 }
@@ -279,9 +122,6 @@ div#menu {
     margin-right: 20px;
 }
 
-
-
-/* magic */
 .list-style-none li {
     list-style: none;
 }
