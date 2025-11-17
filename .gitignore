@@ -4,3 +4,8 @@ CLAUDE.md
 Conversation_Summary/
 .claude/
 work_log/
+node_modules/
+package-lock.json
+*.pyc
+__pycache__/
+memo.txt

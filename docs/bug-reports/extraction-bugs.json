@@ -1,0 +1,472 @@
+[
+  {
+    "workId": "AdaptiveYantra.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for AdaptiveYantra.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/adaptiveyantra.json"
+  },
+  {
+    "workId": "AiTellYouDjing.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for AiTellYouDjing.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/aitellyoudjing.json"
+  },
+  {
+    "workId": "HapticGuidingSuite.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for HapticGuidingSuite.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/hapticguidingsuite.json"
+  },
+  {
+    "workId": "Morse_Code.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": null,
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "Morse_Code.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": "Max8",
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "Morse_Code.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Download",
+    "htmlContent": [
+      {
+        "text": "GitHub",
+        "url": "https://github.com/ryo-simon-mf/max-MorseCode/"
+      }
+    ],
+    "message": "HTML has field \"Download\" not in field map"
+  },
+  {
+    "workId": "Motion-Crossfader.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "TouchDesigner, Ableton Live 10 Suite, Max8(Max for Live), Posenet(TensorFlow), Node.js",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "Motion-Crossfader.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Co-create with",
+    "htmlContent": "Yuga Kobayashi",
+    "message": "HTML has field \"Co-create with\" not in field map"
+  },
+  {
+    "workId": "Motion-Crossfader.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "Multi-Motion Crossfader: Human Tracking DJ Mix System by Crowd Reading",
+        "url": "https://cclab.sfc.keio.ac.jp/projects/multi-motion-crossfader/"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "Motion-Crossfader.html",
+    "type": "TRUNCATED",
+    "field": "exhibition",
+    "htmlLength": 136,
+    "jsonLength": 4,
+    "htmlContent": "[{\"text\":\"ミライ小町のDJプレイを可能にしたBanaDIVE（TM）AXについて、開発者の大久保氏と『電音部』の子川Pに聞いてみた（前篇）\",\"url\":\"https://cgworld.jp/feature/202012-banadive1-3.html\"}]...",
+    "jsonContent": "2019..."
+  },
+  {
+    "workId": "Motion-Crossfader.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Citation",
+    "htmlContent": "2019",
+    "message": "HTML has field \"Citation\" not in field map"
+  },
+  {
+    "workId": "Motion-Crossfader_ver.2.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for Motion-Crossfader_ver.2.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/motion-crossfader-ver.2.json"
+  },
+  {
+    "workId": "OriginalLogo.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for OriginalLogo.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/originallogo.json"
+  },
+  {
+    "workId": "SequencingOfFutureConversation.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for SequencingOfFutureConversation.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/sequencingoffutureconversation.json"
+  },
+  {
+    "workId": "Text2Sequence.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for Text2Sequence.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/text2sequence.json"
+  },
+  {
+    "workId": "Toilecher.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Raspberry Pi 3B, Azure Custom Vision, Slack",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "Toilecher.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Co-create with",
+    "htmlContent": "Kippei Wada",
+    "message": "HTML has field \"Co-create with\" not in field map"
+  },
+  {
+    "workId": "VariableFlavorRemix.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for VariableFlavorRemix.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/variableflavorremix.json"
+  },
+  {
+    "workId": "ZigSow.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for ZigSow.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/zigsow.json"
+  },
+  {
+    "workId": "cfv.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Clear File",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "cfv.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Co-create with",
+    "htmlContent": "Soma Sakata, Mizuki Hamazaki",
+    "message": "HTML has field \"Co-create with\" not in field map"
+  },
+  {
+    "workId": "colorboxes.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "openFrameworks",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "colorboxes.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "GitHub",
+        "url": "https://github.com/ryo-simon-mf/oF-Color-Boxes"
+      },
+      {
+        "text": "NEORT",
+        "url": "https://neort.io/art/bpovrtk3p9fbkbq85d9g?index=0&origin=latest"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "eyehaveyou.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Fusion360, blender, 3D Printer",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "eyehaveyou.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Co-create with",
+    "htmlContent": "Soma Sakata, Mizuki Hamazaki",
+    "message": "HTML has field \"Co-create with\" not in field map"
+  },
+  {
+    "workId": "improvise_chain.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": [
+      {
+        "text": "TouchDesigner / Ableton Live",
+        "url": ""
+      }
+    ],
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "improvise_chain.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "ICC",
+        "url": "https://www.ntticc.or.jp/ja/archive/works/improvise-chain/"
+      },
+      {
+        "text": "CCLab Homepage",
+        "url": "https://cclab.sfc.keio.ac.jp/2024/02/09/improvisechain-listening-to-the-ensemble-improvisation-of-an-autoregressive-generative-model/"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "inochinokodou.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": [
+      {
+        "text": "CORNER\n                        \n                        \n                            Yusuke Wakata\n                            Yoshifumi Tara\n                            Hiroshi Nagaya\n                            Ryo Simon",
+        "url": ""
+      }
+    ],
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "inochinokodou.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": "TouchDesigner",
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "jpdd.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Laser Cutter, Illustrator, Plup Paper",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "jpdd.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Co-create with",
+    "htmlContent": "Soma Sakata, Mizuki Hamazaki",
+    "message": "HTML has field \"Co-create with\" not in field map"
+  },
+  {
+    "workId": "muses_ex_echoes.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "ICC",
+        "url": "https://www.ntticc.or.jp/ja/archive/works/muses-ex-echoes/"
+      },
+      {
+        "text": "CCLab Homepage",
+        "url": "https://cclab.sfc.keio.ac.jp/projects/muses-ex-echoes-2022/"
+      },
+      {
+        "text": "Vimeo",
+        "url": "https://vimeo.com/822896210"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "mutek_jp_2020.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": null,
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "onlineb2b_proto.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Max8, rekordbox, Python",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "onlineb2b_proto.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "Medium[技術説明]",
+        "url": "https://medium.com/computational-creativity-lab-at-keio-sfc/cc-lab-20%E6%98%A5-computational-creativity-lab-%E3%81%BE%E3%81%A8%E3%82%81-by-ryo-nishikado-a529740eb0b3"
+      },
+      {
+        "text": "GitHub",
+        "url": "https://github.com/ryo-simon-mf/max-OnlineB2B#max-onlineb2b"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "playingtokyo_vol11.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Performers",
+    "htmlContent": [
+      "DJ: Nao Tokui (Qosmo, Keio SFC) and Young DJs (Yuga, Reo Anzai)",
+      "VJ: Young VJs (Kosaku Namikawa, Hina Nakamura, Santa, Ryo Simon[Nishikado])"
+    ],
+    "message": "HTML has field \"Performers\" not in field map"
+  },
+  {
+    "workId": "playingtokyo_vol11.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": [
+      {
+        "text": "Zigsow",
+        "url": "./ZigSow.html"
+      }
+    ],
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "playingtokyo_vol11.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "PlayingTokyo",
+        "url": "https://playing.super-flying.tokyo/"
+      },
+      {
+        "text": "Twitch(from 02:10:00)",
+        "url": "https://www.twitch.tv/videos/751479578?filter=archives&sort=time"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "pourwater.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Processing, Arduino, Illustrator, Lazer Cutter, 3D Printer",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "randb.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Processing",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "randb.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "GitHub",
+        "url": "https://github.com/ryo-simon-mf/Processing-Red-and-Blue"
+      },
+      {
+        "text": "NEORT",
+        "url": "https://neort.io/art/bpovog43p9fbkbq85d40"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "rfont.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "PostScript",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "sanskritlogo.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Illustrator",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "shikael.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": "Fusion360",
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "solgasa_nextup_animation.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Performers",
+    "htmlContent": "Wez Atlas, VivaOla, michel ko, Tommi Crane, Jua & Shimon Hoshino (Special Guest)",
+    "message": "HTML has field \"Performers\" not in field map"
+  },
+  {
+    "workId": "solgasa_nextup_animation.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": [
+      {
+        "text": "TouchDesigner",
+        "url": ""
+      }
+    ],
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "solgasa_nextup_animation.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "YouTube",
+        "url": "https://www.youtube.com/watch?v=SIKUMF9ZJNs&t=1333s"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "tSA.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for tSA.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/tsa.json"
+  },
+  {
+    "workId": "theplot_echo_mv.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Tool",
+    "htmlContent": [
+      {
+        "text": "",
+        "url": ""
+      }
+    ],
+    "message": "HTML has field \"Tool\" not in field map"
+  },
+  {
+    "workId": "theplot_echo_mv.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "The Plot MV",
+        "url": "https://www.youtube.com/watch?v=YCa3h--ZmM4"
+      },
+      {
+        "text": "Echo MV",
+        "url": "https://www.youtube.com/watch?v=NZILlYJbHkI"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "toki-shirube.html",
+    "type": "UNKNOWN_FIELD",
+    "field": "Link",
+    "htmlContent": [
+      {
+        "text": "[LINK]",
+        "url": "https://www.pegasuscandle.com/company/"
+      }
+    ],
+    "message": "HTML has field \"Link\" not in field map"
+  },
+  {
+    "workId": "xMusicOnline0418.html",
+    "type": "MISSING_JSON",
+    "message": "No JSON file found for xMusicOnline0418.html",
+    "expected": "/Users/ryosimon/Documents/Homepage/ryo-simon-mf.github.io/works-data/xmusiconline0418.json"
+  }
+]
