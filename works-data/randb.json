@@ -7,7 +7,7 @@
   "images": [
     "https://raw.githubusercontent.com/ryo-simon-mf/Processing-Red-and-Blue/master/image/image.png"
   ],
-  "description": null,
+  "description": "A Processing sketch exploring the visual tension between red and blue through algorithmic animation. Part of early creative coding experiments with color theory and motion.",
   "credit": null,
   "tools": "Processing",
   "link": "<a class=\"list\" href=\"https://github.com/ryo-simon-mf/Processing-Red-and-Blue\">GitHub</a> / <a class=\"list\" href=\"https://neort.io/art/bpovog43p9fbkbq85d40\">NEORT</a>",

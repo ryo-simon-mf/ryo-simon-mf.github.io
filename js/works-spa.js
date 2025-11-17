@@ -231,12 +231,10 @@ ${swiperSlides}
             <div id="content_in">
                 ${work.description ? `<p>
                     ${work.description}
-                    <dd>
-                    </dd>
-
                 </p>` : ''}
+
+                <dl>
                 ${work.performers ? `
-                </dl>
                 <dt>Performers</dt>
                 <dd>
                     ${work.performers}
@@ -245,82 +243,59 @@ ${swiperSlides}
                 ${work.credit ? `<dt>Credit</dt>
                 <dd>
                     ${work.credit}
-
-                </dd>
-
-                <br>
-
-                </dl>` : ''}
-                ${work.tools ? `<dt>Tool</dt>
-                <dd>
-
-                    ${work.tools}
-
                 </dd>
                 <br>` : ''}
-                ${work.exhibition ? `
-                </dl>
-                <dt>Exhibition</dt>
+                ${work.tools ? `<dt>Tool</dt>
+                <dd>
+                    ${work.tools}
+                </dd>
+                <br>` : ''}
+                ${work.exhibition ? `<dt>Exhibition</dt>
                 <dd>
                     ${work.exhibition}
                 </dd>
                 <br>` : ''}
-                ${work.award ? `
-                </dl>
-                <dt>Award</dt>
+                ${work.award ? `<dt>Award</dt>
                 <dd>
                     ${work.award}
                 </dd>
                 <br>` : ''}
-                ${work.paper ? `
-                </dl>
-                <dt>Paper</dt>
+                ${work.paper ? `<dt>Paper</dt>
                 <dd>
                     ${work.paper}
                 </dd>
                 <br>` : ''}
-                ${work.grants ? `
-                </dl>
-                <dt>Grants</dt>
+                ${work.grants ? `<dt>Grants</dt>
                 <dd>
                     ${work.grants}
                 </dd>
                 <br>` : ''}
-                ${work.collaborators ? `
-                </dl>
-                <dt>Co-create with</dt>
+                ${work.collaborators ? `<dt>Co-create with</dt>
                 <dd>
                     ${work.collaborators}
                 </dd>
                 <br>` : ''}
-                ${work.download ? `
-                </dl>
-                <dt>Download</dt>
+                ${work.download ? `<dt>Download</dt>
                 <dd>
                     ${work.download}
                 </dd>
                 <br>` : ''}
-                ${work.citation ? `
-                </dl>
-                <dt>Citation</dt>
+                ${work.citation ? `<dt>Citation</dt>
                 <dd>
                     ${work.citation}
                 </dd>
                 <br>` : ''}
-                ${work.related ? `
-                </dl>
-                <dt>Related</dt>
+                ${work.related ? `<dt>Related</dt>
                 <dd>
                     ${work.related}
                 </dd>
                 <br>` : ''}
-                ${work.link ? `
-                </dl>
-                <dt>Link</dt>
+                ${work.link ? `<dt>Link</dt>
                 <dd>
                     ${work.link}
                 </dd>
                 <br>` : ''}
+                </dl>
 
             </div>
             <hr>

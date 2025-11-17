@@ -16,7 +16,7 @@
   ],
   "description": "日本におけるDJ文化の価値は他国に比べ決して高いとはいえない状態にあるが、DJが社会に与えうる好影響は絶大なものであると私たちは捉えている。Forbes誌における高所得者ランキングにはDJが多くランクインするなど商業価値の面においてのみでも十分価値のある分野である。そのようなDJ文化の発展のため、私たちは機械学習の側面からのアプローチを日々試みている。本セッションでは作品の1つである自動選曲AIを用いた実験的パフォーマンスを行った。<br><br>協力：Pioneer DJ/AlphaTheta株式会社",
   "credit": null,
-  "tools": "Zigsow[TouchDesigner, GLSL], tSA[Max8, Python, Node.js, JavaScript], openFrameworks,",
+  "tools": "Zigsow[TouchDesigner, GLSL], tSA[Max8, Python, Node.js, JavaScript], openFrameworks",
   "link": "<a class=\"list\" href=\"https://orf.sfc.keio.ac.jp/2020/session/ai-tell-you-djing/\"> WebSite </a> / <a class=\"list\" href=\"https://www.youtube.com/watch?v=kyy2kzL06O0\"> Peformance Movie(FullVersion) </a>",
   "exhibition": null,
   "award": null,
