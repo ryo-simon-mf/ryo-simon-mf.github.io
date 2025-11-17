@@ -13,25 +13,22 @@ async function initWorksSPA() {
     const indexData = await indexResponse.json();
     worksOrder = indexData.order;
 
-    // Load all work data
-    await loadAllWorks();
+    // Note: JSON files are now loaded on-demand (lazy loading)
+    // This reduces initial page load from 45KB to just index.json (~1KB)
 
     // Handle hash changes
     window.addEventListener('hashchange', handleHashChange);
 
     // Handle initial load
-    handleHashChange();
+    await handleHashChange();
 
     // Intercept thumbnail clicks
     document.querySelectorAll('.img_wrap a').forEach(link => {
       link.addEventListener('click', function(e) {
+        e.preventDefault();
         const href = this.getAttribute('href');
         const workId = extractWorkId(href);
-
-        if (worksData[workId]) {
-          e.preventDefault();
-          window.location.hash = workId;
-        }
+        window.location.hash = workId;
       });
     });
   } catch (error) {
@@ -39,19 +36,25 @@ async function initWorksSPA() {
   }
 }
 
-// Load all work JSON files
-async function loadAllWorks() {
-  const loadPromises = worksOrder.map(async (workId) => {
-    try {
-      const response = await fetch(`../works-data/${workId}.json`);
-      const workData = await response.json();
-      worksData[workId] = workData;
-    } catch (error) {
-      console.error(`Failed to load ${workId}.json:`, error);
-    }
-  });
+// Load a single work JSON file (lazy loading with cache)
+async function loadWork(workId) {
+  // Return cached data if already loaded
+  if (worksData[workId]) {
+    return worksData[workId];
+  }
 
-  await Promise.all(loadPromises);
+  try {
+    const response = await fetch(`../works-data/${workId}.json`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    const workData = await response.json();
+    worksData[workId] = workData; // Cache for future use
+    return workData;
+  } catch (error) {
+    console.error(`Failed to load ${workId}.json:`, error);
+    return null;
+  }
 }
 
 // Extract work ID from filename
@@ -95,12 +98,19 @@ function extractWorkId(href) {
   return filenameToId[filename] || filename.replace('.html', '');
 }
 
-// Handle hash change events
-function handleHashChange() {
+// Handle hash change events (async to support lazy loading)
+async function handleHashChange() {
   const hash = window.location.hash.slice(1); // Remove #
 
-  if (hash && worksData[hash]) {
-    showWorkDetail(hash);
+  if (hash) {
+    // Lazy load work data if not already cached
+    const workData = await loadWork(hash);
+    if (workData) {
+      showWorkDetail(hash);
+    } else {
+      // Work not found, show list
+      showWorksList();
+    }
   } else {
     showWorksList();
   }
@@ -204,7 +214,8 @@ function createDetailView(work, workId) {
                     </div>`).join('');
 
   // EXACT structure from toki-shirube.html with back button added
-  detailView.innerHTML = `
+  // Use DOMPurify to sanitize HTML and prevent XSS attacks
+  detailView.innerHTML = DOMPurify.sanitize(`
             <br>
             <h1>
                 <!-- Heading　-->
@@ -301,7 +312,7 @@ ${swiperSlides}
             <hr>
             <hr>
             <br>
-  `;
+  `);
 
   contentDiv.appendChild(detailView);
 
