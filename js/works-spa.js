@@ -5,6 +5,124 @@ let worksData = {}; // Will be populated from JSON files
 let worksOrder = []; // Display order
 let currentSwiper = null;
 
+// Hacker-style text animation
+// Characters for glitch effect (binary + symbols)
+const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
+
+/**
+ * Animate text transition with hacker/glitch effect
+ * Type 1: Binary/Glitch (random characters converging to target)
+ * @param {HTMLElement} element - Target element
+ * @param {string} targetText - Text to transition to
+ * @param {number} duration - Animation duration in ms (default: 800)
+ */
+function animateTextGlitch(element, targetText, duration = 800) {
+  if (!element) return;
+
+  const originalText = element.textContent || '';
+  const maxLength = Math.max(originalText.length, targetText.length);
+  const startTime = performance.now();
+
+  // Generate random delays for each character position (staggered effect)
+  const charDelays = Array.from({ length: maxLength }, () => Math.random() * 0.5);
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    let result = '';
+
+    for (let i = 0; i < maxLength; i++) {
+      const charProgress = Math.min(Math.max((progress - charDelays[i]) / 0.5, 0), 1);
+
+      if (charProgress < 1) {
+        // Still transitioning - show random glitch character
+        if (Math.random() > charProgress) {
+          result += GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+        } else {
+          // Occasionally show the target character early
+          result += targetText[i] || '';
+        }
+      } else {
+        // Transition complete for this character
+        result += targetText[i] || '';
+      }
+    }
+
+    element.textContent = result;
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      // Ensure final text is exact
+      element.textContent = targetText;
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+/**
+ * Animate text transition with typewriter effect
+ * Type 2: Typewriter (no delete, just type from empty)
+ * @param {HTMLElement} element - Target element
+ * @param {string} targetText - Text to transition to (can include HTML)
+ * @param {number} duration - Animation duration in ms (default: 800)
+ * @param {boolean} preserveHTML - If true, preserve HTML tags; if false, strip to plain text
+ */
+function animateTextTypewriter(element, targetText, duration = 800, preserveHTML = false) {
+  if (!element) return;
+
+  const startTime = performance.now();
+
+  // If preserveHTML is false, strip HTML tags for plain text animation
+  const textToAnimate = preserveHTML ? targetText : targetText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+
+    // Calculate characters to show based on progress
+    const charsToShow = Math.floor(textToAnimate.length * progress);
+
+    if (preserveHTML) {
+      // For HTML content, use innerHTML
+      element.innerHTML = textToAnimate.substring(0, charsToShow) + (progress < 1 ? '<span class="typing-cursor">▌</span>' : '');
+    } else {
+      // For plain text, use textContent
+      element.textContent = textToAnimate.substring(0, charsToShow) + (progress < 1 ? '▌' : '');
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      // Ensure final content is exact
+      if (preserveHTML) {
+        element.innerHTML = targetText; // Original HTML with tags
+      } else {
+        element.textContent = textToAnimate;
+      }
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+/**
+ * Main animation dispatcher
+ * @param {HTMLElement} element - Target element
+ * @param {string} targetText - Text to transition to
+ * @param {string} animationType - 'glitch' or 'typewriter'
+ * @param {number} duration - Animation duration in ms
+ */
+function animateTextTransition(element, targetText, animationType = 'glitch', duration = 800) {
+  if (animationType === 'typewriter') {
+    animateTextTypewriter(element, targetText, duration);
+  } else {
+    animateTextGlitch(element, targetText, duration);
+  }
+}
+
 // Loading spinner helpers
 function showLoadingSpinner() {
   const spinner = document.getElementById('loading-spinner');
@@ -302,53 +420,165 @@ async function handleHashChange() {
 function showWorksList() {
   const centerContainer = document.querySelector('.center-container');
   const contentDiv = document.getElementById('content');
-
-  // Reset meta tags to default
-  resetMetaTags();
-
-  // Remove detail view if exists
   const detailView = document.getElementById('work-detail-view');
+
+  // If detail view exists, fade out images and content only (keep title/year/genre visible)
   if (detailView) {
-    detailView.remove();
+    const swiperContainer = detailView.querySelector('.swiper-container');
+    const contentInDiv = detailView.querySelector('#content_in');
+    const h3Element = detailView.querySelector('h3');
+    const hrs = detailView.querySelectorAll('hr');
+
+    // Fade out images, content, and h3
+    if (swiperContainer) {
+      swiperContainer.style.transition = 'opacity 0.4s ease';
+      swiperContainer.style.opacity = '0';
+    }
+    if (contentInDiv) {
+      contentInDiv.style.transition = 'opacity 0.4s ease';
+      contentInDiv.style.opacity = '0';
+    }
+    if (h3Element) {
+      h3Element.style.transition = 'opacity 0.4s ease';
+      h3Element.style.opacity = '0';
+    }
+    hrs.forEach(hr => {
+      hr.style.transition = 'opacity 0.4s ease';
+      hr.style.opacity = '0';
+    });
+
+    // Wait for fade out, then show list
+    setTimeout(() => {
+      showWorksListAfterFadeOut();
+    }, 400);
+  } else {
+    // No detail view, show list immediately
+    showWorksListAfterFadeOut();
   }
 
-  // Show ALL original content elements
-  const elementsToShow = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
-  elementsToShow.forEach(el => {
-    el.style.display = 'block';
-  });
+  function showWorksListAfterFadeOut() {
+    // Reset meta tags to default
+    resetMetaTags();
 
-  // Show center-container
-  if (centerContainer) {
-    centerContainer.style.display = 'block';
-  }
+    // Remove detail view if exists
+    if (detailView) {
+      detailView.remove();
+    }
 
-  // Restore filter state - check which filter button is active
-  const activeFilter = document.querySelector('.filter-btn.active');
-  const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+    // Show ALL original content elements
+    const elementsToShow = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
+    elementsToShow.forEach(el => {
+      el.style.display = 'block';
+    });
 
-  // Apply filter based on active button
-  document.querySelectorAll('.img_wrap').forEach(item => {
-    item.style.opacity = '1';
+    // Animate h1 back to "Works" with glitch effect
+    const h1 = contentDiv.querySelector('h1');
+    if (h1) {
+      animateTextTransition(h1, 'Works', 'glitch', 600);
+    }
 
-    if (filterValue === 'all') {
-      // Show all thumbnails
-      item.style.display = 'inline-block';
-    } else {
-      // Show only matching category
-      const itemCategory = item.getAttribute('data-category');
-      if (itemCategory === filterValue) {
+    // Animate filter buttons with glitch effect
+    const filterP = contentDiv.querySelector('p');
+    if (filterP) {
+      const filterButtons = filterP.querySelectorAll('.filter-btn');
+      const filterTexts = ['All', 'Code', 'Object', 'Design'];
+
+      filterButtons.forEach((btn, index) => {
+        const targetText = filterTexts[index];
+
+        // Set initial random glitch text to make animation visible
+        const glitchChars = '01@#$%&*[]{}><~^+=?/\\|';
+        let initialText = '';
+        for (let i = 0; i < targetText.length; i++) {
+          initialText += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+        }
+        btn.textContent = initialText;
+
+        // Animate to target text with glitch effect
+        setTimeout(() => {
+          animateTextGlitch(btn, targetText, 400);
+        }, 100 + index * 50);
+      });
+    }
+
+    // Animate filter count (with badge)
+    const filterCount = contentDiv.querySelector('#filter-count');
+    if (filterCount) {
+      // Recalculate work count based on active filter
+      const activeFilter = document.querySelector('.filter-btn.active');
+      const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+      const imgWraps = document.querySelectorAll('.img_wrap');
+
+      let workCount = 0;
+      if (filterValue === 'all') {
+        workCount = imgWraps.length;
+      } else {
+        imgWraps.forEach(item => {
+          if (item.getAttribute('data-category') === filterValue) {
+            workCount++;
+          }
+        });
+      }
+
+      const workText = workCount === 1 ? 'work' : 'works';
+      const targetText = ` [${workCount} ${workText}]`;
+
+      // Set initial random glitch text
+      const glitchChars = '01@#$%&*[]{}><~^+=?/\\|';
+      let initialText = '';
+      for (let i = 0; i < targetText.length; i++) {
+        initialText += glitchChars[Math.floor(Math.random() * glitchChars.length)];
+      }
+      filterCount.textContent = initialText;
+
+      setTimeout(() => {
+        animateTextTransition(filterCount, targetText, 'glitch', 400);
+      }, 300);
+    }
+
+    // Show center-container
+    if (centerContainer) {
+      centerContainer.style.display = 'block';
+    }
+
+    // Restore filter state - check which filter button is active
+    const activeFilter = document.querySelector('.filter-btn.active');
+    const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+
+    // Apply filter based on active button
+    document.querySelectorAll('.img_wrap').forEach(item => {
+      if (filterValue === 'all') {
+        // Show all thumbnails
         item.style.display = 'inline-block';
       } else {
-        item.style.display = 'none';
+        // Show only matching category
+        const itemCategory = item.getAttribute('data-category');
+        if (itemCategory === filterValue) {
+          item.style.display = 'inline-block';
+        } else {
+          item.style.display = 'none';
+        }
       }
-    }
-  });
 
-  // Destroy swiper if exists
-  if (currentSwiper) {
-    currentSwiper.destroy(true, true);
-    currentSwiper = null;
+      // Fade in thumbnails
+      item.style.opacity = '0';
+      item.style.transition = 'opacity 0.6s ease';
+    });
+
+    // Start fade in after short delay
+    setTimeout(() => {
+      document.querySelectorAll('.img_wrap').forEach(item => {
+        if (item.style.display !== 'none') {
+          item.style.opacity = '1';
+        }
+      });
+    }, 100);
+
+    // Destroy swiper if exists
+    if (currentSwiper) {
+      currentSwiper.destroy(true, true);
+      currentSwiper = null;
+    }
   }
 }
 
@@ -361,24 +591,34 @@ function showWorkDetail(workId) {
   // Update meta tags for SEO
   updateMetaTags(work);
 
-  // Hide ALL original content elements
-  const elementsToHide = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
-  elementsToHide.forEach(el => {
-    el.style.display = 'none';
+  // Fade out all thumbnails first
+  const thumbnails = document.querySelectorAll('.img_wrap');
+  thumbnails.forEach(item => {
+    item.style.transition = 'opacity 0.4s ease';
+    item.style.opacity = '0';
   });
 
-  // Hide center-container
-  if (centerContainer) {
-    centerContainer.style.display = 'none';
-  }
+  // Wait for fade out animation to complete
+  setTimeout(() => {
+    // Hide ALL original content elements
+    const elementsToHide = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
+    elementsToHide.forEach(el => {
+      el.style.display = 'none';
+    });
 
-  // Hide all thumbnails
-  document.querySelectorAll('.img_wrap').forEach(item => {
-    item.style.display = 'none';
-  });
+    // Hide center-container
+    if (centerContainer) {
+      centerContainer.style.display = 'none';
+    }
 
-  // Create detail view immediately
-  createDetailView(work, workId);
+    // Hide all thumbnails
+    thumbnails.forEach(item => {
+      item.style.display = 'none';
+    });
+
+    // Create detail view after fade out
+    createDetailView(work, workId);
+  }, 400);
 }
 
 // Create detail view HTML - EXACT copy of original structure
@@ -403,18 +643,19 @@ function createDetailView(work, workId) {
 
   // EXACT structure from toki-shirube.html with back button added
   // Use DOMPurify to sanitize HTML and prevent XSS attacks
+  // Initial values set to placeholder for animation (Works → work.title)
   detailView.innerHTML = DOMPurify.sanitize(`
             <br>
             <h1>
                 <!-- Heading　-->
-                ${work.title}
+                <span class="work-title-animated">Works</span>
                 <a href="#" class="back-to-list">Back to Works</a>
             </h1>
             <hr>
             <p>
-                <span class="list">${work.year}</span> / <span class="list">${work.category.charAt(0).toUpperCase() + work.category.slice(1)}</span>
+                <span class="list work-year-animated">----</span> / <span class="list work-category-animated">----</span>
             </p>
-            <div class="swiper-container">
+            <div class="swiper-container" style="opacity: 0;">
                 <div class="swiper-wrapper">
 ${swiperSlides}
                 </div>
@@ -427,7 +668,7 @@ ${swiperSlides}
             <h3>
                 ${work.title}
             </h3>
-            <div id="content_in">
+            <div id="content_in" class="work-content-animated">
                 ${work.description ? `<p>
                     ${work.description}
                 </p>` : ''}
@@ -497,12 +738,185 @@ ${swiperSlides}
                 </dl>
 
             </div>
-            <hr>
-            <hr>
+            <hr class="final-hr-1" style="opacity: 0;">
+            <hr class="final-hr-2" style="opacity: 0;">
             <br>
   `);
 
   contentDiv.appendChild(detailView);
+
+  // Use glitch effect for all works (toki-shirube pattern)
+  const animationType = 'glitch';
+
+  // Animate text transitions: Works → work.title
+  const titleSpan = detailView.querySelector('.work-title-animated');
+  const yearSpan = detailView.querySelector('.work-year-animated');
+  const categorySpan = detailView.querySelector('.work-category-animated');
+
+  // Animate title: "Works" → work.title
+  if (titleSpan) {
+    setTimeout(() => {
+      animateTextTransition(titleSpan, work.title, animationType, 800);
+    }, 100);
+  }
+
+  // Animate year: "----" → work.year
+  if (yearSpan) {
+    setTimeout(() => {
+      animateTextTransition(yearSpan, work.year, animationType, 600);
+    }, 150);
+  }
+
+  // Animate category: "----" → work.category
+  if (categorySpan) {
+    const categoryText = work.category.charAt(0).toUpperCase() + work.category.slice(1);
+    setTimeout(() => {
+      animateTextTransition(categorySpan, categoryText, animationType, 600);
+    }, 200);
+  }
+
+  // Fade in Swiper container (images) simultaneously with title animation
+  const swiperContainer = detailView.querySelector('.swiper-container');
+  if (swiperContainer) {
+    swiperContainer.style.transition = 'opacity 0.8s ease';
+    setTimeout(() => {
+      swiperContainer.style.opacity = '1';
+    }, 100);
+  }
+
+  // Animate content_in section: h3 with real typewriter, others with cascade reveal
+  const contentInDiv = detailView.querySelector('.work-content-animated');
+  const h3Element = detailView.querySelector('h3'); // h3 is outside content_in
+
+  if (contentInDiv) {
+    // Set initial state: invisible but layout is preserved
+    contentInDiv.style.opacity = '0';
+    if (h3Element) {
+      h3Element.style.opacity = '0';
+    }
+
+    setTimeout(() => {
+      // Fade in sections
+      contentInDiv.style.transition = 'opacity 0.3s ease';
+      contentInDiv.style.opacity = '1';
+
+      // Get all elements to animate in order
+      const descriptionP = contentInDiv.querySelector('p');
+      const dlElement = contentInDiv.querySelector('dl');
+
+      // Create array of elements (excluding h3 for now)
+      const elementsToAnimate = [];
+
+      if (descriptionP) elementsToAnimate.push({ element: descriptionP, type: 'p' });
+
+      // Add dt/dd pairs in order
+      if (dlElement) {
+        const children = Array.from(dlElement.children);
+        children.forEach(child => {
+          if (child.tagName === 'DT' || child.tagName === 'DD') {
+            elementsToAnimate.push({ element: child, type: child.tagName.toLowerCase() });
+          }
+        });
+      }
+
+      // === h3: Real typewriter animation (character by character) ===
+      if (h3Element) {
+        const h3Text = h3Element.textContent;
+        h3Element.textContent = '';
+        h3Element.style.opacity = '1'; // Make h3 visible immediately
+
+        // Typewriter animation for h3
+        const startTime = performance.now();
+        const duration = 1000; // 1 second to type h3
+
+        function typeH3(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const charsToShow = Math.floor(h3Text.length * progress);
+
+          if (progress < 1) {
+            h3Element.textContent = h3Text.substring(0, charsToShow) + '▌';
+            requestAnimationFrame(typeH3);
+          } else {
+            h3Element.textContent = h3Text; // Complete
+          }
+        }
+
+        requestAnimationFrame(typeH3);
+      }
+
+      // === Other elements: Cascade reveal with cursor effect ===
+      // Hide all elements initially
+      elementsToAnimate.forEach(({ element }) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(10px)';
+        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+      });
+
+      // Reveal elements sequentially (starts at same time as h3 typewriter)
+      elementsToAnimate.forEach(({ element, type }, index) => {
+        setTimeout(() => {
+          // Add typing cursor before reveal
+          const cursor = document.createElement('span');
+          cursor.className = 'typing-cursor-before';
+          cursor.textContent = '▌';
+          cursor.style.cssText = 'opacity: 0; margin-right: 5px; color: #006DD9; animation: blink 0.8s step-start infinite;';
+
+          element.parentNode.insertBefore(cursor, element);
+
+          // Fade in cursor
+          setTimeout(() => {
+            cursor.style.opacity = '1';
+          }, 50);
+
+          // Reveal element after brief cursor display
+          setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+
+            // Remove cursor after element is revealed
+            setTimeout(() => {
+              cursor.style.opacity = '0';
+              setTimeout(() => cursor.remove(), 300);
+            }, 400);
+          }, 200);
+
+        }, index * 150); // Stagger delay: 150ms between elements
+      });
+
+      // === Final HRs: Fade in after all animations complete ===
+      const finalHr1 = detailView.querySelector('.final-hr-1');
+      const finalHr2 = detailView.querySelector('.final-hr-2');
+
+      if (finalHr1 && finalHr2) {
+        // Hide initially
+        finalHr1.style.opacity = '0';
+        finalHr2.style.opacity = '0';
+        finalHr1.style.transition = 'opacity 0.6s ease';
+        finalHr2.style.transition = 'opacity 0.6s ease';
+
+        // Calculate when all animations finish
+        // h3 typewriter: 1000ms
+        // Last cascade element: (elementsToAnimate.length - 1) * 150 + 200 (cursor) + 400 (reveal)
+        const h3Duration = 1000;
+        const lastCascadeDelay = elementsToAnimate.length > 0
+          ? (elementsToAnimate.length - 1) * 150 + 600
+          : 0;
+        const totalAnimationTime = Math.max(h3Duration, lastCascadeDelay);
+
+        // Fade in final HRs after all animations complete
+        setTimeout(() => {
+          finalHr1.style.opacity = '1';
+
+          // Second HR appears slightly after first
+          setTimeout(() => {
+            finalHr2.style.opacity = '1';
+          }, 200);
+        }, totalAnimationTime + 300); // 300ms buffer after animations
+      }
+
+    }, 900); // Start after title/year/category animations
+  }
 
   // Initialize Swiper for detail view
   setTimeout(() => {

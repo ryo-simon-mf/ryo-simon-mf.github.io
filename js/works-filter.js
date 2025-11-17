@@ -8,6 +8,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const imgWraps = document.querySelectorAll('.img_wrap');
+    const filterCount = document.getElementById('filter-count');
+    let currentCount = 0;
 
     // Count works by category
     function countWorksByCategory(category) {
@@ -24,20 +26,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Add count badges to filter buttons
-    filterButtons.forEach(button => {
-        const category = button.getAttribute('data-filter');
-        const count = countWorksByCategory(category);
+    // Animate count change
+    function animateCount(startValue, endValue, duration = 400) {
+        const startTime = performance.now();
+        const difference = endValue - startValue;
 
-        // Create count badge
-        const badge = document.createElement('span');
-        badge.className = 'filter-count-badge';
-        badge.textContent = `[${count}]`;
+        function updateCount(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
 
-        // Insert badge after button text
-        button.appendChild(document.createTextNode(' '));
-        button.appendChild(badge);
-    });
+            // Easing function (ease-out)
+            const easedProgress = 1 - Math.pow(1 - progress, 3);
+            const currentValue = Math.round(startValue + (difference * easedProgress));
+
+            if (filterCount) {
+                const workText = currentValue === 1 ? 'work' : 'works';
+                filterCount.textContent = ` [${currentValue} ${workText}]`;
+            }
+
+            if (progress < 1) {
+                requestAnimationFrame(updateCount);
+            } else {
+                currentCount = endValue;
+            }
+        }
+
+        requestAnimationFrame(updateCount);
+    }
+
+    // Update filter count display with animation
+    function updateFilterCount(category) {
+        const newCount = countWorksByCategory(category);
+        animateCount(currentCount, newCount);
+    }
 
     // Filter button click handler
     filterButtons.forEach(button => {
@@ -76,6 +97,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }, 400);
             });
+
+            // Update count display
+            updateFilterCount(filterValue);
         });
     });
+
+    // Initialize count display with "All" filter
+    updateFilterCount('all');
 });

@@ -72,3 +72,16 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Typing cursor blink animation */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Typing cursor styles */
+.typing-cursor-before {
+  display: inline-block;
+  font-weight: normal;
+  animation: blink 0.8s step-start infinite;
+}
