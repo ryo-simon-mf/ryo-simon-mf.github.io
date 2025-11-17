@@ -128,10 +128,26 @@ function showWorksList() {
     centerContainer.style.display = 'block';
   }
 
-  // Show all thumbnails
+  // Restore filter state - check which filter button is active
+  const activeFilter = document.querySelector('.filter-btn.active');
+  const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+
+  // Apply filter based on active button
   document.querySelectorAll('.img_wrap').forEach(item => {
-    item.style.display = 'inline-block';
     item.style.opacity = '1';
+
+    if (filterValue === 'all') {
+      // Show all thumbnails
+      item.style.display = 'inline-block';
+    } else {
+      // Show only matching category
+      const itemCategory = item.getAttribute('data-category');
+      if (itemCategory === filterValue) {
+        item.style.display = 'inline-block';
+      } else {
+        item.style.display = 'none';
+      }
+    }
   });
 
   // Destroy swiper if exists
