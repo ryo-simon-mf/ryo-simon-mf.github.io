@@ -46,28 +46,12 @@ div#menu {
     font-weight: bold;
 }
 
-/* Filter container - flexbox layout for buttons and count */
-.filter-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 20px;
-}
-
-.filter-buttons {
-    margin: 0;
-    flex-shrink: 0;
-}
-
-/* Filter count display */
-.filter-count {
-    font-size: 0.9em;
-    color: #666;
-    margin: 0;
-    min-height: 1.2em;
-    transition: opacity 0.3s ease;
-    text-align: right;
-    white-space: nowrap;
+/* Filter count badge next to filter buttons */
+.filter-count-badge {
+    font-size: 0.85em;
+    color: #999;
+    font-weight: normal;
+    margin-left: 2px;
 }
 
 /* Accessibility: Strikethrough for deprecated content */
