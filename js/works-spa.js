@@ -62,11 +62,66 @@ function updateMetaTags(work) {
   if (ogUrl) {
     ogUrl.setAttribute('content', `https://ryo-simon-mf.github.io/works/works.html#${work.id}`);
   }
+
+  // Add JSON-LD structured data
+  addStructuredData(work);
+}
+
+function addStructuredData(work) {
+  // Remove existing structured data if present
+  removeStructuredData();
+
+  // Create JSON-LD structured data for the work
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": work.title,
+    "creator": {
+      "@type": "Person",
+      "name": "Ryo Simon",
+      "alternateName": "Ryo Nishikado",
+      "url": "https://ryo-simon-mf.github.io"
+    },
+    "dateCreated": work.year,
+    "description": work.description ? work.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim() : '',
+    "image": work.thumbnail ? `https://ryo-simon-mf.github.io/works/${work.thumbnail}` : '',
+    "url": `https://ryo-simon-mf.github.io/works/works.html#${work.id}`,
+    "keywords": [work.category, "interactive art", "creative coding", "media art"],
+    "genre": work.category
+  };
+
+  // Add tools if available
+  if (work.tools) {
+    structuredData.tool = work.tools.replace(/<[^>]*>/g, ' ').trim();
+  }
+
+  // Add award if available
+  if (work.award) {
+    structuredData.award = work.award.replace(/<[^>]*>/g, ' ').trim();
+  }
+
+  // Create script element and append to head
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'work-structured-data';
+  script.text = JSON.stringify(structuredData, null, 2);
+  document.head.appendChild(script);
+}
+
+function removeStructuredData() {
+  // Remove existing structured data script
+  const existing = document.getElementById('work-structured-data');
+  if (existing) {
+    existing.remove();
+  }
 }
 
 function resetMetaTags() {
   // Reset to default values
   document.title = 'Works - Ryo Simon';
+
+  // Remove structured data when returning to list view
+  removeStructuredData();
 
   let metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
