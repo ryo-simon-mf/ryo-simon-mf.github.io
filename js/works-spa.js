@@ -229,12 +229,12 @@ ${swiperSlides}
                 ${work.title}
             </h3>
             <div id="content_in">
-                <p>
+                ${work.description ? `<p>
                     ${work.description}
                     <dd>
                     </dd>
 
-                </p>
+                </p>` : ''}
                 ${work.performers ? `
                 </dl>
                 <dt>Performers</dt>
