@@ -9,6 +9,8 @@
     display: inline-block;
     background: #000;
     position: relative;
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
 .img_wrap img {

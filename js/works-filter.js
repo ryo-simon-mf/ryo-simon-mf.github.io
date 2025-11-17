@@ -2,35 +2,56 @@
  * Works Page Filter Functionality
  *
  * Filters project thumbnails by category: All, Code, Object, Design
+ * Vanilla JavaScript implementation (no jQuery dependency)
  */
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const imgWraps = document.querySelectorAll('.img_wrap');
+
     // Filter button click handler
-    $('.filter-btn').on('click', function(e) {
-        e.preventDefault(); // Prevent default anchor behavior
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor behavior
 
-        var filterValue = $(this).data('filter');
+            const filterValue = this.getAttribute('data-filter');
 
-        // Update active state on filter buttons
-        $('.filter-btn').removeClass('active');
-        $(this).addClass('active');
+            // Update active state on filter buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
 
-        // Show/hide projects based on filter
-        // Always fade out first for smooth animation
-        $('.img_wrap').fadeOut(400);
+            // Show/hide projects based on filter with fade animation
+            imgWraps.forEach(item => {
+                // Fade out
+                item.style.opacity = '0';
 
-        // Then fade in the filtered items
-        setTimeout(function() {
-            if (filterValue === 'all') {
-                // Show all projects
-                $('.img_wrap').fadeIn(400);
-            } else {
-                // Show only matching category
-                $('.img_wrap[data-category="' + filterValue + '"]').fadeIn(400);
-            }
-        }, 400);
+                setTimeout(() => {
+                    if (filterValue === 'all') {
+                        // Show all projects
+                        item.style.display = 'inline-block';
+                        // Trigger reflow for animation
+                        item.offsetHeight;
+                        item.style.opacity = '1';
+                    } else {
+                        // Show only matching category
+                        const itemCategory = item.getAttribute('data-category');
+                        if (itemCategory === filterValue) {
+                            item.style.display = 'inline-block';
+                            // Trigger reflow for animation
+                            item.offsetHeight;
+                            item.style.opacity = '1';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    }
+                }, 400);
+            });
+        });
     });
 
     // Set "All" as active by default
-    $('.filter-btn[data-filter="all"]').addClass('active');
+    const allButton = document.querySelector('.filter-btn[data-filter="all"]');
+    if (allButton) {
+        allButton.classList.add('active');
+    }
 });
