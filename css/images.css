@@ -86,3 +86,33 @@
 .center-container {
     text-align: center;
 }
+
+/* Thumbnail metadata overlay */
+.img_wrap::after {
+    content: attr(data-year) " / " attr(data-category);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    text-transform: capitalize;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+/* Show overlay on hover (desktop) */
+.img_wrap:hover::after {
+    opacity: 1;
+}
+
+/* Always show overlay on mobile/tablet (no hover capability) */
+@media (hover: none) and (pointer: coarse) {
+    .img_wrap::after {
+        opacity: 1;
+    }
+}

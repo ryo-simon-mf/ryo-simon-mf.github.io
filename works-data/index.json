@@ -1,36 +1,160 @@
 {
-  "order": [
-    "toki-shirube",
-    "inochinokodou",
-    "muses-ex-echoes",
-    "improvise-chain",
-    "theplot-echo-mv",
-    "variable-flavor-remix",
-    "adaptive-yantra",
-    "haptic-guiding-suite",
-    "ai-tell-you-djing",
-    "morse-code",
-    "mutek-jp-2020",
-    "playingtokyo-vol11",
-    "solgasa-nextup-animation",
-    "t-s-a",
-    "x-music-online0418",
-    "onlineb2b-proto",
-    "sequencing-of-future-conversation",
-    "text2-sequence",
-    "zig-sow",
-    "motion-crossfader",
-    "shikael",
-    "original-logo",
-    "sanskritlogo",
-    "toilecher",
-    "rfont",
-    "randb",
-    "cfv",
-    "jpdd",
-    "eyehaveyou",
-    "pourwater",
-    "colorboxes"
+  "works": [
+    {
+      "id": "toki-shirube",
+      "year": "2024",
+      "category": "object"
+    },
+    {
+      "id": "inochinokodou",
+      "year": "2023",
+      "category": "code"
+    },
+    {
+      "id": "muses-ex-echoes",
+      "year": "2023",
+      "category": "code"
+    },
+    {
+      "id": "improvise-chain",
+      "year": "2022",
+      "category": "code"
+    },
+    {
+      "id": "theplot-echo-mv",
+      "year": "2022",
+      "category": "design"
+    },
+    {
+      "id": "variable-flavor-remix",
+      "year": "2021",
+      "category": "code"
+    },
+    {
+      "id": "adaptive-yantra",
+      "year": "2021",
+      "category": "code"
+    },
+    {
+      "id": "haptic-guiding-suite",
+      "year": "2021",
+      "category": "code"
+    },
+    {
+      "id": "ai-tell-you-djing",
+      "year": "2020",
+      "category": "code"
+    },
+    {
+      "id": "morse-code",
+      "year": "2020",
+      "category": "code"
+    },
+    {
+      "id": "mutek-jp-2020",
+      "year": "2020",
+      "category": "code"
+    },
+    {
+      "id": "playingtokyo-vol11",
+      "year": "2020",
+      "category": "code"
+    },
+    {
+      "id": "solgasa-nextup-animation",
+      "year": "2020",
+      "category": "design"
+    },
+    {
+      "id": "t-s-a",
+      "year": "2020",
+      "category": "design"
+    },
+    {
+      "id": "x-music-online0418",
+      "year": "2020",
+      "category": "design"
+    },
+    {
+      "id": "onlineb2b-proto",
+      "year": "2020",
+      "category": "design"
+    },
+    {
+      "id": "sequencing-of-future-conversation",
+      "year": "2019",
+      "category": "code"
+    },
+    {
+      "id": "text2-sequence",
+      "year": "2019",
+      "category": "code"
+    },
+    {
+      "id": "zig-sow",
+      "year": "2019",
+      "category": "code"
+    },
+    {
+      "id": "motion-crossfader",
+      "year": "2019",
+      "category": "code"
+    },
+    {
+      "id": "shikael",
+      "year": "2019",
+      "category": "design"
+    },
+    {
+      "id": "original-logo",
+      "year": "2018",
+      "category": "design"
+    },
+    {
+      "id": "sanskritlogo",
+      "year": "2018",
+      "category": "design"
+    },
+    {
+      "id": "toilecher",
+      "year": "2018",
+      "category": "object"
+    },
+    {
+      "id": "rfont",
+      "year": "2018",
+      "category": "design"
+    },
+    {
+      "id": "randb",
+      "year": "2018",
+      "category": "code"
+    },
+    {
+      "id": "cfv",
+      "year": "2017",
+      "category": "object"
+    },
+    {
+      "id": "jpdd",
+      "year": "2017",
+      "category": "object"
+    },
+    {
+      "id": "eyehaveyou",
+      "year": "2017",
+      "category": "object"
+    },
+    {
+      "id": "pourwater",
+      "year": "2017",
+      "category": "object"
+    },
+    {
+      "id": "colorboxes",
+      "year": "2017",
+      "category": "code"
+    }
   ],
-  "description": "Work order for portfolio display. Add new works here to control their position in the gallery."
+  "description": "Work order for portfolio display with year and category metadata for thumbnail overlays."
 }

@@ -97,13 +97,23 @@ function resetMetaTags() {
 // Initialize SPA functionality
 async function initWorksSPA() {
   try {
-    // Load index.json to get work order
+    // Load index.json to get work order and metadata
     const indexResponse = await fetch('../works-data/index.json');
     const indexData = await indexResponse.json();
-    worksOrder = indexData.order;
+
+    // Handle both old and new index.json formats
+    if (indexData.works) {
+      // New format with metadata
+      worksOrder = indexData.works.map(w => w.id);
+      // Add year and category to thumbnails
+      addMetadataToThumbnails(indexData.works);
+    } else {
+      // Old format (fallback)
+      worksOrder = indexData.order;
+    }
 
     // Note: JSON files are now loaded on-demand (lazy loading)
-    // This reduces initial page load from 45KB to just index.json (~1KB)
+    // This reduces initial page load from 45KB to just index.json (~3KB)
 
     // Handle hash changes
     window.addEventListener('hashchange', handleHashChange);
@@ -123,6 +133,26 @@ async function initWorksSPA() {
   } catch (error) {
     console.error('Failed to initialize Works SPA:', error);
   }
+}
+
+// Add year and category metadata to thumbnail elements
+function addMetadataToThumbnails(worksMetadata) {
+  worksMetadata.forEach(work => {
+    // Find thumbnail by matching href
+    const thumbnails = document.querySelectorAll('.img_wrap a');
+    thumbnails.forEach(link => {
+      const href = link.getAttribute('href');
+      const workId = extractWorkId(href);
+      if (workId === work.id) {
+        const imgWrap = link.closest('.img_wrap');
+        if (imgWrap) {
+          imgWrap.setAttribute('data-year', work.year);
+          // Category already exists, but ensure it matches
+          imgWrap.setAttribute('data-category', work.category);
+        }
+      }
+    });
+  });
 }
 
 // Load a single work JSON file (lazy loading with cache)
