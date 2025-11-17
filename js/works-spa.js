@@ -20,6 +20,80 @@ function hideLoadingSpinner() {
   }
 }
 
+// SEO meta tag helpers
+function updateMetaTags(work) {
+  // Update page title
+  document.title = `${work.title} - Ryo Simon`;
+
+  // Update meta description
+  let metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription && work.description) {
+    // Strip HTML tags and limit to 155 characters for SEO
+    const plainText = work.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    const shortDesc = plainText.substring(0, 155) + (plainText.length > 155 ? '...' : '');
+    metaDescription.setAttribute('content', shortDesc);
+  }
+
+  // Update OGP title
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) {
+    ogTitle.setAttribute('content', `${work.title} - Ryo Simon`);
+  }
+
+  // Update OGP description
+  let ogDescription = document.querySelector('meta[property="og:description"]');
+  if (ogDescription && work.description) {
+    const plainText = work.description.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    const shortDesc = plainText.substring(0, 155) + (plainText.length > 155 ? '...' : '');
+    ogDescription.setAttribute('content', shortDesc);
+  }
+
+  // Update OGP image
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (ogImage && work.thumbnail) {
+    // Convert relative path to absolute URL
+    const baseUrl = 'https://ryo-simon-mf.github.io';
+    const imagePath = work.thumbnail.startsWith('http') ? work.thumbnail : `${baseUrl}/works/${work.thumbnail}`;
+    ogImage.setAttribute('content', imagePath);
+  }
+
+  // Update OGP URL
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) {
+    ogUrl.setAttribute('content', `https://ryo-simon-mf.github.io/works/works.html#${work.id}`);
+  }
+}
+
+function resetMetaTags() {
+  // Reset to default values
+  document.title = 'Works - Ryo Simon';
+
+  let metaDescription = document.querySelector('meta[name="description"]');
+  if (metaDescription) {
+    metaDescription.setAttribute('content', 'Works project by Ryo Simon.');
+  }
+
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) {
+    ogTitle.setAttribute('content', 'Works - Ryo Simon');
+  }
+
+  let ogDescription = document.querySelector('meta[property="og:description"]');
+  if (ogDescription) {
+    ogDescription.setAttribute('content', 'Works project by Ryo Simon.');
+  }
+
+  let ogImage = document.querySelector('meta[property="og:image"]');
+  if (ogImage) {
+    ogImage.setAttribute('content', 'https://ryo-simon-mf.github.io/image/2024_icon_basic.png');
+  }
+
+  let ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) {
+    ogUrl.setAttribute('content', 'https://ryo-simon-mf.github.io/works/works.html');
+  }
+}
+
 // Initialize SPA functionality
 async function initWorksSPA() {
   try {
@@ -143,6 +217,9 @@ function showWorksList() {
   const centerContainer = document.querySelector('.center-container');
   const contentDiv = document.getElementById('content');
 
+  // Reset meta tags to default
+  resetMetaTags();
+
   // Remove detail view if exists
   const detailView = document.getElementById('work-detail-view');
   if (detailView) {
@@ -194,6 +271,9 @@ function showWorkDetail(workId) {
   const work = worksData[workId];
   const contentDiv = document.getElementById('content');
   const centerContainer = document.querySelector('.center-container');
+
+  // Update meta tags for SEO
+  updateMetaTags(work);
 
   // Hide ALL original content elements
   const elementsToHide = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
