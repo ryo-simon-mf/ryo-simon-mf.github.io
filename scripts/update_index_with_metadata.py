@@ -17,7 +17,12 @@ def main():
     with open(index_file, 'r', encoding='utf-8') as f:
         index_data = json.load(f)
 
-    work_order = index_data['order']
+    # Handle both old and new formats
+    if 'works' in index_data:
+        work_order = [w['id'] for w in index_data['works']]
+    else:
+        work_order = index_data['order']
+
     works_with_metadata = []
 
     print(f"Processing {len(work_order)} works...")
@@ -36,17 +41,18 @@ def main():
 
         work_metadata = {
             'id': work_id,
+            'title': work_data.get('title', ''),
             'year': work_data.get('year', ''),
             'category': work_data.get('category', '')
         }
 
         works_with_metadata.append(work_metadata)
-        print(f"✓ {work_id}: {work_metadata['year']} / {work_metadata['category']}")
+        print(f"✓ {work_id}: {work_metadata['year']} / {work_metadata['title']}")
 
     # Update index.json structure
     new_index = {
         'works': works_with_metadata,
-        'description': 'Work order for portfolio display with year and category metadata for thumbnail overlays.'
+        'description': 'Work order for portfolio display with title, year and category metadata for thumbnail overlays.'
     }
 
     # Write updated index.json

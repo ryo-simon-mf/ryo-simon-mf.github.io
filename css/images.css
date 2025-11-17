@@ -87,22 +87,26 @@
     text-align: center;
 }
 
-/* Thumbnail metadata overlay */
+/* Thumbnail metadata overlay - 2-line display (Year / Title) */
 .img_wrap::after {
-    content: attr(data-year) " / " attr(data-category);
+    content: attr(data-year) "\A" attr(data-title);
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 10px;
+    padding: 8px 10px;
     text-align: center;
-    font-size: 14px;
-    text-transform: capitalize;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: pre-line;  /* Enable line breaks with \A */
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;  /* Limit height for very long titles */
 }
 
 /* Show overlay on hover (desktop) */

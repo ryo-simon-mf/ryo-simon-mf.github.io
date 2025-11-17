@@ -147,6 +147,7 @@ function addMetadataToThumbnails(worksMetadata) {
         const imgWrap = link.closest('.img_wrap');
         if (imgWrap) {
           imgWrap.setAttribute('data-year', work.year);
+          imgWrap.setAttribute('data-title', work.title);
           // Category already exists, but ensure it matches
           imgWrap.setAttribute('data-category', work.category);
         }

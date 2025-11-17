@@ -2,159 +2,190 @@
   "works": [
     {
       "id": "toki-shirube",
+      "title": "toki-shirube",
       "year": "2024",
       "category": "object"
     },
     {
       "id": "inochinokodou",
+      "title": "イノチのコドウ",
       "year": "2023",
       "category": "code"
     },
     {
       "id": "muses-ex-echoes",
+      "title": "Muses ex Echoes",
       "year": "2023",
       "category": "code"
     },
     {
       "id": "improvise-chain",
+      "title": "Improvise±Chain",
       "year": "2022",
       "category": "code"
     },
     {
       "id": "theplot-echo-mv",
+      "title": "The plot / Echo MV",
       "year": "2022",
       "category": "design"
     },
     {
       "id": "variable-flavor-remix",
+      "title": "Variable Flavor Remix",
       "year": "2021",
       "category": "code"
     },
     {
       "id": "adaptive-yantra",
+      "title": "Adaptive Yantra",
       "year": "2021",
       "category": "code"
     },
     {
       "id": "haptic-guiding-suite",
+      "title": "Haptic Guiding Suit",
       "year": "2021",
       "category": "code"
     },
     {
       "id": "ai-tell-you-djing",
+      "title": "AI tell you Djing",
       "year": "2020",
       "category": "code"
     },
     {
       "id": "morse-code",
+      "title": "Morse_Code",
       "year": "2020",
       "category": "code"
     },
     {
       "id": "mutek-jp-2020",
+      "title": "Mutek Digi Lab1 [Hearing Music Evolve]",
       "year": "2020",
       "category": "code"
     },
     {
       "id": "playingtokyo-vol11",
+      "title": "PlayingTokyo vol.11",
       "year": "2020",
       "category": "code"
     },
     {
       "id": "solgasa-nextup-animation",
+      "title": "Solgasa Next Up: Live Event 2020",
       "year": "2020",
       "category": "design"
     },
     {
       "id": "t-s-a",
+      "title": "tSA[track Select Assistant]",
       "year": "2020",
       "category": "design"
     },
     {
       "id": "x-music-online0418",
+      "title": "xMusicOnline vol.0.0",
       "year": "2020",
       "category": "design"
     },
     {
       "id": "onlineb2b-proto",
+      "title": "OnlineB2B_Proto",
       "year": "2020",
       "category": "design"
     },
     {
       "id": "sequencing-of-future-conversation",
+      "title": "Sequencing of Future Conversation",
       "year": "2019",
       "category": "code"
     },
     {
       "id": "text2-sequence",
+      "title": "Text2Sequence",
       "year": "2019",
       "category": "code"
     },
     {
       "id": "zig-sow",
+      "title": "ZigSow",
       "year": "2019",
       "category": "code"
     },
     {
       "id": "motion-crossfader",
+      "title": "Motion Crossfader",
       "year": "2019",
       "category": "code"
     },
     {
       "id": "shikael",
+      "title": "Shikael",
       "year": "2019",
       "category": "design"
     },
     {
       "id": "original-logo",
+      "title": "Logo",
       "year": "2018",
       "category": "design"
     },
     {
       "id": "sanskritlogo",
+      "title": "Sanskrit Logo",
       "year": "2018",
       "category": "design"
     },
     {
       "id": "toilecher",
+      "title": "Toilecher",
       "year": "2018",
       "category": "object"
     },
     {
       "id": "rfont",
+      "title": "R Font",
       "year": "2018",
       "category": "design"
     },
     {
       "id": "randb",
+      "title": "Red and Blue",
       "year": "2018",
       "category": "code"
     },
     {
       "id": "cfv",
+      "title": "Clear File Vase",
       "year": "2017",
       "category": "object"
     },
     {
       "id": "jpdd",
+      "title": "Japanese Paper Door Display",
       "year": "2017",
       "category": "object"
     },
     {
       "id": "eyehaveyou",
+      "title": "Eye Have You",
       "year": "2017",
       "category": "object"
     },
     {
       "id": "pourwater",
+      "title": "Pour Water",
       "year": "2017",
       "category": "object"
     },
     {
       "id": "colorboxes",
+      "title": "Color Boxes",
       "year": "2017",
       "category": "code"
     }
   ],
-  "description": "Work order for portfolio display with year and category metadata for thumbnail overlays."
+  "description": "Work order for portfolio display with title, year and category metadata for thumbnail overlays."
 }
