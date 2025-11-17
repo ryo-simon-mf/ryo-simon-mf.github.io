@@ -1,0 +1,23 @@
+{
+  "id": "text2-sequence",
+  "title": "Text2Sequence",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/Text2Seq.png",
+  "images": [
+    "../image/Text2Seq.png"
+  ],
+  "description": "入力したテキストを2進法の数列に変換し8chシーケンサーにする自作デバイス。<br>Ableton Live 10 SuiteのMax for LiveでのデバイスだがMIDIモードにすることでその他DAWでの使用も可能。",
+  "credit": null,
+  "tools": "Max8(Max for Live), JavaScript",
+  "link": null,
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": "<a href=\"../works/SequencingOfFutureConversation.html\">Sequencing of Future Conversation</a>"
+}

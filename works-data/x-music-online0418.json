@@ -1,0 +1,23 @@
+{
+  "id": "x-music-online0418",
+  "title": "xMusicOnline vol.0.0",
+  "category": "design",
+  "year": "2020",
+  "thumbnail": "../image/xmusiconline0418/xmusiconline0418_1.jpeg",
+  "images": [
+    "../image/xmusiconline0418/xmusiconline0418_1.jpeg"
+  ],
+  "description": "2020/04/18に所属する研究室、Computational Creativity Lab主催で配信されたオンラインライブ。CCLab visual teamとB2Bツールデベロッパー(Yuga B2B Ryo Hasegawa)として参加。",
+  "credit": null,
+  "tools": "VJ: ZigSow [TouchDesigner, GLSL] OnlineB2B: OnlineB2B_Proto",
+  "link": "<a class=\"list\" href=\"https://twitter.com/CCLab_SFC/status/1251122493642817538\"> Twitter </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": "Time table:<br>&emsp; Reo Anzai(Live set)<br>&emsp; Yuga B2B Ryo Hasegawa<br>&emsp; Nao Tokui(DJ)<br><br>VJ:<br>&emsp; CC lab.visual team",
+  "download": null,
+  "citation": null,
+  "related": null
+}

@@ -1,0 +1,23 @@
+{
+  "id": "zig-sow",
+  "title": "ZigSow",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/zigsow.png",
+  "images": [
+    "../image/zigsow.png"
+  ],
+  "description": "自作VJシステム。最終出力画面、4chミキサー、選択中の素材名などを表示するインフォメーションの大きく3つのUIを持つ。また、お気に入りの映像のプリセット保存読み込みが可能である。",
+  "credit": null,
+  "tools": "TouchDesigner",
+  "link": "<a class=\"list\" href=\"https://github.com/ryo-simon-mf/ZigSow\">GitHub</a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

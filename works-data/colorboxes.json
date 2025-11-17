@@ -1,0 +1,23 @@
+{
+  "id": "colorboxes",
+  "title": "Color Boxes",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "https://raw.githubusercontent.com/ryo-simon-mf/oF-Color-Boxes/master/pic/image1.png",
+  "images": [
+    "https://raw.githubusercontent.com/ryo-simon-mf/oF-Color-Boxes/master/pic/image1.png"
+  ],
+  "description": null,
+  "credit": null,
+  "tools": "openFrameworks",
+  "link": "<a class=\"list\" href=\"https://github.com/ryo-simon-mf/oF-Color-Boxes\">GitHub</a> / <a class=\"list\" href=\"https://neort.io/art/bpovrtk3p9fbkbq85d9g?index=0&origin=latest\">NEORT</a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

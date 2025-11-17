@@ -1,0 +1,24 @@
+{
+  "id": "toki-shirube",
+  "title": "toki-shirube",
+  "category": "object",
+  "year": "2024",
+  "thumbnail": "../image/toki-shirube/tokishirube01.png",
+  "images": [
+    "../image/toki-shirube/tokishirube01.png",
+    "../image/toki-shirube/tokishirube02.png"
+  ],
+  "description": "現代を生きる我々は、時刻という普遍的な尺度を用いて時間を認識しています。しかし、昔を生きた人々は、空の色の移ろいや草木の香りの変化などを通して、身体的に時間を捉えていました。<br>「toki-shirube」は、1日の中で香りが変化する層構造のアロマキャンドルです。グラデーションのデザインは、空の色の移ろいを表現しました。嗅覚と視覚から、身体的に時の流れを感じられます。",
+  "credit": "Baumkuchen<br><ul class=\"list-style-none\"> <li>Maato Kurimoto(Designer)</li> <li>Takumi Inaba(Planner)</li> <li>Ryo Nishikado(Creative Technologist/Artist)</li> </ul>",
+  "tools": null,
+  "link": "<a class=\"list\" href=\"https://www.tokyo-midtown.com/jp/award/result/2024/design.html#:~:text=%E3%81%97%E3%82%8C%E3%81%AA%E3%81%84%E3%80%82-,toki%2Dshirube,-%E5%85%A5%E9%81%B8%E8%80%85%EF%BC%9A\"> LINK </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": "ペガサス・キャンドル株式会社 [Associate Produce] <a class=\"list\" href=\"https://www.pegasuscandle.com/company/\">[LINK]</a>",
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

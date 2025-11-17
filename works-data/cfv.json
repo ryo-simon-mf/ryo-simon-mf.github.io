@@ -1,0 +1,23 @@
+{
+  "id": "cfv",
+  "title": "Clear File Vase",
+  "category": "object",
+  "year": "2024",
+  "thumbnail": "../image/cfv.jpg",
+  "images": [
+    "../image/cfv.jpg"
+  ],
+  "description": "ただ水を入れてこぼさずその状態を保ったままでいる花瓶はおもしろくない。だけどただ水がこぼれる花瓶もおもしろくない。だとすればどのような花瓶がおもしろいか。それはある程度水を入れた状態を保持し、普通では考えられないこぼれ方をする花瓶だと思う。<br><br>この花瓶は約1.2L の液体を入れることができ、一定時間水を入れた後に角の部分から噴水のように水が放出される。主な材料として、水を出す箇所を限定するために六角形に切ったクリアファイルと、それを接合するためにテープの 2点のみを使用して製作した。<br><br>六角形に切ったクリアファイルの点が4以上、辺が8以上重なるの箇所と折り曲げたときに鋭角になる箇所は構造上水が漏れやすい。よって、これらの箇所などの接合は、テープを用いた独自に考案した特殊な貼り方を用いることで水が漏れるのを一定時間防ぎ、また噴水のように水が放出するのをコントロールするとことを可能にした。",
+  "credit": null,
+  "tools": "Clear File",
+  "link": null,
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": "Soma Sakata, Mizuki Hamazaki",
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

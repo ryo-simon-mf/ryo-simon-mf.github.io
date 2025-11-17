@@ -1,0 +1,23 @@
+{
+  "id": "morse-code",
+  "title": "Morse_Code",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/Morse_Code/Morse_Code_1.png",
+  "images": [
+    "../image/Morse_Code/Morse_Code_1.png"
+  ],
+  "description": "テキストからモールス信号を出力するアプリケーション。スタンドアローンのアプリケーションとして、またMIDI楽器として使用することができる。出力する波形をサイン波、ノコギリ波、三角波と矩形波に変更することも可能。",
+  "credit": null,
+  "tools": "Max8",
+  "link": "<a class=\"list\" href=\"https://github.com/ryo-simon-mf/max-MorseCode/\"> GitHub </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": "<a class=\"list\" href=\"https://github.com/ryo-simon-mf/max-MorseCode/raw/main/Morse_Code_v2.app.zip\"> Here </a>",
+  "citation": null,
+  "related": null
+}

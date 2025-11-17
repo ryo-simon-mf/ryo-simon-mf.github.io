@@ -1,0 +1,23 @@
+{
+  "id": "theplot-echo-mv",
+  "title": "The plot / Echo MV",
+  "category": "design",
+  "year": "2024",
+  "thumbnail": "../image/theplotecho/theplotecho_1.png",
+  "images": [
+    "../image/theplotecho/theplotecho_1.png"
+  ],
+  "description": "「The Plot / Echo」のオーディオビジュアル担当させていただきました。",
+  "credit": "Wez Atlas<br>produced by Seann Bowe<br>Mixed & Mastered by Foux<br>Artwork by Shun Nakao<br>Animation by Ryo Simon",
+  "tools": "TouchDesigner",
+  "link": "<a class=\"list\" href=\"https://www.youtube.com/watch?v=YCa3h--ZmM4\"> The Plot MV </a> / <a class=\"list\" href=\"https://www.youtube.com/watch?v=NZILlYJbHkI\"> Echo MV </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

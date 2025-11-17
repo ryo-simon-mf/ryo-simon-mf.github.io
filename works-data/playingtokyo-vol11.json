@@ -1,0 +1,25 @@
+{
+  "id": "playingtokyo-vol11",
+  "title": "PlayingTokyo vol.11",
+  "category": "code",
+  "year": "2020",
+  "thumbnail": "../image/playingtokyo/playingtokyo_1.png",
+  "images": [
+    "../image/playingtokyo/playingtokyo_1.png",
+    "../image/playingtokyo/playingtokyo_2.png",
+    "../image/playingtokyo/playingtokyo_3.png"
+  ],
+  "description": "2020/09/25にRhizomatiksによって配信されたPlaying Tokyo vol.11にて、Young VJ'sのVJとして参加",
+  "credit": null,
+  "tools": "Zigsow(PlayingTokyo.ver)[TouchDesigner, GLSL]",
+  "link": "<a class=\"list\" href=\"https://playing.super-flying.tokyo/\"> PlayingTokyo </a>, <a class=\"list\" href=\"https://www.twitch.tv/videos/751479578?filter=archives&sort=time\"> Twitch(from 02:10:00) </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": "DJ: Nao Tokui (Qosmo, Keio SFC) and Young DJs (Yuga, Reo Anzai)<br>VJ: Young VJs (Kosaku Namikawa, Hina Nakamura, Santa, Ryo Simon[Nishikado])",
+  "download": null,
+  "citation": null,
+  "related": null
+}

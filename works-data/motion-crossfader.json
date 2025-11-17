@@ -1,0 +1,24 @@
+{
+  "id": "motion-crossfader",
+  "title": "Motion Crossfader",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/motioncrossfader/motioncrossfader_1.png",
+  "images": [
+    "../image/motioncrossfader/motioncrossfader_1.png",
+    "../image/motioncrossfader/motioncrossfader_2.png"
+  ],
+  "description": "日本のダンスミュージック文化が衰退しつつあるのは何故なのか、あなたはクラブに赴いて音楽を聞きたいと考えるだろうか。我々は自身らの活動の考察からクラブなどにおける「観客主体性の不足」がその1つの原因と捉え、DJのみが選曲するのではなく観客も選曲に参加できる環境づくりを模索している。本プロジェクトは「観客による選曲」の1つの例として、空間内の人の分布を”PoseNet”と呼ばれるPCを持っていれば誰もが扱うことができる骨格認識の機械学習モデルを応用して人数認識を行い、そのデータによってDJミックスが変化し、人間の動きに合わせて曲にアクションを起こすことが可能なDJミキサーを実装した。",
+  "credit": null,
+  "tools": "TouchDesigner, Ableton Live 10 Suite, Max8(Max for Live), Posenet(TensorFlow), Node.js",
+  "link": "<a class=\"list\" href=\"https://cclab.sfc.keio.ac.jp/projects/multi-motion-crossfader/\">Multi-Motion Crossfader: Human Tracking DJ Mix System by Crowd Reading</a><br>[Computational Creativity Lab HP]<br><a class=\"list\" href=\"https://cgworld.jp/feature/202012-banadive1-3.html\">ミライ小町のDJプレイを可能にしたBanaDIVE（TM）AXについて、開発者の大久保氏と『電音部』の子川Pに聞いてみた（前篇）</a><br>[CGWORLD.jp]",
+  "exhibition": "2019<br><a class=\"list\" href=\"http://kata-gallery.net/schedule/xmusicexvol-0\">x Music Exhibition Keio SFC x-Music Lab vol.0</a> [Aug 24,2019]<br>「自分らしく生きたい。」展 / 自分らしく生きるとっておきのヒントをお見せします [Oct 2,2019 - Oct 12.2019]",
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": "Yuga Kobayashi",
+  "performers": null,
+  "download": null,
+  "citation": "<a class=\"list\" href=\"https://cgworld.jp/feature/202012-banadive1-3.html\">cgworld</a> [Aug 24,2019]",
+  "related": null
+}

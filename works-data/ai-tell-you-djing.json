@@ -1,0 +1,30 @@
+{
+  "id": "ai-tell-you-djing",
+  "title": "AI tell you Djing",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/ATYD/ATYD_1.png",
+  "images": [
+    "../image/ATYD/ATYD_1.png",
+    "../image/ATYD/ATYD_2.png",
+    "../image/ATYD/ATYD_3.png",
+    "../image/ATYD/ATYD_4.png",
+    "../image/ATYD/ATYD_5.png",
+    "../image/ATYD/ATYD_6.png",
+    "../image/ATYD/ATYD_7.png",
+    "../image/ATYD/ATYD_8.png"
+  ],
+  "description": "日本におけるDJ文化の価値は他国に比べ決して高いとはいえない状態にあるが、DJが社会に与えうる好影響は絶大なものであると私たちは捉えている。Forbes誌における高所得者ランキングにはDJが多くランクインするなど商業価値の面においてのみでも十分価値のある分野である。そのようなDJ文化の発展のため、私たちは機械学習の側面からのアプローチを日々試みている。本セッションでは作品の1つである自動選曲AIを用いた実験的パフォーマンスを行った。<br><br>協力：Pioneer DJ/AlphaTheta株式会社",
+  "credit": null,
+  "tools": "Zigsow[TouchDesigner, GLSL], tSA[Max8, Python, Node.js, JavaScript], openFrameworks,",
+  "link": "<a class=\"list\" href=\"https://orf.sfc.keio.ac.jp/2020/session/ai-tell-you-djing/\"> WebSite </a> / <a class=\"list\" href=\"https://www.youtube.com/watch?v=kyy2kzL06O0\"> Peformance Movie(FullVersion) </a>",
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": "Yuga Kobayashi[DJ/ X-DJ Project Organizer]<br>Ryo Nishikado(Simon)[VJ/ Technical Manager]<br>Ryo Hasegawa[DJ/ Technical]<br>Kanna Momose[DJ/ Technical Assistant]<br>Kai Obara[DJ/ Technical Assistant]",
+  "download": null,
+  "citation": null,
+  "related": null
+}

@@ -1,0 +1,24 @@
+{
+  "id": "adaptive-yantra",
+  "title": "Adaptive Yantra",
+  "category": "code",
+  "year": "2024",
+  "thumbnail": "../image/AdaptiveYantra/AdaptiveYantra_01.jpg",
+  "images": [
+    "../image/AdaptiveYantra/AdaptiveYantra_01.jpg",
+    "../image/AdaptiveYantra/AdaptiveYantra_02.jpg"
+  ],
+  "description": "テクノロジーによって神は創造されうるのか？ この作品は、AIによって神様をつくる試みを通して、未来のテクノロジー社会における神様の在り方を模索します。<br>同時に、テクノロジーが神格化された未来は人類にとって幸福なのか、人類とテクノロジーの関係についても考察します。",
+  "credit": "Kanna Momose(momokan)[Director/ Machine Learning]<br>Ryo Nishikado(simon)[Visual, Device Programming/ Video Edit/ Music]<br>Nao Tokui[Supervisor]",
+  "tools": "openFrameworks, Max8, Tensorflow[Machine Learning], node.js, fitbit(smart watch)",
+  "link": null,
+  "exhibition": "<a class=\"list\" href=\"https://alternative-dimension.cc/\">CCLab Exhibition 2021 Alternative Dimension</a> [September 23-27,2021]",
+  "award": "<a class=\"list\" href=\"https://adaa.jp/ja/winners/winners2021.html#_J6qNuTncCc\"> Asia Digital Art Award Fukuoka 2021</a>[入賞]学生/インタラクティブアート部門",
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

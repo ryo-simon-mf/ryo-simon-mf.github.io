@@ -1,0 +1,23 @@
+{
+  "id": "original-logo",
+  "title": "Logo",
+  "category": "design",
+  "year": "2024",
+  "thumbnail": "../image/logo_web.png",
+  "images": [
+    "../image/logo_web.png"
+  ],
+  "description": "個人のオリジナルロゴ、13のローマ数字と呼び名であるの一部を組み合わせ制作。",
+  "credit": null,
+  "tools": "Illustrator",
+  "link": null,
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

@@ -1,0 +1,23 @@
+{
+  "id": "haptic-guiding-suite",
+  "title": "Haptic Guiding Suit",
+  "category": "code",
+  "year": "2020",
+  "thumbnail": "../image/hapticGuidingSuite/hgs_1.png",
+  "images": [
+    "../image/hapticGuidingSuite/hgs_1.png"
+  ],
+  "description": "我々は徒歩で目的地に向かう際,フィーチャーフォンやスマートフォンをはじめとするモバイルデバイスが普及する以前は道順を憶える,地図を持参し現在地と対照させて移動するのが主で あった.しかし2020 年現在は,モバイルデバイスや通信の技術向上により,目的地に徒歩で向かう際にはナビゲーションシステムのアプリケーションを用いて移動するのが主流となっている. 地図アプリケーションや音声ガイドアプリケーションが挙げられる.だが,以上のアプリケーションを使用する際には,歩行時に視覚および聴覚の二つの感覚どちらか,または同時に占有する こととなり,様々の事故を発生させる原因となる.実際に歩きスマホなどが社会問題になっているという事実があり,それが原因で発生した事故やトラブルが後をたたない.<br>本研究では以上の問題を解決すべく,触覚が歩行時に他の感覚に比べ意識されることの少ないという観点からアプローチを行い,人工筋肉の特性を用いて触錯覚ではなく,力覚的な触覚アプ ローチにより,正確性のある新たなナビゲーション手法及びシステムを提案し,スーツ型のウェ アラブルデバイスとそれらを制御,実行するためのシステムとアプリケーションの開発を行っ た.また,アプリケーションの一部として以上のシステムを用いて,現在のコロナ状況下における 三密をさけるソーシャルディスタンスの推奨を踏まえて,新型コロナウイルス感染症対策となる ソーシャルディスタンスを保つ触覚歩行ナビシステムの開発を行った.",
+  "credit": null,
+  "tools": null,
+  "link": "<a class=\"list\" href=\"https://youtu.be/ropXBhGkfOc\"> Movie </a>",
+  "exhibition": null,
+  "award": "CB合同卒業プロジェクト発表会島津明人賞",
+  "paper": null,
+  "grants": "2020年度山岸学生プロジェクト支援制度採択<a class=\"list\" href=\"https://www.students.keio.ac.jp/sfc/other/research-grant/\"> [LINK]</a>",
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}
