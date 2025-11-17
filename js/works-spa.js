@@ -5,6 +5,21 @@ let worksData = {}; // Will be populated from JSON files
 let worksOrder = []; // Display order
 let currentSwiper = null;
 
+// Loading spinner helpers
+function showLoadingSpinner() {
+  const spinner = document.getElementById('loading-spinner');
+  if (spinner) {
+    spinner.style.display = 'block';
+  }
+}
+
+function hideLoadingSpinner() {
+  const spinner = document.getElementById('loading-spinner');
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
+}
+
 // Initialize SPA functionality
 async function initWorksSPA() {
   try {
@@ -103,8 +118,15 @@ async function handleHashChange() {
   const hash = window.location.hash.slice(1); // Remove #
 
   if (hash) {
+    // Show loading spinner while fetching data
+    showLoadingSpinner();
+
     // Lazy load work data if not already cached
     const workData = await loadWork(hash);
+
+    // Hide spinner after data is loaded
+    hideLoadingSpinner();
+
     if (workData) {
       showWorkDetail(hash);
     } else {

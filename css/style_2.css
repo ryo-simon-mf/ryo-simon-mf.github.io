@@ -26,10 +26,33 @@ div#menu {
     z-index: 10;
 }
 
-/* Filter button active state */
+/* Filter button styles */
+.filter-btn {
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.filter-btn:hover {
+    background-color: rgba(0, 109, 217, 0.1);
+}
+
+.filter-btn:active {
+    background-color: rgba(0, 109, 217, 0.2);
+}
+
 .filter-btn.active {
     color: #006DD9;
     font-weight: bold;
+}
+
+/* Filter count display */
+.filter-count {
+    font-size: 0.9em;
+    color: #333;
+    margin: 5px 0 10px 0;
+    min-height: 1.2em;
+    transition: opacity 0.3s ease;
 }
 
 /* Accessibility: Strikethrough for deprecated content */
