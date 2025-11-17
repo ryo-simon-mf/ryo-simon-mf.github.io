@@ -213,7 +213,7 @@ function createDetailView(work, workId) {
             </h1>
             <hr>
             <p>
-                <span class="list">${work.year}</span> / <span class="list">${work.category}</span>
+                <span class="list">${work.year}</span> / <span class="list">${work.category.charAt(0).toUpperCase() + work.category.slice(1)}</span>
             </p>
             <div class="swiper-container">
                 <div class="swiper-wrapper">
