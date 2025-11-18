@@ -106,28 +106,39 @@
     /* Mobile: Menu typography - larger and centered */
     div#menu h1 {
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
     div#menu h3 {
         font-size: 18px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
+        margin-top: 25px;
     }
 
     div#menu p,
     div#menu dt {
         font-size: 16px;
-        line-height: 1.8;
+        line-height: 2;
+        margin-bottom: 15px;
     }
 
     div#menu a {
         font-size: 18px;
-        line-height: 1.8;
+        line-height: 2;
     }
 
-    /* Mobile: Menu sections spacing */
-    div#menu > * {
-        margin-bottom: 10px;
+    /* Mobile: SNS icons - center alignment */
+    div#menu .follow-me {
+        text-align: center !important;
+        display: flex !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        margin-top: 25px !important;
+        margin-bottom: 25px !important;
+    }
+
+    div#menu .follow-me li {
+        margin: 0 10px 10px 10px !important;
     }
 
     /* Show menu when checkbox is checked */
