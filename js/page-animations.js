@@ -93,12 +93,73 @@ function animateTextTypewriter(element, targetText, duration = 1000) {
 }
 
 /**
+ * Fallback function - show all content immediately without animations
+ * Used when animations fail or aren't supported
+ */
+function showAllContentImmediately() {
+  const content = document.getElementById('content');
+  if (!content) return;
+
+  console.log('[Page Animations] Showing all content immediately (fallback mode)');
+
+  // Make all hidden elements visible
+  const hiddenElements = content.querySelectorAll('[style*="opacity: 0"]');
+  hiddenElements.forEach(el => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.transition = 'none';
+  });
+
+  // Show swiper
+  const swiper = content.querySelector('.swiper-container');
+  if (swiper) {
+    swiper.style.opacity = '1';
+  }
+
+  // Show all hrs
+  const hrs = content.querySelectorAll('hr');
+  hrs.forEach(hr => {
+    hr.style.opacity = '1';
+  });
+
+  // Show all content sections
+  const contentSections = content.querySelectorAll('#content_in');
+  contentSections.forEach(section => {
+    section.style.opacity = '1';
+    section.style.transform = 'none';
+    Array.from(section.children).forEach(child => {
+      child.style.opacity = '1';
+      child.style.transform = 'none';
+    });
+  });
+
+  // Show all h2, h3, h4 elements
+  ['h2', 'h3', 'h4'].forEach(tag => {
+    const elements = content.querySelectorAll(tag);
+    elements.forEach(el => {
+      el.style.opacity = '1';
+    });
+  });
+}
+
+/**
  * Initialize page animations on DOMContentLoaded
  * Applies to h1, h2, h3, images, and content sections
  */
 function initPageAnimations() {
-  const content = document.getElementById('content');
-  if (!content) return;
+  try {
+    const content = document.getElementById('content');
+    if (!content) {
+      console.warn('[Page Animations] Content element not found');
+      return;
+    }
+
+    // Check if browser supports Intersection Observer
+    if (!('IntersectionObserver' in window)) {
+      console.warn('[Page Animations] IntersectionObserver not supported - using fallback');
+      showAllContentImmediately();
+      return;
+    }
 
   // Check if user prefers reduced motion (accessibility)
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -400,6 +461,22 @@ function initPageAnimations() {
 
     hrObserver.observe(hr);
   });
+
+  } catch (error) {
+    // If any error occurs, show all content immediately
+    console.error('[Page Animations] Animation initialization failed:', error);
+    console.error('[Page Animations] Falling back to immediate content display');
+
+    try {
+      showAllContentImmediately();
+    } catch (fallbackError) {
+      console.error('[Page Animations] Fallback also failed:', fallbackError);
+      // Last resort: remove all inline opacity styles
+      document.querySelectorAll('[style*="opacity: 0"]').forEach(el => {
+        el.style.opacity = '1';
+      });
+    }
+  }
 }
 
 // Auto-initialize on DOMContentLoaded
