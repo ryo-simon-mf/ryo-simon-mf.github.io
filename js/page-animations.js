@@ -110,6 +110,13 @@ function initPageAnimations() {
     threshold: 0.1
   };
 
+  // More lenient observer for bottom elements (no negative bottom margin)
+  const bottomObserverOptions = {
+    root: null,
+    rootMargin: '0px', // No offset - trigger as soon as any part is visible
+    threshold: 0.01 // Very sensitive - trigger with 1% visibility
+  };
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !entry.target.dataset.animated) {
@@ -331,6 +338,7 @@ function initPageAnimations() {
 
   // Fade in hr elements with Intersection Observer
   const hrs = content.querySelectorAll('hr');
+  const totalHrs = hrs.length;
 
   hrs.forEach((hr, index) => {
     // Skip first hr (the one right after h1) - keep visible from start
@@ -348,6 +356,10 @@ function initPageAnimations() {
     hr.style.opacity = '0';
     hr.style.transition = 'opacity 0.5s ease';
 
+    // Use more lenient observer for last 2 hrs (bottom elements)
+    const isBottomElement = index >= totalHrs - 2;
+    const options = isBottomElement ? bottomObserverOptions : observerOptions;
+
     const hrObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
@@ -357,7 +369,7 @@ function initPageAnimations() {
           }, 100);
         }
       });
-    }, observerOptions);
+    }, options);
 
     hrObserver.observe(hr);
   });
