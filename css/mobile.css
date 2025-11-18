@@ -283,6 +283,13 @@
     /* Mobile: Work detail view - add spacing for swiper below fixed header */
     #work-detail-view .swiper-container {
         margin-top: 30px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Mobile: Reduce spacing after swiper hr */
+    #work-detail-view .swiper-container + hr {
+        margin-top: 8px !important;
+        margin-bottom: 8px !important;
     }
 
     /* Mobile: Work detail page - increase content padding */
