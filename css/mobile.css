@@ -109,8 +109,10 @@
 
     /* Mobile: Menu typography - larger and centered */
     div#menu h1 {
-        font-size: 24px;
-        margin-bottom: 25px;
+        font-size: 32px;
+        margin-bottom: 30px;
+        text-align: center !important;
+        width: 100%;
     }
 
     div#menu h3 {
