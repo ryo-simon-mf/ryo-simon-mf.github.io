@@ -439,10 +439,6 @@
         display: block !important;
     }
 
-    .fixed-header-area br {
-        display: none; /* Remove extra spacing */
-    }
-
     .fixed-header-area h3 {
         font-size: 14px;
         margin-bottom: 8px;
