@@ -20,6 +20,6 @@
 /* First h3 - starts below fixed header */
 #content > h3:first-of-type {
     /* Add top margin equal to fixed header height */
-    /* Height is calculated as: <br> + h1 + spacing + <hr> */
-    margin-top: 120px; /* Approximate - will need adjustment */
+    /* Height is calculated as: padding-top (20px) + h1 + spacing + <hr> */
+    margin-top: 140px;
 }
