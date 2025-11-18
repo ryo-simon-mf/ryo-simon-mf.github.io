@@ -314,11 +314,17 @@
 
     /* Mobile: Works filter buttons */
     .filter-btn {
-        padding: 8px 12px;
-        margin: 5px;
+        padding: 8px 4px;
+        margin: 0 2px;
         display: inline-block;
         min-height: 44px;
         line-height: 1.4;
+    }
+
+    /* Tighten spacing around slashes in filter area */
+    .fixed-header-area p {
+        letter-spacing: -0.5px;
+        word-spacing: -2px;
     }
 
     /* Mobile: Table responsiveness */
