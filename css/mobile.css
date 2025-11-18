@@ -292,7 +292,7 @@
 
     .fixed-header-area h1 {
         font-size: 18px !important;
-        margin-bottom: 8px !important;
+        margin-bottom: 14px !important; /* Increased from 8px to 14px */
         margin-top: 0 !important;
         text-align: left !important;
         padding-right: 50px !important; /* Space for hamburger button */
@@ -307,12 +307,12 @@
         top: 50% !important;
         right: 50px !important; /* Account for hamburger button space */
         transform: translateY(calc(-50% - 2px)) !important;
-        font-size: 11px !important;
+        font-size: 10px !important;
         margin: 0 !important;
         white-space: nowrap !important;
         padding: 0 5px !important; /* Even smaller padding */
         line-height: 1 !important;
-        height: 18px !important; /* Even smaller height */
+        height: 10px !important; /* Even smaller height */
         display: inline-flex !important;
         align-items: center !important;
     }
