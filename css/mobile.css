@@ -77,26 +77,25 @@
         padding: 10px 15px !important;
     }
 
-    /* Mobile: Menu as overlay (centered) */
+    /* Mobile: Menu as full-screen overlay */
     div#menu {
         position: fixed !important;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) scale(0.9);
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
         opacity: 0;
         visibility: hidden;
-        width: 85% !important;
-        max-width: 400px;
-        max-height: 80vh;
         float: none !important;
-        background-color: rgba(255, 255, 255, 0.98);
+        background-color: rgba(255, 255, 255, 0.95);
         overflow-y: auto;
         transition: all 0.3s ease;
         z-index: 999;
-        padding: 50px 25px 25px 25px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
+        padding: 80px 30px 30px 30px;
+        box-shadow: none;
+        border-radius: 0;
         font-size: 14px;
+        transform: translateY(0);
     }
 
     /* Mobile: Menu typography */
@@ -126,25 +125,11 @@
     #menu-toggle:checked ~ * div#menu {
         opacity: 1;
         visibility: visible;
-        transform: translate(-50%, -50%) scale(1);
     }
 
-    /* Overlay background when menu is open */
-    body:has(#menu-toggle:checked) .menu-overlay,
-    #menu-toggle:checked ~ .menu-overlay {
-        display: block;
-    }
-
+    /* Menu overlay is now the menu itself (full-screen with semi-transparent background) */
     .menu-overlay {
         display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 998;
-        transition: opacity 0.3s ease;
     }
 
     /* Mobile: Hide p5.js canvas (performance) */
