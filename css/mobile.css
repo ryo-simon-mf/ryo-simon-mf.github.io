@@ -113,12 +113,16 @@
         margin-bottom: 30px;
         text-align: center !important;
         width: 100%;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     div#menu h3 {
         font-size: 18px;
         margin-bottom: 20px;
         margin-top: 25px;
+        text-align: center !important;
+        width: 100%;
     }
 
     div#menu p,
@@ -126,11 +130,18 @@
         font-size: 16px;
         line-height: 2;
         margin-bottom: 15px;
+        text-align: center !important;
+        width: 100%;
     }
 
     div#menu a {
         font-size: 18px;
         line-height: 2;
+    }
+
+    /* Mobile: Menu sections - ensure center alignment */
+    div#menu > * {
+        text-align: center !important;
     }
 
     /* Mobile: SNS icons - center alignment */
