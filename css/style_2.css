@@ -17,7 +17,7 @@ div#title {
 /* Subpage-specific: content_in with padding */
 div#content_in {
     float: auto;
-    padding: 30px 30px 30px 30px;
+    padding: 15px 30px 15px 30px;
 }
 
 /* Subpage-specific: menu fixed to viewport */
