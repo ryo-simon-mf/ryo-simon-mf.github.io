@@ -96,7 +96,7 @@
         -webkit-overflow-scrolling: touch;
         transition: opacity 0.3s ease, visibility 0.3s ease;
         z-index: 999;
-        padding: 80px 30px 30px 30px;
+        padding: 80px 0 30px 0;
         box-shadow: none;
         border-radius: 0;
         font-size: 18px;
@@ -105,6 +105,18 @@
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
+    }
+
+    /* Mobile: Index page - show menu by default */
+    body.page-index div#menu {
+        opacity: 1 !important;
+        visibility: visible !important;
+        background-color: transparent !important;
+    }
+
+    /* Mobile: Index page - hide hamburger button */
+    body.page-index .hamburger-btn {
+        display: none !important;
     }
 
     /* Mobile: Menu typography - larger and centered */
