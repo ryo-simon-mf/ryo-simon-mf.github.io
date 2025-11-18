@@ -307,12 +307,12 @@
         top: 50% !important;
         right: 50px !important; /* Account for hamburger button space */
         transform: translateY(calc(-50% - 2px)) !important;
-        font-size: 14px !important;
+        font-size: 12px !important;
         margin: 0 !important;
         white-space: nowrap !important;
-        padding: 0 8px !important; /* Remove vertical padding */
+        padding: 0 6px !important; /* Smaller padding */
         line-height: 1 !important;
-        height: 24px !important; /* Match hamburger button line height */
+        height: 20px !important; /* Smaller height */
         display: inline-flex !important;
         align-items: center !important;
     }
