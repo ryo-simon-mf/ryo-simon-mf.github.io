@@ -216,7 +216,7 @@
 
     /* Mobile: Fixed header adjustments */
     .fixed-header-area {
-        position: sticky !important;
+        position: fixed !important;
         top: 0;
         left: 0 !important;
         right: 0 !important;
@@ -224,12 +224,17 @@
         background-color: #ffffff !important;
         z-index: 100;
         padding: 15px 15px 8px 15px !important;
-        margin-left: -15px !important;
-        margin-right: -15px !important;
-        margin-top: -15px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
         margin-bottom: 0 !important;
         text-align: left !important;
         box-sizing: border-box !important;
+    }
+
+    /* Add top padding to content to prevent header overlap */
+    div#content {
+        padding-top: 80px !important;
     }
 
     /* Mobile: Remove desktop spacing for content after fixed header */
