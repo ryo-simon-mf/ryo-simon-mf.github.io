@@ -71,32 +71,51 @@ document.addEventListener('DOMContentLoaded', function() {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Show/hide projects based on filter with fade animation
+            // Show/hide projects based on filter with cascade fade animation
+            const visibleItems = [];
+
             imgWraps.forEach(item => {
                 // Fade out
                 item.style.opacity = '0';
+                item.style.transition = 'opacity 0.3s ease';
+            });
 
-                setTimeout(() => {
+            setTimeout(() => {
+                imgWraps.forEach(item => {
                     if (filterValue === 'all') {
                         // Show all projects
                         item.style.display = 'inline-block';
-                        // Trigger reflow for animation
-                        item.offsetHeight;
-                        item.style.opacity = '1';
+                        visibleItems.push(item);
                     } else {
                         // Show only matching category
                         const itemCategory = item.getAttribute('data-category');
                         if (itemCategory === filterValue) {
                             item.style.display = 'inline-block';
-                            // Trigger reflow for animation
-                            item.offsetHeight;
-                            item.style.opacity = '1';
+                            visibleItems.push(item);
                         } else {
                             item.style.display = 'none';
                         }
                     }
-                }, 400);
-            });
+                });
+
+                // Reinitialize lazy loading for filtered images
+                if (window.reinitLazyLoad) {
+                    window.reinitLazyLoad();
+                }
+
+                // Cascade fade in (staggered) to prevent main thread blocking
+                visibleItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.transition = 'opacity 0.4s ease';
+                        item.style.willChange = 'opacity';
+                        item.style.opacity = '1';
+                        // Remove will-change after animation
+                        setTimeout(() => {
+                            item.style.willChange = 'auto';
+                        }, 400);
+                    }, index * 30); // 30ms delay between each thumbnail
+                });
+            }, 300);
 
             // Update count display
             updateFilterCount(filterValue);

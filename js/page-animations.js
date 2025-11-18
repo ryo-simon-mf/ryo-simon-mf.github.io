@@ -140,8 +140,9 @@ function initPageAnimations() {
     }, 100);
   }
 
-  // Wait for Swiper to finish fading in (900ms), then animate elements below
-  const swiperFadeComplete = 900; // 100ms delay + 800ms fade
+  // Wait for Swiper to finish fading in (900ms for pages with swiper, 100ms for others)
+  // This allows pages without swiper (like Contact) to start animations immediately
+  const swiperFadeComplete = swiperContainer ? 900 : 100;
 
   // Animate h2 with glitch effect (after swiper fade completes)
   const h2 = content.querySelector('h2');
@@ -199,7 +200,7 @@ function initPageAnimations() {
     }, swiperFadeComplete + 600 + (i - 1) * 200);
   }
 
-  // Cascade reveal for content sections (after swiper completes)
+  // Cascade reveal for content sections (overlaps with h3 animations)
   const contentSections = content.querySelectorAll('#content_in');
   contentSections.forEach((section, sectionIndex) => {
     // Already hidden in HTML with style="opacity: 0"
@@ -215,7 +216,7 @@ function initPageAnimations() {
       element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
     });
 
-    // Start revealing section (after swiper completes + some delay)
+    // Start revealing section (begins while h3 is typing for smoother flow)
     setTimeout(() => {
       section.style.opacity = '1';
       section.style.transform = 'translateY(0)';
@@ -225,9 +226,9 @@ function initPageAnimations() {
         setTimeout(() => {
           element.style.opacity = '1';
           element.style.transform = 'translateY(0)';
-        }, elemIndex * 100);
+        }, elemIndex * 80);
       });
-    }, swiperFadeComplete + 800 + sectionIndex * 300);
+    }, swiperFadeComplete + 700 + sectionIndex * 250);
   });
 
   // Fade in all images with lazy loading

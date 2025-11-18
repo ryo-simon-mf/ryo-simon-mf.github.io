@@ -546,33 +546,44 @@ function showWorksList() {
     const filterValue = activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
 
     // Apply filter based on active button
+    const visibleItems = [];
     document.querySelectorAll('.img_wrap').forEach(item => {
       if (filterValue === 'all') {
         // Show all thumbnails
         item.style.display = 'inline-block';
+        visibleItems.push(item);
       } else {
         // Show only matching category
         const itemCategory = item.getAttribute('data-category');
         if (itemCategory === filterValue) {
           item.style.display = 'inline-block';
+          visibleItems.push(item);
         } else {
           item.style.display = 'none';
         }
       }
 
-      // Fade in thumbnails
+      // Prepare for fade in
       item.style.opacity = '0';
-      item.style.transition = 'opacity 0.6s ease';
+      item.style.transition = 'opacity 0.4s ease';
+      item.style.willChange = 'opacity'; // Hint to browser for optimization
     });
 
-    // Start fade in after short delay
-    setTimeout(() => {
-      document.querySelectorAll('.img_wrap').forEach(item => {
-        if (item.style.display !== 'none') {
-          item.style.opacity = '1';
-        }
-      });
-    }, 100);
+    // Reinitialize lazy loading for visible images
+    if (window.reinitLazyLoad) {
+      window.reinitLazyLoad();
+    }
+
+    // Cascade fade in (staggered) to prevent main thread blocking
+    visibleItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.style.opacity = '1';
+        // Remove will-change after animation
+        setTimeout(() => {
+          item.style.willChange = 'auto';
+        }, 400);
+      }, 100 + index * 30); // 30ms delay between each thumbnail
+    });
 
     // Destroy swiper if exists
     if (currentSwiper) {

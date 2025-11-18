@@ -21,13 +21,23 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: translate3d(-50%, -50%, 0) scale(1.1);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.5s ease, filter 0.5s ease;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.img_wrap img.lazy-loaded {
+    opacity: 1;
+    will-change: auto; /* Remove hint after load */
 }
 
 .img_wrap img:hover {
     filter: grayscale(0);
     opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate3d(-50%, -50%, 0) scale(1.2);
     transition-duration: 0.5s;
 }
 
