@@ -13,9 +13,9 @@
      * - h1 font-size: 24px + line-height + margins
      * - <hr> element: 1px + margins
      * - Internal spacing and padding
-     * Total: 140px (tested and verified to work correctly)
+     * Total: 120px (reduced for more compact layout)
      */
-    --about-fixed-header-height: 140px;
+    --about-fixed-header-height: 120px;
 }
 
 /* Fixed header area - stays at top like menu */
