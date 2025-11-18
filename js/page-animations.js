@@ -155,7 +155,9 @@ function initPageAnimations() {
       swiperHrElement = allHrs[1]; // Second hr is after swiper
       console.log('[Page Animations] Setting swiperHrElement (index 1):', swiperHrElement);
       swiperHrElement.style.opacity = '0';
-      swiperHrElement.style.transition = 'opacity 0.8s ease';
+      swiperHrElement.style.transform = 'scaleX(0)';
+      swiperHrElement.style.transformOrigin = 'left';
+      swiperHrElement.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
     }
 
     // Fade in both at the same time
@@ -163,6 +165,7 @@ function initPageAnimations() {
       swiperContainer.style.opacity = '1';
       if (swiperHrElement) {
         swiperHrElement.style.opacity = '1';
+        swiperHrElement.style.transform = 'scaleX(1)';
         console.log('[Page Animations] Fading in swiperHrElement');
       }
     }, 100);
@@ -352,9 +355,11 @@ function initPageAnimations() {
       return;
     }
 
-    // Other hrs fade in when scrolled into view
+    // Other hrs fade in with animation when scrolled into view
     hr.style.opacity = '0';
-    hr.style.transition = 'opacity 0.5s ease';
+    hr.style.transform = 'scaleX(0)';
+    hr.style.transformOrigin = 'left';
+    hr.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 
     // Use more lenient observer for last 2 hrs (bottom elements)
     const isBottomElement = index >= totalHrs - 2;
@@ -366,6 +371,7 @@ function initPageAnimations() {
           entry.target.dataset.animated = 'true';
           setTimeout(() => {
             entry.target.style.opacity = '1';
+            entry.target.style.transform = 'scaleX(1)';
           }, 100);
         }
       });
