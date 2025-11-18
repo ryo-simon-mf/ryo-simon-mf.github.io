@@ -9,3 +9,5 @@ package-lock.json
 *.pyc
 __pycache__/
 memo.txt
+# Image optimization backups
+**/.original/

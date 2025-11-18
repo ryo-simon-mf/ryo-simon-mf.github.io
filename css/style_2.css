@@ -150,16 +150,18 @@ div#menu {
 /*
  * Sticky page header that stays visible when scrolling
  * Applied to h1, hr, and filter links on Works/About pages
+ * Implemented with JavaScript scroll listener for better compatibility
  */
 .page-header {
-    position: sticky;
-    top: 0;
     background-color: #ffffff;
-    z-index: 9; /* Below menu (10), above canvas */
     padding-bottom: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow when scrolled */
-    transition: box-shadow 0.2s ease;
+    transition: box-shadow 0.3s ease;
+}
+
+/* When header is stuck (added by JavaScript) */
+.page-header.is-stuck {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Remove bottom margin from elements inside sticky header */
