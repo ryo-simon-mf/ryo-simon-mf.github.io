@@ -127,18 +127,22 @@
 
     h1 {
         font-size: 24px;
+        text-align: left;
     }
 
     h2 {
         font-size: 20px;
+        text-align: left;
     }
 
     h3 {
         font-size: 18px;
+        text-align: left;
     }
 
     h4 {
         font-size: 16px;
+        text-align: left;
     }
 
     /* Mobile: Images full width */
@@ -170,16 +174,20 @@
         top: 0;
         background-color: rgba(255, 255, 255, 0.95);
         z-index: 100;
-        padding: 10px 20px;
+        padding: 20px 20px 10px 20px;
         margin-left: -20px;
         margin-right: -20px;
         margin-top: -20px;
         margin-bottom: 20px;
+        text-align: left;
     }
 
     .fixed-header-area h1 {
         font-size: 20px;
         margin-bottom: 10px;
+        margin-top: 0;
+        text-align: left;
+        padding-right: 60px; /* Space for hamburger button */
     }
 
     .fixed-header-area hr {
