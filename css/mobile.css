@@ -271,9 +271,18 @@
     /* Mobile: Remove desktop spacing for content after fixed header */
     #content > .swiper-container,
     #content > h3:first-of-type,
-    #content > .center-container,
-    #work-detail-view .swiper-container {
+    #content > .center-container {
         margin-top: 0 !important;
+    }
+
+    /* Mobile: Works page - add spacing for thumbnails below fixed header */
+    #content > .center-container {
+        padding-top: 10px !important;
+    }
+
+    /* Mobile: Work detail view - add spacing for swiper below fixed header */
+    #work-detail-view .swiper-container {
+        margin-top: 20px !important;
     }
 
     .fixed-header-area h1 {
@@ -284,6 +293,23 @@
         padding-right: 50px !important; /* Space for hamburger button */
         padding-left: 0 !important;
         line-height: 1.3 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    /* Mobile: Back to Works button - align with title */
+    .fixed-header-area h1 .back-to-list {
+        font-size: 14px !important;
+        margin-right: 0 !important;
+        white-space: nowrap !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Mobile: Work title in header - allow wrapping if needed */
+    .fixed-header-area h1 .work-title-animated {
+        flex-grow: 1 !important;
+        padding-right: 10px !important;
     }
 
     .fixed-header-area br {
