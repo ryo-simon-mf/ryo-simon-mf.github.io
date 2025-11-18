@@ -266,7 +266,7 @@ function initPageAnimations() {
   contentSections.forEach((section, sectionIndex) => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(20px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    section.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
 
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -277,19 +277,20 @@ function initPageAnimations() {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
 
-            // Cascade reveal children
+            // Cascade reveal children - faster for sections with many elements
             const elements = Array.from(entry.target.children);
             elements.forEach((element, elemIndex) => {
               element.style.opacity = '0';
               element.style.transform = 'translateY(10px)';
-              element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+              element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 
+              // Faster cascade: 30ms delay instead of 80ms
               setTimeout(() => {
                 element.style.opacity = '1';
                 element.style.transform = 'translateY(0)';
-              }, elemIndex * 80);
+              }, elemIndex * 30);
             });
-          }, 100);
+          }, 50);
         }
       });
     }, observerOptions);
