@@ -13,13 +13,13 @@
     width: 75%; /* Same as #content width */
     background-color: #ffffff;
     z-index: 8; /* Below menu (z-index: 10), above canvas */
-    padding-top: 20px; /* Replace <br> tag with CSS padding */
+    padding-top: 30px; /* Replace <br> tag with CSS padding + 10px top spacing */
     /* Preserve exact spacing from original design */
 }
 
 /* First h3 - starts below fixed header */
 #content > h3:first-of-type {
     /* Add top margin equal to fixed header height */
-    /* Height is calculated as: padding-top (20px) + h1 + spacing + <hr> */
-    margin-top: 80px;
+    /* Height is calculated as: padding-top (30px) + h1 + spacing + <hr> */
+    margin-top: 90px;
 }

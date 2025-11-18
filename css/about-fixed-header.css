@@ -9,13 +9,13 @@
 :root {
     /*
      * Fixed header height calculation:
-     * - padding-top: 20px (replaces <br> tag)
+     * - padding-top: 30px (replaces <br> tag + 10px top spacing)
      * - h1 font-size: 24px + line-height + margins
      * - <hr> element: 1px + margins
      * - Internal spacing and padding
-     * Total: 80px (compact layout for efficient space usage)
+     * Total: 90px (compact layout with top spacing)
      */
-    --about-fixed-header-height: 80px;
+    --about-fixed-header-height: 90px;
 }
 
 /* Fixed header area - stays at top like menu */
@@ -26,7 +26,7 @@
     width: 75%; /* Same as #content width */
     background-color: #ffffff;
     z-index: 8; /* Below menu (z-index: 10), above canvas */
-    padding-top: 20px; /* Replace <br> tag with CSS padding */
+    padding-top: 30px; /* Replace <br> tag with CSS padding + 10px top spacing */
     /* Preserve exact spacing from original design */
 }
 
