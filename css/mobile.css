@@ -107,11 +107,11 @@
         align-items: center !important;
     }
 
-    /* Mobile: Index page - show menu by default */
+    /* Mobile: Index page - show menu by default with semi-transparent panel */
     body.page-index div#menu {
         opacity: 1 !important;
         visibility: visible !important;
-        background-color: transparent !important;
+        background-color: rgba(255, 255, 255, 0.95) !important;
     }
 
     /* Mobile: Index page - hide hamburger button */
