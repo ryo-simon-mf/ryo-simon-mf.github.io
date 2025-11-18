@@ -143,34 +143,3 @@ div#menu {
 .list-style-none li {
     list-style: none;
 }
-
-/* ================================================
-   Sticky Header
-   ================================================ */
-/*
- * Sticky page header that stays visible when scrolling
- * Applied to h1, hr, and filter links on Works/About pages
- * Implemented with JavaScript scroll listener for better compatibility
- */
-.page-header {
-    background-color: #ffffff;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    transition: box-shadow 0.3s ease;
-}
-
-/* When header is stuck (added by JavaScript) */
-.page-header.is-stuck {
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Remove bottom margin from elements inside sticky header */
-.page-header h1,
-.page-header hr {
-    margin-bottom: 0;
-}
-
-/* Add spacing between hr and filter links */
-.page-header hr + p {
-    margin-top: 15px;
-}
