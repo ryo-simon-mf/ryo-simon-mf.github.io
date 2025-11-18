@@ -181,10 +181,9 @@ function initPageAnimations() {
     swiperContainer.style.opacity = '0';
     swiperContainer.style.transition = 'opacity 0.8s ease';
 
-    // Find the hr after swiper (it's the second hr in content)
-    const allHrs = content.querySelectorAll('hr');
-    if (allHrs.length > 1) {
-      swiperHrElement = allHrs[1]; // Second hr is after swiper
+    // Find the hr after swiper using explicit class
+    swiperHrElement = content.querySelector('hr.swiper-divider');
+    if (swiperHrElement) {
       swiperHrElement.style.opacity = '0';
       swiperHrElement.style.transition = 'opacity 0.8s ease';
     }
