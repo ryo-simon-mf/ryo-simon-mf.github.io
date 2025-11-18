@@ -100,6 +100,41 @@ function initPageAnimations() {
   const content = document.getElementById('content');
   if (!content) return;
 
+  // Check if user prefers reduced motion (accessibility)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    // Skip all animations - just show content immediately
+    console.log('[Page Animations] User prefers reduced motion - skipping animations');
+
+    // Make all hidden elements visible
+    const hiddenElements = content.querySelectorAll('[style*="opacity: 0"]');
+    hiddenElements.forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+
+    // Show swiper and all hrs
+    const swiper = content.querySelector('.swiper-container');
+    if (swiper) swiper.style.opacity = '1';
+
+    const hrs = content.querySelectorAll('hr');
+    hrs.forEach(hr => hr.style.opacity = '1');
+
+    // Show all content sections
+    const contentSections = content.querySelectorAll('#content_in');
+    contentSections.forEach(section => {
+      section.style.opacity = '1';
+      section.style.transform = 'none';
+      Array.from(section.children).forEach(child => {
+        child.style.opacity = '1';
+        child.style.transform = 'none';
+      });
+    });
+
+    return; // Exit early - no animations
+  }
+
   // Variable to track which hr is after swiper (needs wider scope)
   let swiperHrElement = null;
 
