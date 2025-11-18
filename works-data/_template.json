@@ -1,0 +1,24 @@
+{
+  "id": "作品ID（ファイル名と同じにする）",
+  "title": "作品タイトル",
+  "category": "code/object/design のいずれか",
+  "year": "2024",
+  "thumbnail": "../image/作品フォルダ名/サムネイル.jpg",
+  "images": [
+    "../image/作品フォルダ名/image1.jpg",
+    "../image/作品フォルダ名/image2.jpg"
+  ],
+  "description": "作品の説明文。<br>改行したい場合は<br>タグを使います。",
+  "credit": null,
+  "tools": null,
+  "link": null,
+  "exhibition": null,
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": null,
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}
