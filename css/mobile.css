@@ -226,6 +226,12 @@
         text-align: center;
     }
 
+    .img_wrap img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
     /* Mobile: SNS icons adjustment */
     .follow-me {
         text-align: left;
