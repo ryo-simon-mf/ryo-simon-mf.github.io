@@ -199,6 +199,22 @@
         margin: 0 10px 10px 10px !important;
     }
 
+    /* Mobile: SNS icon links - ensure proper centering */
+    div#menu .follow-me li a {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        height: 44px !important;
+        width: 44px !important;
+        padding: 0 !important;
+    }
+
+    /* Mobile: SVG icons - center alignment */
+    div#menu .follow-me li a svg {
+        display: block !important;
+        margin: auto !important;
+    }
+
     /* Show menu when checkbox is checked */
     body:has(#menu-toggle:checked) div#menu,
     #menu-toggle:checked ~ div#zentai div#menu,
