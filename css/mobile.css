@@ -142,6 +142,12 @@
         white-space: normal !important;
     }
 
+    /* Mobile: Remove desktop indentation from Last Update */
+    .last-update-indent::before,
+    .last-update-indent-date::before {
+        content: '' !important;
+    }
+
     div#menu a {
         font-size: 18px;
         line-height: 2;
