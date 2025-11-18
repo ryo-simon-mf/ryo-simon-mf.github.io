@@ -94,29 +94,40 @@
         padding: 80px 30px 30px 30px;
         box-shadow: none;
         border-radius: 0;
-        font-size: 14px;
+        font-size: 18px;
         transform: translateY(0);
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
-    /* Mobile: Menu typography */
+    /* Mobile: Menu typography - larger and centered */
     div#menu h1 {
-        font-size: 18px;
-        margin-bottom: 10px;
+        font-size: 24px;
+        margin-bottom: 20px;
     }
 
     div#menu h3 {
-        font-size: 14px;
-        margin-bottom: 8px;
+        font-size: 18px;
+        margin-bottom: 15px;
     }
 
     div#menu p,
     div#menu dt {
-        font-size: 13px;
-        line-height: 1.5;
+        font-size: 16px;
+        line-height: 1.8;
     }
 
     div#menu a {
-        font-size: 14px;
+        font-size: 18px;
+        line-height: 1.8;
+    }
+
+    /* Mobile: Menu sections spacing */
+    div#menu > * {
+        margin-bottom: 10px;
     }
 
     /* Show menu when checkbox is checked */
