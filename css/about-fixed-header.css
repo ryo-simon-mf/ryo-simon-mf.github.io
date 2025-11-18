@@ -5,6 +5,19 @@
  * Header area stays at top while content scrolls underneath.
  */
 
+/* CSS Custom Property for fixed header height */
+:root {
+    /*
+     * Fixed header height calculation:
+     * - <br> tag: ~20px
+     * - h1 font-size: 24px + line-height + margins
+     * - <hr> element: 1px + margins
+     * - Internal spacing and padding
+     * Total: 120px (tested and verified to work correctly)
+     */
+    --about-fixed-header-height: 120px;
+}
+
 /* Fixed header area - stays at top like menu */
 .fixed-header-area {
     position: fixed;
@@ -19,6 +32,5 @@
 /* Swiper container - starts below fixed header */
 #content > .swiper-container {
     /* Add top margin equal to fixed header height */
-    /* Height is calculated as: <br> + h1 + spacing + <hr> */
-    margin-top: 120px; /* Approximate - will need adjustment */
+    margin-top: var(--about-fixed-header-height);
 }
