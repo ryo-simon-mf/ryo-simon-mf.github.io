@@ -226,8 +226,16 @@
         margin-left: -15px !important;
         margin-right: -15px !important;
         margin-top: -15px !important;
-        margin-bottom: 15px !important;
+        margin-bottom: 0 !important;
         text-align: left !important;
+    }
+
+    /* Mobile: Remove desktop spacing for content after fixed header */
+    #content > .swiper-container,
+    #content > h3:first-of-type,
+    #content > .center-container,
+    #work-detail-view .swiper-container {
+        margin-top: 0 !important;
     }
 
     .fixed-header-area h1 {
