@@ -244,6 +244,12 @@
         z-index: -999 !important;
     }
 
+    /* Mobile: Disable scrolling on index page */
+    body.page-index {
+        overflow: hidden !important;
+        height: 100vh !important;
+    }
+
     /* Mobile: Typography adjustments */
     body {
         font-size: 13px;
