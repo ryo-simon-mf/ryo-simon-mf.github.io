@@ -8,6 +8,13 @@
  * - Image fade-in
  */
 
+// Animation timing scale (in milliseconds)
+const ANIMATION_DURATION = {
+  FAST: 400,    // Quick transitions
+  NORMAL: 600,  // Standard animations
+  SLOW: 800     // Longer, emphasized animations
+};
+
 // Glitch characters for random text effect
 const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
 
@@ -18,7 +25,7 @@ const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
  * @param {string} targetText - Final text to display
  * @param {number} duration - Animation duration in ms
  */
-function animateTextGlitch(element, targetText, duration = 800) {
+function animateTextGlitch(element, targetText, duration = ANIMATION_DURATION.SLOW) {
   if (!element) return;
 
   const originalText = element.textContent || '';
@@ -70,7 +77,7 @@ function animateTextGlitch(element, targetText, duration = 800) {
  * @param {string} targetText - Text to type
  * @param {number} duration - Animation duration in ms
  */
-function animateTextTypewriter(element, targetText, duration = 1000) {
+function animateTextTypewriter(element, targetText, duration = ANIMATION_DURATION.SLOW) {
   if (!element) return;
 
   element.textContent = '';
@@ -231,7 +238,7 @@ function initPageAnimations() {
     const h1Text = h1.textContent.trim();
     // Don't clear text - animate from current text to same text
     setTimeout(() => {
-      animateTextGlitch(h1, h1Text, 800);
+      animateTextGlitch(h1, h1Text, ANIMATION_DURATION.SLOW);
     }, 100);
   }
 
@@ -275,7 +282,7 @@ function initPageAnimations() {
           entry.target.dataset.animated = 'true';
           setTimeout(() => {
             entry.target.style.opacity = '1';
-            animateTextGlitch(entry.target, h2Text, 600);
+            animateTextGlitch(entry.target, h2Text, ANIMATION_DURATION.NORMAL);
           }, 100);
         }
       });
@@ -297,7 +304,7 @@ function initPageAnimations() {
           entry.target.dataset.animated = 'true';
           setTimeout(() => {
             entry.target.style.opacity = '1';
-            animateTextGlitch(entry.target, h4Text, 500);
+            animateTextGlitch(entry.target, h4Text, ANIMATION_DURATION.NORMAL);
           }, 100);
         }
       });
@@ -325,7 +332,7 @@ function initPageAnimations() {
           aTags.forEach((aTag, index) => {
             const text = aTag.textContent.trim();
             setTimeout(() => {
-              animateTextGlitch(aTag, text, 600);
+              animateTextGlitch(aTag, text, ANIMATION_DURATION.NORMAL);
             }, index * 100);
           });
         }
@@ -349,7 +356,7 @@ function initPageAnimations() {
           setTimeout(() => {
             entry.target.style.opacity = '1';
             entry.target.textContent = '';
-            animateTextTypewriter(entry.target, h3Text, 800);
+            animateTextTypewriter(entry.target, h3Text, ANIMATION_DURATION.SLOW);
           }, 100);
         }
       });
