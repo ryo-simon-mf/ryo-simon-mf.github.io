@@ -103,6 +103,27 @@ function initPageAnimations() {
   // Variable to track which hr is after swiper (needs wider scope)
   let swiperHrElement = null;
 
+  // Create Intersection Observer for scroll-based animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -100px 0px', // Trigger slightly before element enters viewport
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !entry.target.dataset.animated) {
+        entry.target.dataset.animated = 'true';
+
+        // Fade in the element
+        if (entry.target.classList.contains('scroll-animate')) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      }
+    });
+  }, observerOptions);
+
   // Animate h1 with glitch effect (keep text visible from start)
   const h1 = content.querySelector('h1');
   if (h1) {
@@ -144,91 +165,136 @@ function initPageAnimations() {
   // This allows pages without swiper (like Contact) to start animations immediately
   const swiperFadeComplete = swiperContainer ? 900 : 100;
 
-  // Animate h2 with glitch effect (after swiper fade completes)
+  // Animate h2 with glitch effect using Intersection Observer
   const h2 = content.querySelector('h2');
   if (h2) {
     const h2Text = h2.textContent.trim();
-    // Already hidden in HTML with style="opacity: 0"
-    setTimeout(() => {
-      h2.style.opacity = '1';
-      animateTextGlitch(h2, h2Text, 600);
-    }, swiperFadeComplete);
+    h2.style.opacity = '0';
+    h2.style.transition = 'opacity 0.6s ease';
+
+    const h2Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            animateTextGlitch(entry.target, h2Text, 600);
+          }, 100);
+        }
+      });
+    }, observerOptions);
+
+    h2Observer.observe(h2);
   }
 
-  // Animate h4 with glitch effect (after h2 starts)
+  // Animate h4 with glitch effect using Intersection Observer
   const h4 = content.querySelector('h4');
   if (h4) {
     const h4Text = h4.textContent.trim();
-    // Already hidden in HTML with style="opacity: 0"
-    setTimeout(() => {
-      h4.style.opacity = '1';
-      animateTextGlitch(h4, h4Text, 500);
-    }, swiperFadeComplete + 300);
+    h4.style.opacity = '0';
+    h4.style.transition = 'opacity 0.6s ease';
+
+    const h4Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            animateTextGlitch(entry.target, h4Text, 500);
+          }, 100);
+        }
+      });
+    }, observerOptions);
+
+    h4Observer.observe(h4);
   }
 
-  // Animate h3 elements
+  // Animate h3 elements with Intersection Observer
   const h3Elements = content.querySelectorAll('h3');
 
-  // First h3 (Creative Technologist/Artist/Researcher with line breaks) - use glitch on each <a> tag
+  // First h3 (Creative Technologist/Artist/Researcher) - glitch on each <a> tag
   if (h3Elements.length > 0) {
     const firstH3 = h3Elements[0];
     const aTags = firstH3.querySelectorAll('a');
+    firstH3.style.opacity = '0';
+    firstH3.style.transition = 'opacity 0.6s ease';
 
-    setTimeout(() => {
-      firstH3.style.opacity = '1';
+    const firstH3Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          entry.target.style.opacity = '1';
 
-      // Apply glitch effect to each <a> tag independently
-      aTags.forEach((aTag, index) => {
-        const text = aTag.textContent.trim();
-        setTimeout(() => {
-          animateTextGlitch(aTag, text, 600);
-        }, index * 100); // Stagger each line by 100ms
+          aTags.forEach((aTag, index) => {
+            const text = aTag.textContent.trim();
+            setTimeout(() => {
+              animateTextGlitch(aTag, text, 600);
+            }, index * 100);
+          });
+        }
       });
-    }, swiperFadeComplete + 400);
+    }, observerOptions);
+
+    firstH3Observer.observe(firstH3);
   }
 
-  // Other h3 section titles (Education, Seminar, etc.) - use typewriter effect
+  // Other h3 section titles - typewriter effect with Intersection Observer
   for (let i = 1; i < h3Elements.length; i++) {
     const h3 = h3Elements[i];
     const h3Text = h3.textContent.trim();
-    // Already hidden in HTML with style="opacity: 0"
-    // Start typewriter animation
-    setTimeout(() => {
-      h3.style.opacity = '1';
-      h3.textContent = '';
-      animateTextTypewriter(h3, h3Text, 800);
-    }, swiperFadeComplete + 600 + (i - 1) * 200);
+    h3.style.opacity = '0';
+    h3.style.transition = 'opacity 0.6s ease';
+
+    const h3Observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.textContent = '';
+            animateTextTypewriter(entry.target, h3Text, 800);
+          }, 100);
+        }
+      });
+    }, observerOptions);
+
+    h3Observer.observe(h3);
   }
 
-  // Cascade reveal for content sections (overlaps with h3 animations)
+  // Cascade reveal for content sections with Intersection Observer
   const contentSections = content.querySelectorAll('#content_in');
   contentSections.forEach((section, sectionIndex) => {
-    // Already hidden in HTML with style="opacity: 0"
-    section.style.transform = 'translateY(10px)';
-    section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(20px)';
+    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
 
-    // Get all direct children elements
-    const elements = Array.from(section.children);
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
 
-    elements.forEach((element, elemIndex) => {
-      element.style.opacity = '0';
-      element.style.transform = 'translateY(10px)';
-      element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-    });
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
 
-    // Start revealing section (begins while h3 is typing for smoother flow)
-    setTimeout(() => {
-      section.style.opacity = '1';
-      section.style.transform = 'translateY(0)';
+            // Cascade reveal children
+            const elements = Array.from(entry.target.children);
+            elements.forEach((element, elemIndex) => {
+              element.style.opacity = '0';
+              element.style.transform = 'translateY(10px)';
+              element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
 
-      // Cascade reveal children
-      elements.forEach((element, elemIndex) => {
-        setTimeout(() => {
-          element.style.opacity = '1';
-          element.style.transform = 'translateY(0)';
-        }, elemIndex * 80);
+              setTimeout(() => {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+              }, elemIndex * 80);
+            });
+          }, 100);
+        }
       });
-    }, swiperFadeComplete + 700 + sectionIndex * 250);
+    }, observerOptions);
+
+    sectionObserver.observe(section);
   });
 
   // Fade in all images with lazy loading
