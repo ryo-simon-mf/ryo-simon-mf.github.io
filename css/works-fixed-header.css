@@ -35,13 +35,13 @@
 /* Center container (works list) - starts below fixed header */
 #content > .center-container {
     /* Add top margin equal to fixed header height */
-    /* Height is calculated as: <br> + h1 + <hr> + <p> (filter buttons) */
-    margin-top: 160px; /* Approximate - includes filter row */
+    /* Height is calculated as: padding-top (20px) + h1 + <hr> + <p> (filter buttons) */
+    margin-top: 180px;
 }
 
 /* Work detail view - starts below fixed header */
 #work-detail-view .swiper-container {
-    margin-top: 160px; /* Same as center-container */
+    margin-top: 180px; /* Same as center-container */
     margin-bottom: 1em; /* Add bottom margin to match top spacing */
 }
 
