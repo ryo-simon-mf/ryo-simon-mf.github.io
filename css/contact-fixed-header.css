@@ -1,0 +1,24 @@
+/**
+ * Contact Page Fixed Header
+ *
+ * Uses position: fixed (same as menu) to keep header stationary.
+ * Header area stays at top while content scrolls underneath.
+ */
+
+/* Fixed header area - stays at top like menu */
+.fixed-header-area {
+    position: fixed;
+    top: 0;
+    left: 25%; /* Start after menu (menu is 25% width) */
+    width: 75%; /* Same as #content width */
+    background-color: #ffffff;
+    z-index: 8; /* Below menu (z-index: 10), above canvas */
+    /* Preserve exact spacing from original design */
+}
+
+/* First h3 - starts below fixed header */
+#content > h3:first-of-type {
+    /* Add top margin equal to fixed header height */
+    /* Height is calculated as: <br> + h1 + spacing + <hr> */
+    margin-top: 120px; /* Approximate - will need adjustment */
+}

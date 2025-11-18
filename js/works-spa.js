@@ -427,7 +427,11 @@ function showWorksList() {
     const swiperContainer = detailView.querySelector('.swiper-container');
     const contentInDiv = detailView.querySelector('#content_in');
     const h3Element = detailView.querySelector('h3');
-    const hrs = detailView.querySelectorAll('hr');
+    const fixedHeaderArea = detailView.querySelector('.fixed-header-area');
+    // Get hrs outside fixed header only
+    const hrs = Array.from(detailView.querySelectorAll('hr')).filter(hr =>
+      !fixedHeaderArea || !fixedHeaderArea.contains(hr)
+    );
 
     // Fade out images, content, and h3
     if (swiperContainer) {
@@ -656,16 +660,20 @@ function createDetailView(work, workId) {
   // Use DOMPurify to sanitize HTML and prevent XSS attacks
   // Initial values set to placeholder for animation (Works → work.title)
   detailView.innerHTML = DOMPurify.sanitize(`
-            <br>
-            <h1>
-                <!-- Heading　-->
-                <span class="work-title-animated">Works</span>
-                <a href="#" class="back-to-list">Back to Works</a>
-            </h1>
-            <hr>
-            <p>
-                <span class="list work-year-animated">----</span> / <span class="list work-category-animated">----</span>
-            </p>
+            <!-- Fixed Header Area -->
+            <div class="fixed-header-area">
+                <br>
+                <h1>
+                    <!-- Heading　-->
+                    <span class="work-title-animated">Works</span>
+                    <a href="#" class="back-to-list">Back to Works</a>
+                </h1>
+                <hr>
+                <p class="work-header-metadata">
+                    <span class="list work-year-animated">----</span> | <span class="list work-category-animated">----</span>
+                </p>
+            </div>
+
             <div class="swiper-container" style="opacity: 0;">
                 <div class="swiper-wrapper">
 ${swiperSlides}

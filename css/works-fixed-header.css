@@ -1,0 +1,44 @@
+/**
+ * Works Page Fixed Header
+ *
+ * Uses position: fixed (same as menu) to keep header stationary.
+ * Header area stays at top while content scrolls underneath.
+ * Includes genre filter buttons (All/Code/Object/Design) in fixed header.
+ * Also applies to individual work detail pages (SPA).
+ */
+
+/* Fixed header area - stays at top like menu */
+.fixed-header-area {
+    position: fixed;
+    top: 0;
+    left: 25%; /* Start after menu (menu is 25% width) */
+    width: 75%; /* Same as #content width */
+    background-color: #ffffff;
+    z-index: 8; /* Below menu (z-index: 10), above canvas */
+    /* Preserve exact spacing from original design */
+}
+
+/* Work header metadata (Year | Category) for detail pages */
+.work-header-metadata {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Back to Works button */
+.back-to-list {
+    margin-right: 2em; /* Add spacing from right edge */
+}
+
+/* Center container (works list) - starts below fixed header */
+#content > .center-container {
+    /* Add top margin equal to fixed header height */
+    /* Height is calculated as: <br> + h1 + <hr> + <p> (filter buttons) */
+    margin-top: 160px; /* Approximate - includes filter row */
+}
+
+/* Work detail view - starts below fixed header */
+#work-detail-view .swiper-container {
+    margin-top: 160px; /* Same as center-container */
+}
