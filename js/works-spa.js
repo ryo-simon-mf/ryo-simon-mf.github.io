@@ -698,62 +698,62 @@ ${swiperSlides}
                 <dd>
                     ${work.performers}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.credit ? `<dt>Credit</dt>
                 <dd>
                     ${work.credit}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.tools ? `<dt>Tool</dt>
                 <dd>
                     ${work.tools}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.exhibition ? `<dt>Exhibition</dt>
                 <dd>
                     ${work.exhibition}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.award ? `<dt>Award</dt>
                 <dd>
                     ${work.award}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.paper ? `<dt>Paper</dt>
                 <dd>
                     ${work.paper}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.grants ? `<dt>Grants</dt>
                 <dd>
                     ${work.grants}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.collaborators ? `<dt>Co-create with</dt>
                 <dd>
                     ${work.collaborators}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.download ? `<dt>Download</dt>
                 <dd>
                     ${work.download}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.citation ? `<dt>Citation</dt>
                 <dd>
                     ${work.citation}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.related ? `<dt>Related</dt>
                 <dd>
                     ${work.related}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 ${work.link ? `<dt>Link</dt>
                 <dd>
                     ${work.link}
                 </dd>
-                <br>` : ''}
+                ` : ''}
                 </dl>
 
             </div>
