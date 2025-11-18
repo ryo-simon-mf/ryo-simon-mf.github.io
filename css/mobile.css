@@ -334,7 +334,13 @@
 
     .fixed-header-area p {
         font-size: 13px;
-        margin-bottom: 8px;
+        margin-bottom: 4px;
+    }
+
+    /* Mobile: Work header metadata - reduce spacing */
+    .fixed-header-area .work-header-metadata {
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
     }
 
     .fixed-header-area hr {
