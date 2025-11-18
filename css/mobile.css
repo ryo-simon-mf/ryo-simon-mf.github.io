@@ -248,6 +248,17 @@
     body.page-index {
         overflow: hidden !important;
         height: 100vh !important;
+        position: fixed !important;
+        width: 100vw !important;
+    }
+
+    body.page-index #zentai {
+        overflow: hidden !important;
+        height: 100vh !important;
+    }
+
+    body.page-index #content {
+        overflow: hidden !important;
     }
 
     /* Mobile: Typography adjustments */
