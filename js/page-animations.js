@@ -105,8 +105,6 @@ function initPageAnimations() {
 
   if (prefersReducedMotion) {
     // Skip all animations - just show content immediately
-    console.log('[Page Animations] User prefers reduced motion - skipping animations');
-
     // Make all hidden elements visible
     const hiddenElements = content.querySelectorAll('[style*="opacity: 0"]');
     hiddenElements.forEach(el => {
@@ -185,10 +183,8 @@ function initPageAnimations() {
 
     // Find the hr after swiper (it's the second hr in content)
     const allHrs = content.querySelectorAll('hr');
-    console.log('[Page Animations] Total hrs found:', allHrs.length);
     if (allHrs.length > 1) {
       swiperHrElement = allHrs[1]; // Second hr is after swiper
-      console.log('[Page Animations] Setting swiperHrElement (index 1):', swiperHrElement);
       swiperHrElement.style.opacity = '0';
       swiperHrElement.style.transition = 'opacity 0.8s ease';
     }
@@ -198,7 +194,6 @@ function initPageAnimations() {
       swiperContainer.style.opacity = '1';
       if (swiperHrElement) {
         swiperHrElement.style.opacity = '1';
-        console.log('[Page Animations] Fading in swiperHrElement');
       }
     }, 100);
   }
