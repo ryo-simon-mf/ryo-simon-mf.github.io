@@ -1,0 +1,254 @@
+/*
+ * Mobile Responsive Styles
+ * Applied only on screens smaller than 768px
+ * IMPORTANT: Does NOT affect desktop display (768px and above)
+ */
+
+/* ============================================
+   Hamburger Menu Button (Mobile Only)
+   ============================================ */
+
+/* Hide hamburger button on desktop */
+.hamburger-btn {
+    display: none;
+}
+
+/* Mobile: Show hamburger button */
+@media (max-width: 767px) {
+    .hamburger-btn {
+        display: block;
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1000;
+        width: 44px;
+        height: 44px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: 1px solid #333;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hamburger icon lines */
+    .hamburger-btn span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: #333;
+        margin: 4px auto;
+        transition: all 0.3s ease;
+    }
+
+    /* Hide checkbox (used for toggle functionality) */
+    #menu-toggle {
+        display: none;
+    }
+
+    /* Transform hamburger to X when menu is open */
+    #menu-toggle:checked + .hamburger-btn span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    #menu-toggle:checked + .hamburger-btn span:nth-child(2) {
+        opacity: 0;
+    }
+
+    #menu-toggle:checked + .hamburger-btn span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+}
+
+/* ============================================
+   Mobile Layout (768px and below)
+   ============================================ */
+
+@media (max-width: 767px) {
+    /* Mobile: Full width layout */
+    div#content {
+        width: 100% !important;
+        float: none !important;
+        padding: 20px;
+    }
+
+    div#content_in {
+        padding: 20px !important;
+    }
+
+    /* Mobile: Menu as overlay */
+    div#menu {
+        position: fixed !important;
+        top: 0;
+        left: -100%; /* Hide off-screen by default */
+        width: 80% !important;
+        max-width: 300px;
+        height: 100vh;
+        float: none !important;
+        background-color: rgba(255, 255, 255, 0.98);
+        overflow-y: auto;
+        transition: left 0.3s ease;
+        z-index: 999;
+        padding: 80px 20px 20px 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Show menu when checkbox is checked */
+    #menu-toggle:checked ~ div#zentai div#menu {
+        left: 0;
+    }
+
+    /* Overlay background when menu is open */
+    #menu-toggle:checked ~ .menu-overlay {
+        display: block;
+    }
+
+    .menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+    }
+
+    /* Mobile: Hide p5.js canvas (performance) */
+    canvas {
+        display: none !important;
+    }
+
+    /* Mobile: Typography adjustments */
+    body {
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    h4 {
+        font-size: 16px;
+    }
+
+    /* Mobile: Images full width */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Mobile: Works grid - single column */
+    .img_wrap {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    /* Mobile: SNS icons adjustment */
+    .follow-me {
+        text-align: left;
+    }
+
+    .follow-me li {
+        margin: 0 8px 8px 0;
+    }
+
+    /* Mobile: Fixed header adjustments */
+    .fixed-header-area {
+        position: sticky;
+        top: 0;
+        background-color: rgba(255, 255, 255, 0.95);
+        z-index: 100;
+        padding: 10px 20px;
+        margin-left: -20px;
+        margin-right: -20px;
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+
+    .fixed-header-area h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .fixed-header-area hr {
+        margin: 10px 0;
+    }
+
+    /* Mobile: Remove hover effects (touch devices) */
+    @media (hover: none) and (pointer: coarse) {
+        .list:hover {
+            color: #000000;
+        }
+
+        .list:active {
+            color: #006DD9;
+        }
+    }
+
+    /* Mobile: Ensure links are tappable */
+    a {
+        min-height: 44px;
+        display: inline-block;
+        line-height: 1.6;
+    }
+
+    /* Mobile: Works filter buttons */
+    .filter-btn {
+        padding: 8px 12px;
+        margin: 5px;
+        display: inline-block;
+        min-height: 44px;
+        line-height: 1.4;
+    }
+
+    /* Mobile: Table responsiveness */
+    table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    /* Mobile: Video embeds responsive */
+    iframe {
+        max-width: 100%;
+    }
+
+    /* Mobile: Swiper carousel adjustments */
+    .swiper-container {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* ============================================
+   Tablet adjustments (768px - 1024px)
+   ============================================ */
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Slightly reduce menu width on tablets */
+    div#menu {
+        width: 30%;
+    }
+
+    div#content {
+        width: 70%;
+    }
+}
