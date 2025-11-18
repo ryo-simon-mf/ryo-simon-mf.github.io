@@ -310,8 +310,11 @@
         font-size: 14px !important;
         margin: 0 !important;
         white-space: nowrap !important;
-        padding: 4px 8px !important; /* Reduce vertical padding */
-        line-height: 1.2 !important;
+        padding: 0 8px !important; /* Remove vertical padding */
+        line-height: 1 !important;
+        height: 24px !important; /* Match hamburger button line height */
+        display: inline-flex !important;
+        align-items: center !important;
     }
 
     /* Mobile: Work title - ensure it doesn't overlap with back button */
