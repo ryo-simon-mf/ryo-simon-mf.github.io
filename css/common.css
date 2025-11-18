@@ -214,3 +214,13 @@ div#menu {
     background-color: #333;
     color: #fff;
 }
+
+/* Last Update indentation for desktop */
+.last-update-indent::before {
+    content: '　';
+}
+
+.last-update-indent-date::before {
+    content: '　　　　';
+}
+
