@@ -41,4 +41,11 @@
 /* Work detail view - starts below fixed header */
 #work-detail-view .swiper-container {
     margin-top: 160px; /* Same as center-container */
+    margin-bottom: 1em; /* Add bottom margin to match top spacing */
+}
+
+/* Reduce spacing after swiper hr */
+#work-detail-view .swiper-container + hr {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
