@@ -36,12 +36,12 @@
 #content > .center-container {
     /* Add top margin equal to fixed header height */
     /* Height is calculated as: padding-top (20px) + h1 + <hr> + <p> (filter buttons) */
-    margin-top: 160px;
+    margin-top: 120px;
 }
 
 /* Work detail view - starts below fixed header */
 #work-detail-view .swiper-container {
-    margin-top: 160px; /* Same as center-container */
+    margin-top: 120px; /* Same as center-container */
     margin-bottom: 1em; /* Add bottom margin to match top spacing */
 }
 
