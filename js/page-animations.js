@@ -328,33 +328,37 @@ function initPageAnimations() {
     }, 400 + index * 100);
   });
 
-  // Fade in hr elements (except first one after h1 and second one after swiper)
+  // Fade in hr elements with Intersection Observer
   const hrs = content.querySelectorAll('hr');
 
   hrs.forEach((hr, index) => {
-    console.log(`[Page Animations] Processing hr index ${index}, is swiperHr:`, hr === swiperHrElement);
-
-    // Skip first hr (the one right after h1)
+    // Skip first hr (the one right after h1) - keep visible from start
     if (index === 0) {
-      hr.style.opacity = '1'; // Keep visible from start
-      console.log(`[Page Animations] hr ${index}: keeping visible (first hr)`);
+      hr.style.opacity = '1';
       return;
     }
 
     // Skip second hr if it's the one after swiper (already handled above)
     if (hr === swiperHrElement) {
-      console.log(`[Page Animations] hr ${index}: skipping (swiperHrElement, already handled)`);
       return;
     }
 
-    // Other hrs fade in after swiper completes
-    console.log(`[Page Animations] hr ${index}: will fade in at ${swiperFadeComplete + 600 + index * 100}ms`);
+    // Other hrs fade in when scrolled into view
     hr.style.opacity = '0';
-    hr.style.transition = 'opacity 0.4s ease';
-    setTimeout(() => {
-      hr.style.opacity = '1';
-      console.log(`[Page Animations] hr ${index}: faded in`);
-    }, swiperFadeComplete + 600 + index * 100);
+    hr.style.transition = 'opacity 0.5s ease';
+
+    const hrObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !entry.target.dataset.animated) {
+          entry.target.dataset.animated = 'true';
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+          }, 100);
+        }
+      });
+    }, observerOptions);
+
+    hrObserver.observe(hr);
   });
 }
 
