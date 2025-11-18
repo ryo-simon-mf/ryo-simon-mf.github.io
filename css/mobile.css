@@ -144,6 +144,20 @@
         text-align: center !important;
     }
 
+    /* Mobile: Navigation links (About, Works, Contact) - center alignment */
+    div#menu ul {
+        text-align: center !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 20px 0 !important;
+        width: 100%;
+    }
+
+    div#menu ul a {
+        display: inline-block !important;
+        text-align: center !important;
+    }
+
     /* Mobile: SNS icons - center alignment */
     div#menu .follow-me {
         text-align: center !important;
