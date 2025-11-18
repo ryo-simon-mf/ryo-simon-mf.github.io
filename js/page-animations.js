@@ -354,7 +354,7 @@ function initPageAnimations() {
 
     // Other hrs fade in when scrolled into view
     hr.style.opacity = '0';
-    hr.style.transition = 'opacity 0.5s ease';
+    hr.style.transition = 'opacity 0.8s ease';
 
     // Use more lenient observer for last 2 hrs (bottom elements)
     const isBottomElement = index >= totalHrs - 2;
@@ -364,9 +364,7 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          setTimeout(() => {
-            entry.target.style.opacity = '1';
-          }, 100);
+          entry.target.style.opacity = '1';
         }
       });
     }, options);
