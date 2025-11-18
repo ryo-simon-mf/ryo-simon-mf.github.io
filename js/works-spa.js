@@ -662,7 +662,6 @@ function createDetailView(work, workId) {
   detailView.innerHTML = DOMPurify.sanitize(`
             <!-- Fixed Header Area -->
             <div class="fixed-header-area">
-                <br>
                 <h1>
                     <!-- Heading　-->
                     <span class="work-title-animated">Works</span>
