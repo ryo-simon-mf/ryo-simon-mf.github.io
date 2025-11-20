@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Toki Shirube - Ryo Simon</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Toki Shirube project by Ryo Simon.">
+    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <meta name="author" content="Ryo Nishikado">
+    <meta name="robots" content="index, follow">
+
+    <!-- OGP Meta Tags -->
+    <meta property="og:title" content="Toki Shirube - Ryo Simon">
+    <meta property="og:description" content="Toki Shirube project by Ryo Simon.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/toki-shirube.html">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/2024_icon_basic.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@ryo_simon_mf">
+
+    <link rel="stylesheet" href="../css/common.css" type="text/css">
+    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
+    <link rel="stylesheet" href="../css/images.css" type="text/css">
+    <link rel="stylesheet" href="../css/swiper/swiper.css">
+
+    <!-- icon -->
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
+    <script src="../js/swiper/swiper.js"></script>
+
+    <!-- p5.js -->
+    <script src="../js/p5.js/p5.min.js"></script>
+    <!-- own sketch -->
+    <script src="../js/p5.js/sketch_3.js"></script></head>
+
+<body>
+    <div id="zentai">
+
+        <!-- content  -->
+        <div id="content">
+            <br>
+            <h1>
+                <!-- Heading　-->
+                toki-shirube
+            </h1>
+            <hr>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="img_w2">
+                            <img src="../image/toki-shirube/tokishirube01.png" alt="" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="img_w2">
+                            <img src="../image/toki-shirube/tokishirube02.png" alt="" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <!-- Original Custom -->
+            <script src="../js/swiper/ownoption.js"></script>
+
+            <!-- Subheading　-->
+            <h3>
+                toki-shirube
+            </h3>
+            <div id="content_in">
+                <p>
+                    現代を生きる我々は、時刻という普遍的な尺度を用いて時間を認識しています。しかし、昔を生きた人々は、空の色の移ろいや草木の香りの変化などを通して、身体的に時間を捉えていました。
+                    <br>「toki-shirube」は、1日の中で香りが変化する層構造のアロマキャンドルです。グラデーションのデザインは、空の色の移ろいを表現しました。嗅覚と視覚から、身体的に時の流れを感じられます。
+                    <dd>
+                    </dd>
+
+                </p>
+                <dt>Credit</dt>
+                <dd>
+                    Baumkuchen
+                    <br>
+                    <ul class="list-style-none">
+                        <li>Maato Kurimoto(Designer)</li>
+                        <li>Takumi Inaba(Planner)</li>
+                        <li>Ryo Nishikado(Creative Technologist/Artist)</li>
+                    </ul>
+                    <br>
+                    ペガサス・キャンドル株式会社 [Associate Produce]
+                    <a class="list" href="https://www.pegasuscandle.com/company/">[LINK]</a>
+
+                </dd>
+
+                <br>
+                
+                </dl>
+                <dt>Link</dt>
+                <dd>
+                    <a class="list"
+                        href="https://www.tokyo-midtown.com/jp/award/result/2024/design.html#:~:text=%E3%81%97%E3%82%8C%E3%81%AA%E3%81%84%E3%80%82-,toki%2Dshirube,-%E5%85%A5%E9%81%B8%E8%80%85%EF%BC%9A">
+                        LINK
+                    </a>
+                </dd>
+                <br>
+
+            </div>
+            <hr>
+            <hr>
+            <br>
+        </div>
+
+        <!-- menu -->
+    <div id="menu" role="navigation">
+        <!-- Menu content loaded dynamically via load-menu.js -->
+    </div>
+    <!-- Dynamic Menu Loader -->
+    <script src="../js/load-menu.js"></script></body>
+
+</html>
