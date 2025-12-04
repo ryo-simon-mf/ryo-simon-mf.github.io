@@ -295,7 +295,7 @@ module.exports = function(project) {
     <meta property="og:description" content="${project.title} project by Ryo Simon.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ryo-simon-mf.github.io/works/${project.id}.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/2024_icon_basic.png">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
