@@ -258,7 +258,7 @@ function resetMetaTags() {
 
   let ogImage = document.querySelector('meta[property="og:image"]');
   if (ogImage) {
-    ogImage.setAttribute('content', 'https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.png');
+    ogImage.setAttribute('content', 'https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp');
   }
 
   let ogUrl = document.querySelector('meta[property="og:url"]');
