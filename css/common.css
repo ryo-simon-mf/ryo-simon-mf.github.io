@@ -6,10 +6,23 @@
  * Layout-critical properties (position, float, width) remain in page-specific files
  */
 
+/* IBM Plex Mono - used for metadata, labels, and navigation (engineered detail) */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 /* ============================================
    CSS Variables - Design Tokens
    ============================================ */
 :root {
+    /* Color System - monochrome frame, single accent */
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-text-muted: #767676;
+    --color-border: #dfdfdf;
+    --color-accent: #006DD9;
+
+    /* Font Families */
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+
     /* Typography Scale (16px base) */
     --font-size-base: 16px;
     --font-size-small: 14px;
@@ -174,11 +187,65 @@ div#menu {
 }
 
 .list:hover {
-    color: #006DD9;
+    color: var(--color-accent);
 }
 
 .list:active {
-    color: #B20000;
+    color: var(--color-accent);
+}
+
+/* ============================================
+   Menu Navigation - engineered typography
+   ============================================ */
+#menu .nav-list {
+    list-style: none;
+}
+
+#menu .menu-link {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+/* Current page marker - terminal-prompt style (replaces <s> strikethrough) */
+#menu .menu-link.current {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+}
+
+#menu .menu-link.current::before {
+    content: '> ';
+}
+
+/* Metadata (Last Update / copyright) in mono, muted */
+#last-update,
+#menu .copyright {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Keyboard Focus Visibility
+   ============================================ */
+a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Reduced Motion - respect user preference
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ============================================

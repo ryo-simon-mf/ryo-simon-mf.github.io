@@ -53,18 +53,13 @@
                 }
             });
 
-            // Highlight current page (disable link and wrap in <s> tag)
+            // Highlight current page (disable link, mark with .current + aria-current)
             const currentLink = menuDiv.querySelector(`[data-page="${currentPage}"]`);
             if (currentLink) {
                 // Remove href to disable link
                 currentLink.removeAttribute('href');
-
-                // If not already wrapped in <s> tag, wrap it
-                if (currentLink.parentElement.tagName !== 'S') {
-                    const s = document.createElement('s');
-                    currentLink.parentNode.insertBefore(s, currentLink);
-                    s.appendChild(currentLink);
-                }
+                currentLink.classList.add('current');
+                currentLink.setAttribute('aria-current', 'page');
             }
         })
         .catch(error => {

@@ -64,10 +64,8 @@
             <hr style="opacity: 0;">
             <h3 style="opacity: 0;">Mail</h3>
             <div id="content_in" style="opacity: 0;">
-                <dt>ryosimon1108[at]gmail.com</dt>
-                <dt>※急用の場合、Twitter DM、又はMessengerをお使いください。</dt>
-
-                </dl>
+                <p><a class="list" id="mail-link" href="#">ryosimon1108[at]gmail.com</a></p>
+                <p>※急用の場合、Twitter DM、又はMessengerをお使いください。</p>
 
             </div>
             <hr style="opacity: 0;">
@@ -93,6 +91,17 @@
     <div id="menu" role="navigation">
         <!-- Menu content loaded dynamically via load-menu.js -->
     </div>
+    <!-- Assemble mailto link in JS (keeps raw HTML free of scrapable address) -->
+    <script>
+    (function () {
+        var u = 'ryosimon1108', d = 'gmail.com';
+        var a = document.getElementById('mail-link');
+        if (a) {
+            a.href = 'mailto:' + u + '@' + d;
+            a.textContent = u + '@' + d;
+        }
+    })();
+    </script>
     <!-- Dynamic Menu Loader -->
     <script src="../js/min/load-menu.js"></script>
     <!-- Page Animations -->

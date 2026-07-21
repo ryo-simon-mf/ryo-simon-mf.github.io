@@ -1,1 +1,60 @@
-body{word-break:normal}canvas{position:absolute}div#content_in{float:left}div#menu{z-index:100}
+/*
+ * Homepage-specific styles (index.html)
+ * Loaded AFTER common.css
+ */
+
+/* Homepage-specific: word-break override */
+body {
+    word-break: normal;
+}
+
+/* Homepage-specific: canvas scrolls with page */
+canvas {
+    position: absolute;
+}
+
+/* Homepage-specific: content_in float */
+div#content_in {
+    float: left;
+}
+
+/* Homepage-specific: menu z-index (no position: fixed) */
+div#menu {
+    z-index: 100;
+}
+
+/* Homepage hero - minimal tagline + single path into the works */
+#hero {
+    margin-top: 38vh;
+    padding-left: 8%;
+    position: relative;
+    z-index: 10;
+}
+
+#hero .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: var(--color-text);
+    margin-bottom: 0.75em;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 12px;
+}
+
+#hero .hero-cta a {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px 12px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+#hero .hero-cta a:hover {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+}
