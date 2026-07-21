@@ -7,6 +7,57 @@
  * first paint - no empty-sidebar flash during page transitions.
  */
 (function() {
+    // ------------------------------------------------------------------
+    // Transition fallback for browsers where cross-document View
+    // Transitions do not actually run (e.g. Arc), despite Chromium UA.
+    // Detection: the pagereveal event carries e.viewTransition when the
+    // native transition activated - remember that per session.
+    // Fallback: quick fade-out before menu navigation + fade-in on load,
+    // so the unavoidable blank frame reads as an intentional fade.
+    // ------------------------------------------------------------------
+    var docEl = document.documentElement;
+    var vtNative = false;
+    try { vtNative = sessionStorage.getItem('vt-native') === '1'; } catch (e) {}
+
+    // pageswap fires on the OLD page when leaving - by then this listener
+    // is long registered (pagereveal on the new page can fire before
+    // body-end scripts run, so it is unreliable for detection)
+    function markNative(e) {
+        if (e.viewTransition) {
+            try { sessionStorage.setItem('vt-native', '1'); } catch (err) {}
+        }
+    }
+    window.addEventListener('pageswap', markNative);
+    window.addEventListener('pagereveal', markNative);
+
+    // Always restore visibility (also covers bfcache back/forward restores)
+    window.addEventListener('pageshow', function () {
+        docEl.style.opacity = '1';
+    });
+
+    if (!vtNative) {
+        // Enter fade
+        docEl.style.opacity = '0';
+        requestAnimationFrame(function () {
+            docEl.style.transition = 'opacity 0.18s ease';
+            docEl.style.opacity = '1';
+            setTimeout(function () { docEl.style.transition = ''; }, 300);
+        });
+
+        // Exit fade on sidebar menu navigation (menu links only - the
+        // works grid is handled by its own SPA router)
+        document.addEventListener('click', function (e) {
+            if (e.defaultPrevented || e.button !== 0 ||
+                e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            var a = e.target && e.target.closest ? e.target.closest('#menu a[href]') : null;
+            if (!a || a.origin !== window.location.origin) return;
+            e.preventDefault();
+            docEl.style.transition = 'opacity 0.15s ease';
+            docEl.style.opacity = '0';
+            setTimeout(function () { window.location.href = a.href; }, 160);
+        });
+    }
+
     // Prefetch same-site pages on link hover (Speculation Rules API)
     // so navigations start with the next page already loaded
     if (window.HTMLScriptElement && HTMLScriptElement.supports &&
