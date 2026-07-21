@@ -3,6 +3,22 @@
  * Automatically detects if page is at root or subdirectory level
  */
 (function() {
+    // Prefetch same-site pages on link hover (Speculation Rules API)
+    // so navigations start with the next page already loaded
+    if (window.HTMLScriptElement && HTMLScriptElement.supports &&
+        HTMLScriptElement.supports('speculationrules')) {
+        const spec = document.createElement('script');
+        spec.type = 'speculationrules';
+        spec.textContent = JSON.stringify({
+            prefetch: [{
+                source: 'document',
+                where: { href_matches: '/*' },
+                eagerness: 'moderate'
+            }]
+        });
+        document.head.appendChild(spec);
+    }
+
     // Detect if we're at root level or in a subdirectory
     const isRootLevel = window.location.pathname === '/' ||
                        window.location.pathname.endsWith('/index.html') ||

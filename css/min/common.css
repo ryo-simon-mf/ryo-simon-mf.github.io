@@ -235,6 +235,30 @@ a:focus-visible {
 }
 
 /* ============================================
+   Cross-document View Transitions
+   Smooth crossfade between page navigations
+   (progressive enhancement - ignored by older browsers)
+   ============================================ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation-duration: 0.3s;
+}
+
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none !important;
+    }
+}
+
+/* ============================================
    Reduced Motion - respect user preference
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
