@@ -41,7 +41,7 @@
 
     // Bump the version suffix whenever includes/menu-content.html changes
     // so cached copies from earlier in the session are discarded
-    const MENU_CACHE_KEY = 'menu-html-cache-v2';
+    const MENU_CACHE_KEY = 'menu-html-cache-v3';
 
     function renderMenu(html) {
         const menuDiv = document.getElementById('menu');
