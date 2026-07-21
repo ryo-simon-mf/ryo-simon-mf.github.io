@@ -18,12 +18,8 @@ div#content_in {
     float: left;
 }
 
-/* Homepage-specific: solid sidebar rail over the full-bleed animation.
-   Only paint properties - no geometry changes (float layout is fragile) */
+/* Homepage-specific: menu z-index (no position: fixed) */
 div#menu {
     z-index: 100;
-    position: relative;
-    min-height: calc(100vh - 60px);
-    background: #ffffff;
 }
 
