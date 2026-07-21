@@ -6,8 +6,10 @@
  * Layout-critical properties (position, float, width) remain in page-specific files
  */
 
-/* IBM Plex Mono - used for metadata, labels, and navigation (engineered detail) */
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+/* IBM Plex family - unified typography system:
+   - Latin letters and digits render in IBM Plex Mono (listed first; Latin-only font)
+   - Japanese text falls through to IBM Plex Sans JP */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap');
 
 /* ============================================
    CSS Variables - Design Tokens
@@ -20,7 +22,9 @@
     --color-border: #dfdfdf;
     --color-accent: #006DD9;
 
-    /* Font Families */
+    /* Font Families
+       --font-body: Plex Mono catches Latin/digits, Plex Sans JP catches Japanese */
+    --font-body: 'IBM Plex Mono', 'IBM Plex Sans JP', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'Yu Gothic Medium', Meiryo, sans-serif;
     --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
 
     /* Typography Scale (16px base) */
@@ -52,7 +56,7 @@
    Typography Foundation
    ============================================ */
 body {
-    font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    font-family: var(--font-body);
     color: #333;
     font-size: var(--font-size-base);
     line-height: var(--line-height-relaxed);
