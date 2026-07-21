@@ -11,3 +11,5 @@ __pycache__/
 memo.txt
 # Image optimization backups
 **/.original/
+conversation_summaries/
+work_logs/
