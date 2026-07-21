@@ -253,15 +253,17 @@ a:focus-visible {
 
 /* The sidebar is identical on every page: give it a persistent
    view-transition name so it is treated as the SAME element across
-   navigations and stays on screen instead of fading with the page */
+   navigations and stays on screen instead of fading with the page.
+   The default pair crossfade (plus-lighter blending) keeps identical
+   pixels visually static - only differences (current-page marker,
+   hover state) fade smoothly. */
 #menu {
     view-transition-name: sidebar;
 }
 
-/* Keep the sidebar snapshot static (no crossfade) during transitions */
 ::view-transition-old(sidebar),
 ::view-transition-new(sidebar) {
-    animation: none;
+    animation-duration: 0.2s;
 }
 
 @media (prefers-reduced-motion: reduce) {
