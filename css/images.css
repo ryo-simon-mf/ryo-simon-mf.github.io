@@ -115,7 +115,4 @@
     opacity: 1;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-height: 64px;  /* Limit height for very long titles */
 }
