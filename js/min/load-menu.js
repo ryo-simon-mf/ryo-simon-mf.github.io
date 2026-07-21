@@ -39,7 +39,9 @@
     else if (path.includes('/portfolio/')) currentPage = 'portfolio';
     else if (path.includes('/cv/')) currentPage = 'cv';
 
-    const MENU_CACHE_KEY = 'menu-html-cache';
+    // Bump the version suffix whenever includes/menu-content.html changes
+    // so cached copies from earlier in the session are discarded
+    const MENU_CACHE_KEY = 'menu-html-cache-v2';
 
     function renderMenu(html) {
         const menuDiv = document.getElementById('menu');

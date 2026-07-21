@@ -217,6 +217,15 @@ div#menu {
     content: '> ';
 }
 
+/* Role tagline under the name - identity travels with the sidebar */
+#menu .tagline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
 /* Metadata (Last Update / copyright) in mono, muted */
 #last-update,
 #menu .copyright {
