@@ -1,1 +1,25 @@
-body{word-break:normal}canvas{position:absolute}div#content_in{float:left}div#menu{z-index:100}
+/*
+ * Homepage-specific styles (index.html)
+ * Loaded AFTER common.css
+ */
+
+/* Homepage-specific: word-break override */
+body {
+    word-break: normal;
+}
+
+/* Homepage-specific: canvas scrolls with page */
+canvas {
+    position: absolute;
+}
+
+/* Homepage-specific: content_in float */
+div#content_in {
+    float: left;
+}
+
+/* Homepage-specific: menu z-index (no position: fixed) */
+div#menu {
+    z-index: 100;
+}
+

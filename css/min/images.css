@@ -1,1 +1,118 @@
-.img_wrap{width:30%;max-width:480px;min-width:280px;aspect-ratio:4/3;margin:.5%;overflow:hidden;display:inline-block;background:#000;position:relative;opacity:1;transition:opacity .4s ease}.img_wrap img{height:100%;cursor:pointer;transition-duration:.5s;position:absolute;top:50%;left:50%;transform:translate3d(-50%,-50%,0) scale(1.1);opacity:0;transition:opacity .4s ease,transform .5s ease,filter .5s ease;will-change:opacity;backface-visibility:hidden;-webkit-font-smoothing:subpixel-antialiased}.img_wrap img.lazy-loaded{opacity:1;will-change:auto}.img_wrap img:hover{filter:grayscale(0);opacity:.6;transform:translate3d(-50%,-50%,0) scale(1.2);transition-duration:.5s}.img_w,.img_w2{margin:auto;overflow:hidden;display:block;background:#fff}.img_pro img,.img_w img,.img_w2 img{width:85%;height:auto;cursor:pointer;transition-duration:.5s}.img_w img{transform:scale(1.1);text-align:center}.img_pro img,.img_w2 img{transform:scale(1)}.center-container,.img_pro,.img_w,.img_w2,.img_wrap::after{text-align:center}.img_pro img{width:50%}.img_wrap::after{content:attr(data-year)"\a"attr(data-title);position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.7);color:#fff;padding:8px 10px;font-size:13px;line-height:1.4;white-space:pre-line;opacity:0;transition:opacity .3s ease;pointer-events:none;overflow:hidden;text-overflow:ellipsis;max-height:60px}.img_wrap:hover::after{opacity:1}@media (hover:none) and (pointer:coarse){.img_wrap::after{opacity:1}}
+.img_wrap {
+    /* border: 1px solid #ddd; */
+    width: 30%;
+    max-width: 480px;
+    min-width: 280px;
+    aspect-ratio: 4 / 3;
+    margin: 0.5%;
+    overflow: hidden;
+    display: inline-block;
+    background: #000;
+    position: relative;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.img_wrap img {
+    height: 100%;
+    cursor: pointer;
+    /* filter: grayscale(100%); */
+    transition-duration: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) scale(1.1);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.5s ease, filter 0.5s ease;
+    will-change: opacity;
+    backface-visibility: hidden;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.img_wrap img.lazy-loaded {
+    opacity: 1;
+    will-change: auto; /* Remove hint after load */
+}
+
+.img_wrap img:hover {
+    filter: grayscale(0);
+    transform: translate3d(-50%, -50%, 0) scale(1.2);
+    transition-duration: 0.5s;
+}
+
+.img_w {
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+    display: block;
+    background: #FFFFFF;
+}
+
+.img_w img {
+    width: 85%;
+    /* 横幅を割合で指定 */
+    height: auto;
+    /* 高さは自動指定 */
+    transform: scale(1.1);
+    cursor: pointer;
+    transition-duration: 0.5s;
+    text-align: center;
+}
+
+.img_w2 {
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+    display: block;
+    background: #FFFFFF;
+}
+
+.img_w2 img {
+    width: 85%;
+    /* 横幅を割合で指定 */
+    height: auto;
+    /* 高さは自動指定 */
+    transform: scale(1.0);
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+.img_pro {
+    text-align: center;
+}
+
+.img_pro img {
+    width: 50%;
+    /* 横幅を割合で指定 */
+    height: auto;
+    /* 高さは自動指定 */
+    transform: scale(1.0);
+    cursor: pointer;
+    transition-duration: 0.5s;
+}
+
+/* Center container for inline-block elements like .img_wrap */
+.center-container {
+    text-align: center;
+}
+
+/* Thumbnail metadata overlay - always visible record line (Year / Title) */
+.img_wrap::after {
+    content: attr(data-year) "\A" attr(data-title);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.45) 65%, transparent);
+    color: white;
+    padding: 18px 12px 8px;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    white-space: pre-line;  /* Enable line breaks with \A */
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}

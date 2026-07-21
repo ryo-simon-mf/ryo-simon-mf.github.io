@@ -161,6 +161,23 @@ function initPageAnimations() {
       return;
     }
 
+    // Play reveal animations only on the first visit per session.
+    // Repeat visits show content immediately - the View Transition
+    // crossfade (common.css) already covers the page change.
+    let isRevisit = false;
+    try {
+      const seenKey = 'pa-seen:' + window.location.pathname;
+      isRevisit = sessionStorage.getItem(seenKey) === '1';
+      sessionStorage.setItem(seenKey, '1');
+    } catch (e) {
+      // sessionStorage unavailable (private mode etc.) - treat as first visit
+    }
+
+    if (isRevisit) {
+      showAllContentImmediately();
+      return;
+    }
+
     // Check if browser supports Intersection Observer
     if (!('IntersectionObserver' in window)) {
       console.warn('[Page Animations] IntersectionObserver not supported - using fallback');

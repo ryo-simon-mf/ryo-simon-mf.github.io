@@ -107,11 +107,12 @@
         align-items: center !important;
     }
 
-    /* Mobile: Index page - show menu by default with semi-transparent panel */
+    /* Mobile: Index page - show menu by default with semi-transparent panel
+       (lower opacity so the p5.js animation stays visible behind it) */
     body.page-index div#menu {
         opacity: 1 !important;
         visibility: visible !important;
-        background-color: rgba(255, 255, 255, 0.95) !important;
+        background-color: rgba(255, 255, 255, 0.78) !important;
     }
 
     /* Mobile: Index page - hide hamburger button */
@@ -261,9 +262,14 @@
         overflow: hidden !important;
     }
 
+    /* Mobile: hide homepage hero (menu overlay already provides the same links) */
+    body.page-index #hero {
+        display: none;
+    }
+
     /* Mobile: Typography adjustments */
     body {
-        font-size: 13px;
+        font-size: 15px;
         letter-spacing: 0.3px;
         line-height: 1.6;
     }

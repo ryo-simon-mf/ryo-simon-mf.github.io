@@ -6,10 +6,27 @@
  * Layout-critical properties (position, float, width) remain in page-specific files
  */
 
+/* IBM Plex family - unified typography system:
+   - Latin letters and digits render in IBM Plex Mono (listed first; Latin-only font)
+   - Japanese text falls through to IBM Plex Sans JP */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap');
+
 /* ============================================
    CSS Variables - Design Tokens
    ============================================ */
 :root {
+    /* Color System - monochrome frame, single accent */
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-text-muted: #767676;
+    --color-border: #dfdfdf;
+    --color-accent: #006DD9;
+
+    /* Font Families
+       --font-body: Plex Mono catches Latin/digits, Plex Sans JP catches Japanese */
+    --font-body: 'IBM Plex Mono', 'IBM Plex Sans JP', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'Yu Gothic Medium', Meiryo, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+
     /* Typography Scale (16px base) */
     --font-size-base: 16px;
     --font-size-small: 14px;
@@ -39,7 +56,7 @@
    Typography Foundation
    ============================================ */
 body {
-    font-family: 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'メイリオ', Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+    font-family: var(--font-body);
     color: #333;
     font-size: var(--font-size-base);
     line-height: var(--line-height-relaxed);
@@ -50,7 +67,7 @@ body {
 h1 {
     font-size: var(--font-size-h1);
     line-height: var(--line-height-tight);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-medium);
     margin-top: 0;
     margin-bottom: var(--heading-margin-bottom);
     letter-spacing: -0.01em;
@@ -59,7 +76,7 @@ h1 {
 h2 {
     font-size: var(--font-size-h2);
     line-height: var(--line-height-tight);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-medium);
     margin-top: 0;
     margin-bottom: var(--heading-margin-bottom);
 }
@@ -67,7 +84,7 @@ h2 {
 h3 {
     font-size: var(--font-size-h3);
     line-height: var(--line-height-normal);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-medium);
     margin-top: 0;
     margin-bottom: var(--heading-margin-bottom);
 }
@@ -75,7 +92,7 @@ h3 {
 h4 {
     font-size: var(--font-size-h4);
     line-height: var(--line-height-normal);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-normal);
     margin-top: 0;
     margin-bottom: var(--heading-margin-bottom);
 }
@@ -174,11 +191,113 @@ div#menu {
 }
 
 .list:hover {
-    color: #006DD9;
+    color: var(--color-accent);
 }
 
 .list:active {
-    color: #B20000;
+    color: var(--color-accent);
+}
+
+/* ============================================
+   Menu Navigation - engineered typography
+   ============================================ */
+#menu .nav-list {
+    list-style: none;
+}
+
+#menu .menu-link {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+/* Current page marker - terminal-prompt style (replaces <s> strikethrough) */
+#menu .menu-link.current {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+}
+
+#menu .menu-link.current::before {
+    content: '> ';
+}
+
+/* Role tagline under the name - identity travels with the sidebar */
+#menu .tagline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+/* Metadata (Last Update / copyright) in mono, muted */
+#last-update,
+#menu .copyright {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Keyboard Focus Visibility
+   ============================================ */
+a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Cross-document View Transitions
+   Smooth crossfade between page navigations
+   (progressive enhancement - ignored by older browsers)
+   ============================================ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation-duration: 0.3s;
+}
+
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
+/* The sidebar is identical on every page: give it a persistent
+   view-transition name so it is treated as the SAME element across
+   navigations and stays on screen instead of fading with the page.
+   The default pair crossfade (plus-lighter blending) keeps identical
+   pixels visually static - only differences (current-page marker,
+   hover state) fade smoothly. */
+#menu {
+    view-transition-name: sidebar;
+}
+
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+    animation-duration: 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   Reduced Motion - respect user preference
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ============================================

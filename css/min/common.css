@@ -1,1 +1,346 @@
-:root{--font-size-base:16px;--font-size-small:14px;--font-size-large:18px;--font-size-h4:18px;--font-size-h3:20px;--font-size-h2:24px;--font-size-h1:28px;--line-height-tight:1.3;--line-height-normal:1.6;--line-height-relaxed:1.8;--font-weight-normal:400;--font-weight-medium:500;--font-weight-semibold:600;--font-weight-bold:700;--heading-margin-bottom:0.75em;--paragraph-margin-bottom:1em}body{font-family:"ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","游ゴシック Medium","Yu Gothic Medium","游ゴシック体",YuGothic,"メイリオ",Meiryo,Osaka,"ＭＳ Ｐゴシック","MS PGothic",sans-serif;color:#333;font-size:var(--font-size-base);line-height:var(--line-height-relaxed);letter-spacing:.8px}h1,h2,h3,h4{margin-bottom:var(--heading-margin-bottom)}h1{font-size:var(--font-size-h1);font-weight:var(--font-weight-bold);letter-spacing:-.01em}h2,h3,h4{font-weight:var(--font-weight-semibold)}h1,h2{line-height:var(--line-height-tight)}h2{font-size:var(--font-size-h2)}h3,h4{font-size:var(--font-size-h3)}h4{font-size:var(--font-size-h4);font-weight:var(--font-weight-medium)}h3,h4,li,p{line-height:var(--line-height-normal)}h1,h2,h3,h4,ol,p,ul{margin-top:0}ol,p,ul{margin-bottom:var(--paragraph-margin-bottom)}ol,ul{padding-left:1.5em}li{margin-bottom:.25em}canvas{display:block;left:0;top:0;z-index:-999}a{text-decoration:none}div#zentai{width:auto}.list:link,.list:visited,.title:active,.title:hover,.title:link,.title:visited,div#title{color:#000}div#content{width:75%;float:right}div#content_in{width:auto}div#menu{width:25%;float:left;padding-top:30px}.list:hover{color:#006dd9}.list:active{color:#b20000}.follow-me{list-style:none;margin:0 0-8px;overflow:hidden;padding:0}.follow-me li{float:left;margin:0 8px 8px 0;padding:0}.follow-me li a{background-color:#eee;-webkit-border-radius:2px;border-radius:2px;color:#333;display:inline-flex;align-items:center;justify-content:center;height:44px;-webkit-transition:all .3s ease;transition:all .3s ease;width:44px}.follow-me li a:hover{background-color:#333;color:#fff}.last-update-indent::before{content:"　"}.last-update-indent-date::before{content:"　　　　"}
+/*
+ * Common Styles - Shared across all pages
+ * Load this BEFORE style.css or style_2.css
+ *
+ * IMPORTANT: This file contains only truly identical styles
+ * Layout-critical properties (position, float, width) remain in page-specific files
+ */
+
+/* IBM Plex family - unified typography system:
+   - Latin letters and digits render in IBM Plex Mono (listed first; Latin-only font)
+   - Japanese text falls through to IBM Plex Sans JP */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap');
+
+/* ============================================
+   CSS Variables - Design Tokens
+   ============================================ */
+:root {
+    /* Color System - monochrome frame, single accent */
+    --color-bg: #ffffff;
+    --color-text: #333333;
+    --color-text-muted: #767676;
+    --color-border: #dfdfdf;
+    --color-accent: #006DD9;
+
+    /* Font Families
+       --font-body: Plex Mono catches Latin/digits, Plex Sans JP catches Japanese */
+    --font-body: 'IBM Plex Mono', 'IBM Plex Sans JP', 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'Yu Gothic Medium', Meiryo, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, Consolas, monospace;
+
+    /* Typography Scale (16px base) */
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 18px;
+    --font-size-h4: 18px;     /* 1.125rem */
+    --font-size-h3: 20px;     /* 1.25rem */
+    --font-size-h2: 24px;     /* 1.5rem */
+    --font-size-h1: 28px;     /* 1.75rem */
+
+    /* Line Heights */
+    --line-height-tight: 1.3;
+    --line-height-normal: 1.6;
+    --line-height-relaxed: 1.8;
+
+    /* Font Weights */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Spacing for Typography */
+    --heading-margin-bottom: 0.75em;
+    --paragraph-margin-bottom: 1em;
+}
+
+/* ============================================
+   Typography Foundation
+   ============================================ */
+body {
+    font-family: var(--font-body);
+    color: #333;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    letter-spacing: 0.8px;
+}
+
+/* Heading Styles - Unified Typography System */
+h1 {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-medium);
+    margin-top: 0;
+    margin-bottom: var(--heading-margin-bottom);
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-medium);
+    margin-top: 0;
+    margin-bottom: var(--heading-margin-bottom);
+}
+
+h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-normal);
+    font-weight: var(--font-weight-medium);
+    margin-top: 0;
+    margin-bottom: var(--heading-margin-bottom);
+}
+
+h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-normal);
+    font-weight: var(--font-weight-normal);
+    margin-top: 0;
+    margin-bottom: var(--heading-margin-bottom);
+}
+
+/* Paragraph Styles */
+p {
+    margin-top: 0;
+    margin-bottom: var(--paragraph-margin-bottom);
+    line-height: var(--line-height-normal);
+}
+
+/* List Styles */
+ul, ol {
+    margin-top: 0;
+    margin-bottom: var(--paragraph-margin-bottom);
+    padding-left: 1.5em;
+}
+
+li {
+    line-height: var(--line-height-normal);
+    margin-bottom: 0.25em;
+}
+
+/* ============================================
+   Base Canvas Styles (position set per-page)
+   ============================================ */
+canvas {
+    display: block;
+    left: 0;
+    top: 0;
+    z-index: -999;
+}
+
+/* ============================================
+   Link Reset
+   ============================================ */
+a {
+    text-decoration: none;
+}
+
+/* ============================================
+   Layout Container Base
+   ============================================ */
+div#zentai {
+    width: auto;
+}
+
+div#title {
+    color: #000000;
+}
+
+/* Layout containers - shared width/float properties */
+div#content {
+    width: 75%;
+    float: right;
+}
+
+div#content_in {
+    width: auto;
+}
+
+div#menu {
+    width: 25%;
+    float: left;
+    padding-top: 30px; /* Align with fixed header top spacing */
+}
+
+/* ============================================
+   Title Link States
+   ============================================ */
+.title:link {
+    color: #000000;
+}
+
+.title:visited {
+    color: #000000;
+}
+
+.title:hover {
+    color: #000000;
+}
+
+.title:active {
+    color: #000000;
+}
+
+/* ============================================
+   Navigation Link States (Brand Colors)
+   ============================================ */
+.list:link {
+    color: #000000;
+}
+
+.list:visited {
+    color: #000000;
+}
+
+.list:hover {
+    color: var(--color-accent);
+}
+
+.list:active {
+    color: var(--color-accent);
+}
+
+/* ============================================
+   Menu Navigation - engineered typography
+   ============================================ */
+#menu .nav-list {
+    list-style: none;
+}
+
+#menu .menu-link {
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+/* Current page marker - terminal-prompt style (replaces <s> strikethrough) */
+#menu .menu-link.current {
+    color: var(--color-accent);
+    font-weight: var(--font-weight-medium);
+}
+
+#menu .menu-link.current::before {
+    content: '> ';
+}
+
+/* Role tagline under the name - identity travels with the sidebar */
+#menu .tagline {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+}
+
+/* Metadata (Last Update / copyright) in mono, muted */
+#last-update,
+#menu .copyright {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ============================================
+   Keyboard Focus Visibility
+   ============================================ */
+a:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Cross-document View Transitions
+   Smooth crossfade between page navigations
+   (progressive enhancement - ignored by older browsers)
+   ============================================ */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation-duration: 0.3s;
+}
+
+::view-transition-new(root) {
+    animation-duration: 0.3s;
+}
+
+/* The sidebar is identical on every page: give it a persistent
+   view-transition name so it is treated as the SAME element across
+   navigations and stays on screen instead of fading with the page.
+   The default pair crossfade (plus-lighter blending) keeps identical
+   pixels visually static - only differences (current-page marker,
+   hover state) fade smoothly. */
+#menu {
+    view-transition-name: sidebar;
+}
+
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+    animation-duration: 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   Reduced Motion - respect user preference
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================
+   SNS Icon Component
+   ============================================ */
+.follow-me {
+    list-style: none;
+    margin: 0 0 -8px;
+    overflow: hidden;
+    padding: 0;
+}
+
+.follow-me li {
+    float: left;
+    margin: 0 8px 8px 0;
+    padding: 0;
+}
+
+.follow-me li a {
+    background-color: #eee;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    color: #333;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    width: 44px;
+}
+
+.follow-me li a:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Last Update indentation for desktop */
+.last-update-indent::before {
+    content: '　';
+}
+
+.last-update-indent-date::before {
+    content: '　　　　';
+}
+
