@@ -251,6 +251,19 @@ a:focus-visible {
     animation-duration: 0.3s;
 }
 
+/* The sidebar is identical on every page: give it a persistent
+   view-transition name so it is treated as the SAME element across
+   navigations and stays on screen instead of fading with the page */
+#menu {
+    view-transition-name: sidebar;
+}
+
+/* Keep the sidebar snapshot static (no crossfade) during transitions */
+::view-transition-old(sidebar),
+::view-transition-new(sidebar) {
+    animation: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
     ::view-transition-old(root),
     ::view-transition-new(root) {
