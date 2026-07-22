@@ -180,11 +180,11 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transform = 'translate(-24px, 0px)';
         });
 
-        const AXIS_MS = 180;      // duration of one axis move
+        const AXIS_MS = 150;      // duration of one axis move
         // Stagger between movers, capped so many movers don't stretch the
         // whole slide phase (entering items wait for it to finish)
         const STAGGER_MS = movers.length > 1
-            ? Math.min(40, 200 / (movers.length - 1))
+            ? Math.min(40, 140 / (movers.length - 1))
             : 0;
         const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
@@ -227,10 +227,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         const travel = (move.dx && move.dy) ? AXIS_MS * 2 + 30 : AXIS_MS;
                         slidesDone = Math.max(slidesDone, index * STAGGER_MS + travel);
                     });
-                    slidesDone += 30;
+                    slidesDone += 20;
                 }
                 const enterStagger = entering.length > 1
-                    ? Math.min(35, 350 / (entering.length - 1))
+                    ? Math.min(30, 250 / (entering.length - 1))
                     : 0;
                 entering.forEach((item, index) => {
                     setTimeout(() => {
