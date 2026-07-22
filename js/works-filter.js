@@ -3,13 +3,25 @@
  *
  * Filters project thumbnails by category: All, Code, Object, Design
  * Vanilla JavaScript implementation (no jQuery dependency)
+ *
+ * Animation: concurrent cross choreography (Isotope-style)
+ * - leaving items are lifted out of the flow (position:absolute at their
+ *   current spot) and fade out in place
+ * - at the same time, staying items FLIP-slide axis-by-axis to their new
+ *   grid position and entering items slide in
+ * - the screen is never empty during a switch
  */
 
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const imgWraps = document.querySelectorAll('.img_wrap');
     const filterCount = document.getElementById('filter-count');
+    const container = document.querySelector('.center-container');
     let currentCount = 0;
+
+    if (container) {
+        container.style.position = 'relative';
+    }
 
     // Count works by category
     function countWorksByCategory(category) {
@@ -63,20 +75,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const prefersReducedMotion = window.matchMedia &&
         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Apply filter with FLIP animation:
-    // - non-matching items fade out (matching ones never disappear)
-    // - staying items slide from their old grid position to the new one
-    // - newly appearing items fade in afterwards
+    // Reset every animation-related inline style except display
+    function resetItemStyles(item) {
+        const s = item.style;
+        s.transition = 'none';
+        s.transform = '';
+        s.position = '';
+        s.left = '';
+        s.top = '';
+        s.width = '';
+        s.height = '';
+        s.margin = '';
+        s.zIndex = '';
+    }
+
     function applyFilter(filterValue) {
         const matches = item => filterValue === 'all' ||
             item.getAttribute('data-category') === filterValue;
 
         if (prefersReducedMotion) {
             imgWraps.forEach(item => {
-                item.style.transition = 'none';
-                item.style.transform = '';
+                resetItemStyles(item);
+                item.dataset.state = matches(item) ? 'in' : 'out';
                 item.style.display = matches(item) ? 'inline-block' : 'none';
-                item.style.opacity = '1';
+                item.style.opacity = matches(item) ? '1' : '0';
             });
             if (window.reinitLazyLoad) window.reinitLazyLoad();
             return;
@@ -88,108 +110,128 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transform = '';
         });
 
-        // FIRST: record current positions of visible items
-        const oldRects = new Map();
+        // Classify. Items mid-departure (absolute) count as not visible.
         const leaving = [], staying = [], entering = [];
+        const oldRects = new Map();
         imgWraps.forEach(item => {
-            const visible = item.style.display !== 'none';
-            if (visible) oldRects.set(item, item.getBoundingClientRect());
+            const inFlow = item.style.display !== 'none' &&
+                item.style.position !== 'absolute';
+            if (inFlow) oldRects.set(item, item.getBoundingClientRect());
             if (matches(item)) {
-                (visible ? staying : entering).push(item);
-            } else if (visible) {
+                (inFlow ? staying : entering).push(item);
+            } else if (inFlow) {
                 leaving.push(item);
             }
         });
 
-        // Staggered exit: non-matching items drop slightly and fade,
-        // one after another (chain-reaction feel even when nothing stays)
-        const EXIT_MS = 200;
-        const exitStagger = leaving.length > 1
-            ? Math.min(30, 300 / (leaving.length - 1))
-            : 0;
-        leaving.forEach((item, index) => {
-            setTimeout(() => {
-                item.style.transition = 'opacity ' + EXIT_MS + 'ms ease, transform ' + EXIT_MS + 'ms ease';
-                item.style.transform = 'translate(0px, 14px)';
-                item.style.opacity = '0';
-            }, index * exitStagger);
+        // READ first: in-flow geometry of leaving items (before any writes,
+        // so earlier absolutizations cannot shift later measurements)
+        const leaveGeom = leaving.map(item => ({
+            item: item,
+            left: item.offsetLeft,
+            top: item.offsetTop,
+            width: item.offsetWidth,
+            height: item.offsetHeight
+        }));
+
+        // WRITE: lift leaving items out of the flow at their exact spot -
+        // the remaining grid reflows underneath them immediately
+        leaveGeom.forEach(g => {
+            const s = g.item.style;
+            g.item.dataset.state = 'leaving';
+            s.position = 'absolute';
+            s.left = g.left + 'px';
+            s.top = g.top + 'px';
+            s.width = g.width + 'px';
+            s.height = g.height + 'px';
+            s.margin = '0';
+            s.zIndex = '2';
         });
-        const exitDone = leaving.length
-            ? (leaving.length - 1) * exitStagger + EXIT_MS + 40
-            : 0;
 
-        setTimeout(() => {
-            leaving.forEach(item => {
-                item.style.display = 'none';
-                item.style.transition = 'none';
-                item.style.transform = '';
-            });
-            entering.forEach(item => {
-                item.style.display = 'inline-block';
-                item.style.transition = 'none';
-                item.style.transform = 'translate(-24px, 0px)';
-                item.style.opacity = '0';
-            });
+        // Entering items join the flow right away (hidden, slightly offset)
+        entering.forEach(item => {
+            resetItemStyles(item);
+            item.dataset.state = 'in';
+            item.style.display = 'inline-block';
+            item.style.opacity = '0';
+            item.style.transform = 'translate(-24px, 0px)';
+        });
+        staying.forEach(item => { item.dataset.state = 'in'; });
 
-            if (window.reinitLazyLoad) window.reinitLazyLoad();
+        if (window.reinitLazyLoad) window.reinitLazyLoad();
 
-            // LAST + INVERT: offset staying items back to their old position
-            const movers = [];
-            staying.forEach(item => {
-                const oldRect = oldRects.get(item);
-                const newRect = item.getBoundingClientRect();
-                const dx = oldRect.left - newRect.left;
-                const dy = oldRect.top - newRect.top;
-                if (dx || dy) {
-                    item.style.transition = 'none';
-                    item.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
-                    movers.push({ item: item, dx: dx, dy: dy });
-                }
-            });
+        // LAST + INVERT: offset staying items back to their old position
+        const movers = [];
+        staying.forEach(item => {
+            const oldRect = oldRects.get(item);
+            const newRect = item.getBoundingClientRect();
+            const dx = oldRect.left - newRect.left;
+            const dy = oldRect.top - newRect.top;
+            if (dx || dy) {
+                item.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+                movers.push({ item: item, dx: dx, dy: dy });
+            }
+        });
 
-            // PLAY: axis-by-axis slide - horizontal into the new column,
-            // then vertical into the new row (sliding-puzzle motion).
-            // Staggered starts give a chain-reaction feel.
-            const AXIS_MS = 220;      // duration of one axis move
-            const STAGGER_MS = 40;    // delay between each item starting
-            const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+        const AXIS_MS = 220;      // duration of one axis move
+        const STAGGER_MS = 40;    // delay between each mover starting
+        const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
+        requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                requestAnimationFrame(() => {
-                    movers.forEach((move, index) => {
-                        setTimeout(() => {
-                            move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING;
-                            if (move.dx && move.dy) {
-                                // Phase 1: horizontal, Phase 2: vertical
-                                move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
-                                setTimeout(() => {
-                                    move.item.style.transform = '';
-                                }, AXIS_MS + 30);
-                            } else {
-                                // Single-axis move: one slide
-                                move.item.style.transform = '';
-                            }
-                        }, index * STAGGER_MS);
-                    });
-
-                    // Entering items slide in from the side one by one
-                    // after the staying items' slides settle
-                    const slidesDone = movers.length
-                        ? (movers.length - 1) * STAGGER_MS + AXIS_MS * 2 + 60
-                        : 0;
-                    const enterStagger = entering.length > 1
-                        ? Math.min(40, 400 / (entering.length - 1))
-                        : 0;
-                    entering.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.style.transition = 'opacity 0.25s ease, transform 0.25s ' + EASING;
-                            item.style.transform = '';
-                            item.style.opacity = '1';
-                        }, slidesDone + index * enterStagger);
-                    });
+                // 1) Leaving items fade out in place (slight sink),
+                //    concurrently with everything else
+                leaveGeom.forEach((g, index) => {
+                    setTimeout(() => {
+                        g.item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+                        g.item.style.transform = 'translate(0px, 10px)';
+                        g.item.style.opacity = '0';
+                    }, index * 15);
                 });
+
+                // 2) Staying items: axis-by-axis slide (horizontal into the
+                //    new column, then vertical into the new row)
+                movers.forEach((move, index) => {
+                    setTimeout(() => {
+                        move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING;
+                        if (move.dx && move.dy) {
+                            move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
+                            setTimeout(() => {
+                                move.item.style.transform = '';
+                            }, AXIS_MS + 30);
+                        } else {
+                            move.item.style.transform = '';
+                        }
+                    }, index * STAGGER_MS);
+                });
+
+                // 3) Entering items slide in concurrently (small head start
+                //    for the outgoing ones, so the cross reads clearly)
+                const enterStagger = entering.length > 1
+                    ? Math.min(35, 350 / (entering.length - 1))
+                    : 0;
+                entering.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.transition = 'opacity 0.25s ease, transform 0.25s ' + EASING;
+                        item.style.transform = '';
+                        item.style.opacity = '1';
+                    }, 80 + index * enterStagger);
+                });
+
+                // 4) Cleanup: actually hide leaving items once faded,
+                //    unless a quicker filter switch brought them back
+                const leaveDone = (leaveGeom.length ? (leaveGeom.length - 1) * 15 : 0) + 300;
+                setTimeout(() => {
+                    leaveGeom.forEach(g => {
+                        if (g.item.dataset.state !== 'leaving') return;
+                        resetItemStyles(g.item);
+                        g.item.dataset.state = 'out';
+                        g.item.style.display = 'none';
+                        g.item.style.opacity = '0';
+                    });
+                }, leaveDone);
             });
-        }, exitDone || 20);
+        });
     }
 
     // Filter button click handler
