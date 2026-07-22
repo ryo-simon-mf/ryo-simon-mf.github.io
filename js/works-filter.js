@@ -227,7 +227,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         const travel = (move.dx && move.dy) ? AXIS_MS * 2 + 30 : AXIS_MS;
                         slidesDone = Math.max(slidesDone, index * STAGGER_MS + travel);
                     });
-                    slidesDone += 20;
+                    // Soft crossfade between phases: entrances begin just
+                    // before the last slides finish
+                    slidesDone = Math.max(0, slidesDone - 130);
                 }
                 const enterStagger = entering.length > 1
                     ? Math.min(30, 250 / (entering.length - 1))
