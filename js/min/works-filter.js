@@ -101,17 +101,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        // Fade out only the non-matching items
-        leaving.forEach(item => {
-            item.style.transition = 'opacity 0.25s ease';
-            item.style.opacity = '0';
+        // Staggered exit: non-matching items drop slightly and fade,
+        // one after another (chain-reaction feel even when nothing stays)
+        const EXIT_MS = 200;
+        const exitStagger = leaving.length > 1
+            ? Math.min(30, 300 / (leaving.length - 1))
+            : 0;
+        leaving.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.transition = 'opacity ' + EXIT_MS + 'ms ease, transform ' + EXIT_MS + 'ms ease';
+                item.style.transform = 'translate(0px, 14px)';
+                item.style.opacity = '0';
+            }, index * exitStagger);
         });
+        const exitDone = leaving.length
+            ? (leaving.length - 1) * exitStagger + EXIT_MS + 40
+            : 0;
 
         setTimeout(() => {
-            leaving.forEach(item => { item.style.display = 'none'; });
+            leaving.forEach(item => {
+                item.style.display = 'none';
+                item.style.transition = 'none';
+                item.style.transform = '';
+            });
             entering.forEach(item => {
                 item.style.display = 'inline-block';
                 item.style.transition = 'none';
+                item.style.transform = 'translate(-24px, 0px)';
                 item.style.opacity = '0';
             });
 
@@ -156,19 +172,24 @@ document.addEventListener('DOMContentLoaded', function() {
                         }, index * STAGGER_MS);
                     });
 
-                    // Entering items fade in after the slides settle
+                    // Entering items slide in from the side one by one
+                    // after the staying items' slides settle
                     const slidesDone = movers.length
                         ? (movers.length - 1) * STAGGER_MS + AXIS_MS * 2 + 60
                         : 0;
+                    const enterStagger = entering.length > 1
+                        ? Math.min(40, 400 / (entering.length - 1))
+                        : 0;
                     entering.forEach((item, index) => {
                         setTimeout(() => {
-                            item.style.transition = 'opacity 0.3s ease';
+                            item.style.transition = 'opacity 0.25s ease, transform 0.25s ' + EASING;
+                            item.style.transform = '';
                             item.style.opacity = '1';
-                        }, slidesDone + index * 30);
+                        }, slidesDone + index * enterStagger);
                     });
                 });
             });
-        }, 260);
+        }, exitDone || 20);
     }
 
     // Filter button click handler
