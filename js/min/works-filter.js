@@ -180,8 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transform = 'translate(-24px, 0px)';
         });
 
-        const AXIS_MS = 220;      // duration of one axis move
-        const STAGGER_MS = 40;    // delay between each mover starting
+        const AXIS_MS = 180;      // duration of one axis move
+        // Stagger between movers, capped so many movers don't stretch the
+        // whole slide phase (entering items wait for it to finish)
+        const STAGGER_MS = movers.length > 1
+            ? Math.min(40, 200 / (movers.length - 1))
+            : 0;
         const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
 
         requestAnimationFrame(() => {
@@ -216,9 +220,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 //    wait until ALL slides have settled, then fill the empty
                 //    cells one by one. With no sliding tiles (disjoint genre
                 //    switch), enter right away alongside the outgoing fade.
-                const slidesDone = movers.length
-                    ? (movers.length - 1) * STAGGER_MS + AXIS_MS * 2 + 80
-                    : 80;
+                let slidesDone = 80;
+                if (movers.length) {
+                    slidesDone = 0;
+                    movers.forEach((move, index) => {
+                        const travel = (move.dx && move.dy) ? AXIS_MS * 2 + 30 : AXIS_MS;
+                        slidesDone = Math.max(slidesDone, index * STAGGER_MS + travel);
+                    });
+                    slidesDone += 30;
+                }
                 const enterStagger = entering.length > 1
                     ? Math.min(35, 350 / (entering.length - 1))
                     : 0;
