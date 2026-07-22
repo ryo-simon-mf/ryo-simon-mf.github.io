@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (window.reinitLazyLoad) window.reinitLazyLoad();
 
             // LAST + INVERT: offset staying items back to their old position
+            const movers = [];
             staying.forEach(item => {
                 const oldRect = oldRects.get(item);
                 const newRect = item.getBoundingClientRect();
@@ -126,21 +127,44 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (dx || dy) {
                     item.style.transition = 'none';
                     item.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+                    movers.push({ item: item, dx: dx, dy: dy });
                 }
             });
 
-            // PLAY: release transforms so items glide to their new spot
+            // PLAY: axis-by-axis slide - horizontal into the new column,
+            // then vertical into the new row (sliding-puzzle motion).
+            // Staggered starts give a chain-reaction feel.
+            const AXIS_MS = 220;      // duration of one axis move
+            const STAGGER_MS = 40;    // delay between each item starting
+            const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
             requestAnimationFrame(() => {
                 requestAnimationFrame(() => {
-                    staying.forEach(item => {
-                        item.style.transition = 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
-                        item.style.transform = '';
+                    movers.forEach((move, index) => {
+                        setTimeout(() => {
+                            move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING;
+                            if (move.dx && move.dy) {
+                                // Phase 1: horizontal, Phase 2: vertical
+                                move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
+                                setTimeout(() => {
+                                    move.item.style.transform = '';
+                                }, AXIS_MS + 30);
+                            } else {
+                                // Single-axis move: one slide
+                                move.item.style.transform = '';
+                            }
+                        }, index * STAGGER_MS);
                     });
+
+                    // Entering items fade in after the slides settle
+                    const slidesDone = movers.length
+                        ? (movers.length - 1) * STAGGER_MS + AXIS_MS * 2 + 60
+                        : 0;
                     entering.forEach((item, index) => {
                         setTimeout(() => {
                             item.style.transition = 'opacity 0.3s ease';
                             item.style.opacity = '1';
-                        }, 150 + index * 30);
+                        }, slidesDone + index * 30);
                     });
                 });
             });
