@@ -60,6 +60,93 @@ document.addEventListener('DOMContentLoaded', function() {
         animateCount(currentCount, newCount);
     }
 
+    const prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Apply filter with FLIP animation:
+    // - non-matching items fade out (matching ones never disappear)
+    // - staying items slide from their old grid position to the new one
+    // - newly appearing items fade in afterwards
+    function applyFilter(filterValue) {
+        const matches = item => filterValue === 'all' ||
+            item.getAttribute('data-category') === filterValue;
+
+        if (prefersReducedMotion) {
+            imgWraps.forEach(item => {
+                item.style.transition = 'none';
+                item.style.transform = '';
+                item.style.display = matches(item) ? 'inline-block' : 'none';
+                item.style.opacity = '1';
+            });
+            if (window.reinitLazyLoad) window.reinitLazyLoad();
+            return;
+        }
+
+        // Neutralize any in-flight transforms so measurements are clean
+        imgWraps.forEach(item => {
+            item.style.transition = 'none';
+            item.style.transform = '';
+        });
+
+        // FIRST: record current positions of visible items
+        const oldRects = new Map();
+        const leaving = [], staying = [], entering = [];
+        imgWraps.forEach(item => {
+            const visible = item.style.display !== 'none';
+            if (visible) oldRects.set(item, item.getBoundingClientRect());
+            if (matches(item)) {
+                (visible ? staying : entering).push(item);
+            } else if (visible) {
+                leaving.push(item);
+            }
+        });
+
+        // Fade out only the non-matching items
+        leaving.forEach(item => {
+            item.style.transition = 'opacity 0.25s ease';
+            item.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+            leaving.forEach(item => { item.style.display = 'none'; });
+            entering.forEach(item => {
+                item.style.display = 'inline-block';
+                item.style.transition = 'none';
+                item.style.opacity = '0';
+            });
+
+            if (window.reinitLazyLoad) window.reinitLazyLoad();
+
+            // LAST + INVERT: offset staying items back to their old position
+            staying.forEach(item => {
+                const oldRect = oldRects.get(item);
+                const newRect = item.getBoundingClientRect();
+                const dx = oldRect.left - newRect.left;
+                const dy = oldRect.top - newRect.top;
+                if (dx || dy) {
+                    item.style.transition = 'none';
+                    item.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
+                }
+            });
+
+            // PLAY: release transforms so items glide to their new spot
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    staying.forEach(item => {
+                        item.style.transition = 'transform 0.35s cubic-bezier(0.22, 1, 0.36, 1)';
+                        item.style.transform = '';
+                    });
+                    entering.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.style.transition = 'opacity 0.3s ease';
+                            item.style.opacity = '1';
+                        }, 150 + index * 30);
+                    });
+                });
+            });
+        }, 260);
+    }
+
     // Filter button click handler
     filterButtons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -71,51 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             filterButtons.forEach(btn => btn.classList.remove('active'));
             this.classList.add('active');
 
-            // Show/hide projects based on filter with cascade fade animation
-            const visibleItems = [];
-
-            imgWraps.forEach(item => {
-                // Fade out
-                item.style.opacity = '0';
-                item.style.transition = 'opacity 0.3s ease';
-            });
-
-            setTimeout(() => {
-                imgWraps.forEach(item => {
-                    if (filterValue === 'all') {
-                        // Show all projects
-                        item.style.display = 'inline-block';
-                        visibleItems.push(item);
-                    } else {
-                        // Show only matching category
-                        const itemCategory = item.getAttribute('data-category');
-                        if (itemCategory === filterValue) {
-                            item.style.display = 'inline-block';
-                            visibleItems.push(item);
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    }
-                });
-
-                // Reinitialize lazy loading for filtered images
-                if (window.reinitLazyLoad) {
-                    window.reinitLazyLoad();
-                }
-
-                // Cascade fade in (staggered) to prevent main thread blocking
-                visibleItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.transition = 'opacity 0.4s ease';
-                        item.style.willChange = 'opacity';
-                        item.style.opacity = '1';
-                        // Remove will-change after animation
-                        setTimeout(() => {
-                            item.style.willChange = 'auto';
-                        }, 400);
-                    }, index * 30); // 30ms delay between each thumbnail
-                });
-            }, 300);
+            applyFilter(filterValue);
 
             // Update count display
             updateFilterCount(filterValue);
