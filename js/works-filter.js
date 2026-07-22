@@ -159,11 +159,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (window.reinitLazyLoad) window.reinitLazyLoad();
 
-        // READ pass on the new layout: final rects of staying + entering
+        // READ pass on the new layout: final rects of staying items
         const newRects = new Map();
         staying.forEach(item => { newRects.set(item, item.getBoundingClientRect()); });
-        const enterRects = new Map();
-        entering.forEach(item => { enterRects.set(item, item.getBoundingClientRect()); });
 
         // WRITE pass: INVERT staying items back to their old position,
         // give entering items their slide-in offset
@@ -214,38 +212,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, index * STAGGER_MS);
                 });
 
-                // 3) Entering items slide in concurrently - but an item whose
-                //    cell is still covered by a sliding tile (a mover parked
-                //    on its old position) waits until that tile has departed,
-                //    so its fade-in is actually visible
-                function rectsOverlap(a, b) {
-                    const inset = 8; // ignore edge/margin touching
-                    return a.left + inset < b.right - inset &&
-                           b.left + inset < a.right - inset &&
-                           a.top + inset < b.bottom - inset &&
-                           b.top + inset < a.bottom - inset;
-                }
-                function moverDepartTime(moverIndex, move) {
-                    const travel = (move.dx && move.dy) ? AXIS_MS * 2 + 30 : AXIS_MS;
-                    return moverIndex * STAGGER_MS + travel;
-                }
+                // 3) Entering items: two-act structure. If tiles are sliding,
+                //    wait until ALL slides have settled, then fill the empty
+                //    cells one by one. With no sliding tiles (disjoint genre
+                //    switch), enter right away alongside the outgoing fade.
+                const slidesDone = movers.length
+                    ? (movers.length - 1) * STAGGER_MS + AXIS_MS * 2 + 80
+                    : 80;
                 const enterStagger = entering.length > 1
                     ? Math.min(35, 350 / (entering.length - 1))
                     : 0;
                 entering.forEach((item, index) => {
-                    const baseDelay = 80 + index * enterStagger;
-                    let coverDelay = 0;
-                    const rect = enterRects.get(item);
-                    movers.forEach((move, moverIndex) => {
-                        if (rectsOverlap(move.oldRect, rect)) {
-                            coverDelay = Math.max(coverDelay, moverDepartTime(moverIndex, move) + 40);
-                        }
-                    });
                     setTimeout(() => {
                         item.style.transition = 'opacity 0.25s ease, transform 0.25s ' + EASING;
                         item.style.transform = '';
                         item.style.opacity = '1';
-                    }, Math.max(baseDelay, coverDelay));
+                    }, slidesDone + index * enterStagger);
                 });
 
                 // 4) Cleanup: actually hide leaving items once faded,
