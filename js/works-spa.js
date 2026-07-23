@@ -142,18 +142,26 @@ function animateTextTransition(element, targetText, animationType = 'glitch', du
   }
 }
 
-// Loading spinner helpers
+// Loading indicator helpers (hairline bar).
+// Delay gate: the bar only appears if loading takes longer than 300ms,
+// so fast loads show nothing at all instead of a flash
+let loadingBarDelayTimer = null;
+
 function showLoadingSpinner() {
-  const spinner = document.getElementById('loading-spinner');
-  if (spinner) {
-    spinner.style.display = 'block';
-  }
+  const bar = document.getElementById('loading-spinner');
+  if (!bar) return;
+  clearTimeout(loadingBarDelayTimer);
+  loadingBarDelayTimer = setTimeout(() => {
+    bar.style.display = 'block';
+  }, 300);
 }
 
 function hideLoadingSpinner() {
-  const spinner = document.getElementById('loading-spinner');
-  if (spinner) {
-    spinner.style.display = 'none';
+  clearTimeout(loadingBarDelayTimer);
+  loadingBarDelayTimer = null;
+  const bar = document.getElementById('loading-spinner');
+  if (bar) {
+    bar.style.display = 'none';
   }
 }
 
