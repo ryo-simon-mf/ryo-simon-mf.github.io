@@ -252,13 +252,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, index * STAGGER_MS);
                 });
 
-                // 2.5) Tail rules glide to their new vertical position,
-                //      in step with the sliding tiles
+                // 2.5) Tail rules glide to their new vertical position -
+                //      but only after the outgoing tiles have fully faded,
+                //      so the rule never crosses tiles mid-fade
+                const exitEnd = leaveGeom.length
+                    ? (leaveGeom.length - 1) * 15 + 220 + 40
+                    : 40;
                 tailMoves.forEach(el => {
                     setTimeout(() => {
                         el.style.transition = 'transform 380ms ' + EASING_SNAP;
                         el.style.transform = '';
-                    }, 40);
+                    }, exitEnd);
                 });
 
                 // 3) Entering items: two-act structure. If tiles are sliding,
