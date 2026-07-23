@@ -23,6 +23,17 @@ document.addEventListener('DOMContentLoaded', function() {
         container.style.position = 'relative';
     }
 
+    // Elements below the grid (the closing double rule) glide vertically
+    // when the grid height changes instead of jumping
+    const tailEls = [];
+    if (container) {
+        let sib = container.nextElementSibling;
+        while (sib) {
+            if (sib.tagName === 'HR') tailEls.push(sib);
+            sib = sib.nextElementSibling;
+        }
+    }
+
     // Count works by category
     function countWorksByCategory(category) {
         if (category === 'all') {
@@ -100,6 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.style.display = matches(item) ? 'inline-block' : 'none';
                 item.style.opacity = matches(item) ? '1' : '0';
             });
+            tailEls.forEach(el => {
+                el.style.transition = 'none';
+                el.style.transform = '';
+            });
             if (window.reinitLazyLoad) window.reinitLazyLoad();
             return;
         }
@@ -109,6 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transition = 'none';
             item.style.transform = '';
         });
+        tailEls.forEach(el => {
+            el.style.transition = 'none';
+            el.style.transform = '';
+        });
+
+        // FIRST for the tail rules: position before the grid reflows
+        const tailOldTops = tailEls.map(el => el.getBoundingClientRect().top);
 
         // Classify. Items mid-departure (absolute) count as not visible.
         const leaving = [], staying = [], entering = [];
@@ -180,6 +202,16 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transform = 'scale(0.86)';
         });
 
+        // INVERT the tail rules: park them at their old vertical position
+        const tailMoves = [];
+        tailEls.forEach((el, i) => {
+            const dy = tailOldTops[i] - el.getBoundingClientRect().top;
+            if (dy) {
+                el.style.transform = 'translateY(' + dy + 'px)';
+                tailMoves.push(el);
+            }
+        });
+
         const AXIS_MS = 150;      // duration of one axis move
         // Stagger between movers, capped so many movers don't stretch the
         // whole slide phase (entering items wait for it to finish)
@@ -218,6 +250,15 @@ document.addEventListener('DOMContentLoaded', function() {
                             move.item.style.transform = '';
                         }
                     }, index * STAGGER_MS);
+                });
+
+                // 2.5) Tail rules glide to their new vertical position,
+                //      in step with the sliding tiles
+                tailMoves.forEach(el => {
+                    setTimeout(() => {
+                        el.style.transition = 'transform 380ms ' + EASING_SNAP;
+                        el.style.transform = '';
+                    }, 40);
                 });
 
                 // 3) Entering items: two-act structure. If tiles are sliding,
