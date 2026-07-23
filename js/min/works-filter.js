@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         entering.forEach(item => {
-            item.style.transform = 'translate(-24px, 0px)';
+            item.style.transform = 'scale(0.86)';
         });
 
         const AXIS_MS = 150;      // duration of one axis move
@@ -186,7 +186,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const STAGGER_MS = movers.length > 1
             ? Math.min(40, 140 / (movers.length - 1))
             : 0;
-        const EASING = 'cubic-bezier(0.4, 0, 0.2, 1)';
+        // Kinetic easings: slides overshoot and snap into place,
+        // entrances pop with a slight bounce, exits accelerate away
+        const EASING_SNAP = 'cubic-bezier(0.3, 1.4, 0.4, 1)';
+        const EASING_POP = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
+        const EASING_EJECT = 'cubic-bezier(0.55, 0, 0.8, 0.2)';
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
@@ -194,8 +198,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 //    concurrently with everything else
                 leaveGeom.forEach((g, index) => {
                     setTimeout(() => {
-                        g.item.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
-                        g.item.style.transform = 'translate(0px, 10px)';
+                        g.item.style.transition = 'opacity 0.22s ease, transform 0.22s ' + EASING_EJECT;
+                        g.item.style.transform = 'translate(0px, 26px) scale(0.94)';
                         g.item.style.opacity = '0';
                     }, index * 15);
                 });
@@ -204,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 //    new column, then vertical into the new row)
                 movers.forEach((move, index) => {
                     setTimeout(() => {
-                        move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING;
+                        move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING_SNAP;
                         if (move.dx && move.dy) {
                             move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
                             setTimeout(() => {
@@ -236,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     : 0;
                 entering.forEach((item, index) => {
                     setTimeout(() => {
-                        item.style.transition = 'opacity 0.25s ease, transform 0.25s ' + EASING;
+                        item.style.transition = 'opacity 0.18s ease, transform 0.3s ' + EASING_POP;
                         item.style.transform = '';
                         item.style.opacity = '1';
                     }, slidesDone + index * enterStagger);
