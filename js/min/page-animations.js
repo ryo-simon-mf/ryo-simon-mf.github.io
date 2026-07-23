@@ -235,6 +235,15 @@ function initPageAnimations() {
     threshold: 0.01 // Very sensitive - trigger with 1% visibility
   };
 
+  // Elements already inside the initial viewport must not fall into the
+  // -100px dead zone of observerOptions (they would look visible but the
+  // observer would never fire, leaving them at opacity 0 until scroll)
+  function optionsFor(el) {
+    const rect = el.getBoundingClientRect();
+    const inInitialView = rect.top < window.innerHeight && rect.bottom > 0;
+    return inInitialView ? bottomObserverOptions : observerOptions;
+  }
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && !entry.target.dataset.animated) {
@@ -303,7 +312,7 @@ function initPageAnimations() {
           }, 100);
         }
       });
-    }, observerOptions);
+    }, optionsFor(h2));
 
     h2Observer.observe(h2);
   }
@@ -325,7 +334,7 @@ function initPageAnimations() {
           }, 100);
         }
       });
-    }, observerOptions);
+    }, optionsFor(h4));
 
     h4Observer.observe(h4);
   }
@@ -354,7 +363,7 @@ function initPageAnimations() {
           });
         }
       });
-    }, observerOptions);
+    }, optionsFor(firstH3));
 
     firstH3Observer.observe(firstH3);
   }
@@ -377,7 +386,7 @@ function initPageAnimations() {
           }, 100);
         }
       });
-    }, observerOptions);
+    }, optionsFor(h3));
 
     h3Observer.observe(h3);
   }
@@ -414,7 +423,7 @@ function initPageAnimations() {
           }, 50);
         }
       });
-    }, observerOptions);
+    }, optionsFor(section));
 
     sectionObserver.observe(section);
   });
@@ -472,7 +481,7 @@ function initPageAnimations() {
 
     // Use more lenient observer for last 2 hrs (bottom elements)
     const isBottomElement = index >= totalHrs - 2;
-    const options = isBottomElement ? bottomObserverOptions : observerOptions;
+    const options = isBottomElement ? bottomObserverOptions : optionsFor(hr);
 
     const hrObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
