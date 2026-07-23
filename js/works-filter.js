@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         container.style.position = 'relative';
     }
 
-    // Elements below the grid (the closing double rule) glide vertically
-    // when the grid height changes instead of jumping
+    // Elements below the grid (the closing double rule): fade out during
+    // a filter switch and fade back in once the new grid has settled
     const tailEls = [];
     if (container) {
         let sib = container.nextElementSibling;
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             sib = sib.nextElementSibling;
         }
     }
+    let tailFadeInTimer = null;
 
     // Count works by category
     function countWorksByCategory(category) {
@@ -111,9 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 item.style.display = matches(item) ? 'inline-block' : 'none';
                 item.style.opacity = matches(item) ? '1' : '0';
             });
+            if (tailFadeInTimer) clearTimeout(tailFadeInTimer);
             tailEls.forEach(el => {
                 el.style.transition = 'none';
                 el.style.transform = '';
+                el.style.opacity = '1';
             });
             if (window.reinitLazyLoad) window.reinitLazyLoad();
             return;
@@ -124,13 +127,14 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transition = 'none';
             item.style.transform = '';
         });
-        tailEls.forEach(el => {
-            el.style.transition = 'none';
-            el.style.transform = '';
-        });
 
-        // FIRST for the tail rules: position before the grid reflows
-        const tailOldTops = tailEls.map(el => el.getBoundingClientRect().top);
+        // Tail rules fade out for the duration of the switch
+        if (tailFadeInTimer) clearTimeout(tailFadeInTimer);
+        tailEls.forEach(el => {
+            el.style.transform = '';
+            el.style.transition = 'opacity 0.15s ease';
+            el.style.opacity = '0';
+        });
 
         // Classify. Items mid-departure (absolute) count as not visible.
         const leaving = [], staying = [], entering = [];
@@ -202,15 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.transform = 'scale(0.86)';
         });
 
-        // INVERT the tail rules: park them at their old vertical position
-        const tailMoves = [];
-        tailEls.forEach((el, i) => {
-            const dy = tailOldTops[i] - el.getBoundingClientRect().top;
-            if (dy) {
-                el.style.transform = 'translateY(' + dy + 'px)';
-                tailMoves.push(el);
-            }
-        });
 
         const AXIS_MS = 150;      // duration of one axis move
         // Stagger between movers, capped so many movers don't stretch the
@@ -252,19 +247,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }, index * STAGGER_MS);
                 });
 
-                // 2.5) Tail rules glide to their new vertical position -
-                //      but only after the outgoing tiles have fully faded,
-                //      so the rule never crosses tiles mid-fade
-                const exitEnd = leaveGeom.length
-                    ? (leaveGeom.length - 1) * 15 + 220 + 40
-                    : 40;
-                tailMoves.forEach(el => {
-                    setTimeout(() => {
-                        el.style.transition = 'transform 380ms ' + EASING_SNAP;
-                        el.style.transform = '';
-                    }, exitEnd);
-                });
-
                 // 3) Entering items: two-act structure. If tiles are sliding,
                 //    wait until ALL slides have settled, then fill the empty
                 //    cells one by one. With no sliding tiles (disjoint genre
@@ -290,6 +272,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         item.style.opacity = '1';
                     }, slidesDone + index * enterStagger);
                 });
+
+                // 3.5) Tail rules fade back in once the new grid has settled
+                const exitEnd = leaveGeom.length
+                    ? (leaveGeom.length - 1) * 15 + 220
+                    : 0;
+                const enterEnd = entering.length
+                    ? slidesDone + (entering.length - 1) * enterStagger + 250
+                    : slidesDone;
+                tailFadeInTimer = setTimeout(() => {
+                    tailEls.forEach(el => {
+                        el.style.transition = 'opacity 0.3s ease';
+                        el.style.opacity = '1';
+                    });
+                }, Math.max(exitEnd, enterEnd) + 60);
 
                 // 4) Cleanup: actually hide leaving items once faded,
                 //    unless a quicker filter switch brought them back
