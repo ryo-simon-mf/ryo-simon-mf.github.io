@@ -9,6 +9,11 @@ let currentSwiper = null;
 // Characters for glitch effect (binary + symbols)
 const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
 
+// Respect the user's motion preference (text effects and cascades are
+// skipped; final content is shown immediately)
+const PREFERS_REDUCED_MOTION = window.matchMedia &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /**
  * Animate text transition with hacker/glitch effect
  * Type 1: Binary/Glitch (random characters converging to target)
@@ -18,6 +23,11 @@ const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
  */
 function animateTextGlitch(element, targetText, duration = 800) {
   if (!element) return;
+
+  if (PREFERS_REDUCED_MOTION) {
+    element.textContent = targetText;
+    return;
+  }
 
   const originalText = element.textContent || '';
   const maxLength = Math.max(originalText.length, targetText.length);
@@ -72,6 +82,15 @@ function animateTextGlitch(element, targetText, duration = 800) {
  */
 function animateTextTypewriter(element, targetText, duration = 800, preserveHTML = false) {
   if (!element) return;
+
+  if (PREFERS_REDUCED_MOTION) {
+    if (preserveHTML) {
+      element.innerHTML = targetText;
+    } else {
+      element.textContent = targetText.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+    return;
+  }
 
   const startTime = performance.now();
 
@@ -586,7 +605,7 @@ function showWorksList() {
         setTimeout(() => {
           item.style.willChange = 'auto';
         }, 400);
-      }, 100 + index * 30); // 30ms delay between each thumbnail
+      }, PREFERS_REDUCED_MOTION ? 0 : 100 + index * 30); // 30ms delay between each thumbnail
     });
 
     // Destroy swiper if exists
@@ -840,30 +859,41 @@ ${swiperSlides}
       // === h3: Real typewriter animation (character by character) ===
       if (h3Element) {
         const h3Text = h3Element.textContent;
-        h3Element.textContent = '';
         h3Element.style.opacity = '1'; // Make h3 visible immediately
 
-        // Typewriter animation for h3
-        const startTime = performance.now();
-        const duration = 1000; // 1 second to type h3
+        if (PREFERS_REDUCED_MOTION) {
+          h3Element.textContent = h3Text;
+        } else {
+          h3Element.textContent = '';
 
-        function typeH3(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const charsToShow = Math.floor(h3Text.length * progress);
+          // Typewriter animation for h3
+          const startTime = performance.now();
+          const duration = 1000; // 1 second to type h3
 
-          if (progress < 1) {
-            h3Element.textContent = h3Text.substring(0, charsToShow) + '▌';
-            requestAnimationFrame(typeH3);
-          } else {
-            h3Element.textContent = h3Text; // Complete
+          function typeH3(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const charsToShow = Math.floor(h3Text.length * progress);
+
+            if (progress < 1) {
+              h3Element.textContent = h3Text.substring(0, charsToShow) + '▌';
+              requestAnimationFrame(typeH3);
+            } else {
+              h3Element.textContent = h3Text; // Complete
+            }
           }
-        }
 
-        requestAnimationFrame(typeH3);
+          requestAnimationFrame(typeH3);
+        }
       }
 
       // === Other elements: Cascade reveal with cursor effect ===
+      if (PREFERS_REDUCED_MOTION) {
+        // Show everything immediately - no cascade, no cursors
+        elementsToAnimate.forEach(({ element }) => {
+          element.style.opacity = '1';
+        });
+      } else {
       // Hide all elements initially
       elementsToAnimate.forEach(({ element }) => {
         element.style.opacity = '0';
@@ -901,6 +931,7 @@ ${swiperSlides}
 
         }, index * 150); // Stagger delay: 150ms between elements
       });
+      }
 
       // === Final HRs: Fade in after all animations complete ===
       const finalHr1 = detailView.querySelector('.final-hr-1');
@@ -920,7 +951,9 @@ ${swiperSlides}
         const lastCascadeDelay = elementsToAnimate.length > 0
           ? (elementsToAnimate.length - 1) * 150 + 600
           : 0;
-        const totalAnimationTime = Math.max(h3Duration, lastCascadeDelay);
+        const totalAnimationTime = PREFERS_REDUCED_MOTION
+          ? 0
+          : Math.max(h3Duration, lastCascadeDelay);
 
         // Fade in final HRs after all animations complete
         setTimeout(() => {
@@ -933,7 +966,7 @@ ${swiperSlides}
         }, totalAnimationTime + 300); // 300ms buffer after animations
       }
 
-    }, 900); // Start after title/year/category animations
+    }, PREFERS_REDUCED_MOTION ? 0 : 900); // Start after title/year/category animations
   }
 
   // Initialize Swiper for detail view
