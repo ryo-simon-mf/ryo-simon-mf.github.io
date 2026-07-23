@@ -46,13 +46,20 @@
         document.body.insertBefore(hamburger, document.body.firstChild.nextSibling);
         document.body.insertBefore(overlay, document.body.firstChild.nextSibling.nextSibling);
 
-        // Close menu when menu link is clicked
-        const menuLinks = document.querySelectorAll('#menu a');
-        menuLinks.forEach(function(link) {
-            link.addEventListener('click', function() {
-                checkbox.checked = false;
+        // Close menu when a menu link is clicked. Delegated to #menu
+        // because the menu content is injected asynchronously by
+        // load-menu.js on the first page of a session - direct listeners
+        // bound at DOMContentLoaded would find no links yet.
+        const menuDiv = document.getElementById('menu');
+        if (menuDiv && !menuDiv.dataset.closeBound) {
+            menuDiv.dataset.closeBound = '1';
+            menuDiv.addEventListener('click', function(e) {
+                if (e.target && e.target.closest && e.target.closest('a')) {
+                    const toggle = document.getElementById('menu-toggle');
+                    if (toggle) toggle.checked = false;
+                }
             });
-        });
+        }
 
         // Prevent body scroll when menu is open
         checkbox.addEventListener('change', function() {
