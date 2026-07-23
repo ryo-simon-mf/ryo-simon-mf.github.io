@@ -35,6 +35,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     let tailFadeInTimer = null;
 
+    // Animation generation counter: every applyFilter call bumps it, and
+    // every delayed callback checks it - so timers scheduled by a previous
+    // filter click can never overwrite the state of a newer one
+    let animGen = 0;
+
     // Count works by category
     function countWorksByCategory(category) {
         if (category === 'all') {
@@ -102,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function applyFilter(filterValue) {
+        const gen = ++animGen;
         const matches = item => filterValue === 'all' ||
             item.getAttribute('data-category') === filterValue;
 
@@ -142,11 +148,23 @@ document.addEventListener('DOMContentLoaded', function() {
         imgWraps.forEach(item => {
             const inFlow = item.style.display !== 'none' &&
                 item.style.position !== 'absolute';
+            // An item still mid-entrance (opacity < 1) from a superseded
+            // switch must re-enter, not be treated as already visible
+            const fullyVisible = inFlow &&
+                (item.style.opacity === '' || parseFloat(item.style.opacity) >= 1);
             if (inFlow) oldRects.set(item, item.getBoundingClientRect());
             if (matches(item)) {
-                (inFlow ? staying : entering).push(item);
+                (fullyVisible ? staying : entering).push(item);
             } else if (inFlow) {
                 leaving.push(item);
+            } else {
+                // Mid-departure from a superseded switch and still filtered
+                // out: finalize the hide now (otherwise it would linger as
+                // an invisible absolutely-positioned tile)
+                resetItemStyles(item);
+                item.dataset.state = 'out';
+                item.style.display = 'none';
+                item.style.opacity = '0';
             }
         });
 
@@ -181,7 +199,10 @@ document.addEventListener('DOMContentLoaded', function() {
             item.style.display = 'inline-block';
             item.style.opacity = '0';
         });
-        staying.forEach(item => { item.dataset.state = 'in'; });
+        staying.forEach(item => {
+            item.dataset.state = 'in';
+            item.style.opacity = '1';
+        });
 
         if (window.reinitLazyLoad) window.reinitLazyLoad();
 
@@ -221,10 +242,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
+                if (gen !== animGen) return; // superseded by a newer click
+
                 // 1) Leaving items fade out in place (slight sink),
                 //    concurrently with everything else
                 leaveGeom.forEach((g, index) => {
                     setTimeout(() => {
+                        if (gen !== animGen) return;
                         g.item.style.transition = 'opacity 0.22s ease, transform 0.22s ' + EASING_EJECT;
                         g.item.style.transform = 'translate(0px, 26px) scale(0.94)';
                         g.item.style.opacity = '0';
@@ -235,10 +259,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 //    new column, then vertical into the new row)
                 movers.forEach((move, index) => {
                     setTimeout(() => {
+                        if (gen !== animGen) return;
                         move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING_SNAP;
                         if (move.dx && move.dy) {
                             move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
                             setTimeout(() => {
+                                if (gen !== animGen) return;
                                 move.item.style.transform = '';
                             }, AXIS_MS + 30);
                         } else {
@@ -267,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     : 0;
                 entering.forEach((item, index) => {
                     setTimeout(() => {
+                        if (gen !== animGen) return;
                         item.style.transition = 'opacity 0.18s ease, transform 0.3s ' + EASING_POP;
                         item.style.transform = '';
                         item.style.opacity = '1';
@@ -281,6 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     ? slidesDone + (entering.length - 1) * enterStagger + 250
                     : slidesDone;
                 tailFadeInTimer = setTimeout(() => {
+                    if (gen !== animGen) return;
                     tailEls.forEach(el => {
                         el.style.transition = 'opacity 0.3s ease';
                         el.style.opacity = '1';
@@ -291,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 //    unless a quicker filter switch brought them back
                 const leaveDone = (leaveGeom.length ? (leaveGeom.length - 1) * 15 : 0) + 300;
                 setTimeout(() => {
+                    if (gen !== animGen) return;
                     leaveGeom.forEach(g => {
                         if (g.item.dataset.state !== 'leaving') return;
                         resetItemStyles(g.item);
