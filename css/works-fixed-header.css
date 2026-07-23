@@ -27,10 +27,6 @@
     margin-bottom: 0.3em;
 }
 
-/* Back to Works button */
-.back-to-list {
-    margin-right: 2em; /* Add spacing from right edge */
-}
 
 /* Center container (works list) - starts below fixed header */
 #content > .center-container {

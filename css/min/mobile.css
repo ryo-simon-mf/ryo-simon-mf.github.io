@@ -423,27 +423,8 @@
         position: relative !important;
     }
 
-    /* Mobile: Back to Works button - position absolute to avoid layout shift */
-    .fixed-header-area h1 .back-to-list {
-        position: absolute !important;
-        top: 50% !important;
-        right: 50px !important; /* Account for hamburger button space */
-        transform: translateY(calc(-50% - 2px)) !important;
-        font-size: 13px !important;
-        margin: 0 !important;
-        white-space: nowrap !important;
-        padding: 2px 8px !important;
-        line-height: 1.2 !important;
-        height: auto !important;
-        display: inline-flex !important;
-        align-items: center !important;
-    }
-
-    /* Mobile: Work title - ensure it doesn't overlap with back button */
-    #work-detail-view .fixed-header-area h1 .work-title-animated {
-        padding-right: 140px !important; /* Space for back button */
-        display: block !important;
-    }
+    /* (Back to Works button removed - the h1 breadcrumb "Works / title"
+       handles the return path; hamburger space covered by h1 padding) */
 
     .fixed-header-area h3 {
         font-size: 14px;

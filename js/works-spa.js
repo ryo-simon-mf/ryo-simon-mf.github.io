@@ -690,9 +690,8 @@ function createDetailView(work, workId) {
             <!-- Fixed Header Area -->
             <div class="fixed-header-area">
                 <h1>
-                    <!-- Heading　-->
-                    <span class="work-title-animated">Works</span>
-                    <a href="#" class="back-to-list">Back to Works</a>
+                    <!-- Breadcrumb heading: Works / <title> -->
+                    <a href="#" class="breadcrumb-works">Works</a><span class="breadcrumb-sep"> / </span><span class="work-title-animated"></span>
                 </h1>
                 <hr>
                 <p class="work-header-metadata">
@@ -991,8 +990,8 @@ ${swiperSlides}
     });
   }, 50);
 
-  // Back button handler
-  detailView.querySelector('.back-to-list').addEventListener('click', (e) => {
+  // Breadcrumb "Works" link returns to the grid
+  detailView.querySelector('.breadcrumb-works').addEventListener('click', (e) => {
     e.preventDefault();
     window.location.hash = '';
   });

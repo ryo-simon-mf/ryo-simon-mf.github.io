@@ -5,24 +5,19 @@
   width: 100%;
 }
 
-/* Back to list link - positioned after h1 */
-.back-to-list {
-  display: inline-block;
-  float: right;
-  color: #333;
+/* Breadcrumb heading: "Works / <title>" - Works links back to the grid */
+.breadcrumb-works {
+  color: var(--color-text, #333);
   text-decoration: none;
-  font-size: 14px;
-  padding: 8px 16px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
-.back-to-list:hover {
-  background-color: #f5f5f5;
-  border-color: #999;
+.breadcrumb-works:hover {
+  color: var(--color-accent, #006DD9);
+}
+
+.breadcrumb-sep {
+  color: var(--color-text-muted, #767676);
 }
 
 /* Ensure p after h1 with float clears properly */
