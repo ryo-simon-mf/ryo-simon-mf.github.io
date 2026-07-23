@@ -42,7 +42,9 @@
     <!-- p5.js -->
     <script src="../js/p5.js/p5.min.js" defer></script>
     <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <script src="../js/p5.js/sketch_3.js" defer></script>    <!-- Pre-paint guard: hide content until reveal animations take over -->
+    <script>document.documentElement.classList.add('pa-pending');setTimeout(function(){document.documentElement.classList.remove('pa-pending');},1600);</script>
+</head>
 
 <body>
     <div id="zentai">

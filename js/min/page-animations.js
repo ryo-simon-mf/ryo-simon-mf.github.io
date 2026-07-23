@@ -150,6 +150,14 @@ function showAllContentImmediately() {
 }
 
 /**
+ * Release the pre-paint guard (html.pa-pending set by an inline head
+ * script) once per-element visibility states have been applied
+ */
+function releasePrePaintGuard() {
+  document.documentElement.classList.remove('pa-pending');
+}
+
+/**
  * Initialize page animations on DOMContentLoaded
  * Applies to h1, h2, h3, images, and content sections
  */
@@ -158,6 +166,7 @@ function initPageAnimations() {
     const content = document.getElementById('content');
     if (!content) {
       console.warn('[Page Animations] Content element not found');
+      releasePrePaintGuard();
       return;
     }
 
@@ -175,6 +184,7 @@ function initPageAnimations() {
 
     if (isRevisit) {
       showAllContentImmediately();
+      releasePrePaintGuard();
       return;
     }
 
@@ -182,6 +192,7 @@ function initPageAnimations() {
     if (!('IntersectionObserver' in window)) {
       console.warn('[Page Animations] IntersectionObserver not supported - using fallback');
       showAllContentImmediately();
+      releasePrePaintGuard();
       return;
     }
 
@@ -215,6 +226,7 @@ function initPageAnimations() {
       });
     });
 
+    releasePrePaintGuard();
     return; // Exit early - no animations
   }
 
@@ -495,6 +507,9 @@ function initPageAnimations() {
     hrObserver.observe(hr);
   });
 
+  // Per-element states are applied - the pre-paint guard can go
+  releasePrePaintGuard();
+
   } catch (error) {
     // If any error occurs, show all content immediately
     console.error('[Page Animations] Animation initialization failed:', error);
@@ -509,6 +524,7 @@ function initPageAnimations() {
         el.style.opacity = '1';
       });
     }
+    releasePrePaintGuard();
   }
 }
 

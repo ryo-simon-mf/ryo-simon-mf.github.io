@@ -240,6 +240,18 @@ div#menu {
 }
 
 /* ============================================
+   Pre-paint guard for reveal animations
+   Pages with page-animations.js add .pa-pending on <html> via an
+   inline head script, so the first paint never flashes the full
+   content before the reveal animation hides it. page-animations.js
+   removes the class once per-element states are applied; the inline
+   script also removes it after 1.6s as a failsafe.
+   ============================================ */
+html.pa-pending #content {
+    opacity: 0;
+}
+
+/* ============================================
    Keyboard Focus Visibility
    ============================================ */
 a:focus-visible {
