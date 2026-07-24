@@ -1,6 +1,7 @@
 {
   "id": "pourwater",
   "title": "Pour Water",
+  "reading": "水を注ぐ",
   "category": "object",
   "year": "2017",
   "thumbnail": "../image/pourwater.jpg",
