@@ -324,6 +324,8 @@ async function initWorksSPA() {
     // Intercept thumbnail clicks
     document.querySelectorAll('.img_wrap a').forEach(link => {
       link.addEventListener('click', function(e) {
+        // Let modifier-key clicks (new tab/window) fall through to the browser
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
         const href = this.getAttribute('href');
         const workId = extractWorkId(href);
@@ -676,10 +678,10 @@ function createDetailView(work, workId) {
   detailView.id = 'work-detail-view';
 
   // Build images HTML for Swiper
-  const swiperSlides = work.images.map(img => `
+  const swiperSlides = work.images.map((img, i) => `
                     <div class="swiper-slide">
                         <div class="img_w2">
-                            <img src="${img}" alt="" loading="lazy">
+                            <img src="${img}" alt="${work.title} ${i + 1}" loading="lazy">
                         </div>
                     </div>`).join('');
 
