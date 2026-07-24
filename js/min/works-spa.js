@@ -712,7 +712,7 @@ ${swiperSlides}
 
             <!-- Subheading　-->
             <h3>
-                ${work.title}
+                ${work.title}${work.reading ? ` [${work.reading}]` : ''}
             </h3>
             <div id="content_in" class="work-content-animated">
                 ${work.description ? `<p>

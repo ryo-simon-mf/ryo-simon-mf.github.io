@@ -5,119 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Onlineb2B Proto - Ryo Simon</title>
+    <title>OnlineB2B_Proto - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Onlineb2B Proto project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="コロナの状況下を踏まえ、独自に開発したOnlineB2Bシステム。 当時Music Unity 2020やその他オンラインDJイベントなど、様々なアーティストが自身のパフォーマンスのライブストリーミングを行なっていた。しかし、まだ数々のオンラインストリーミングがイベントとしてのフォーマットが整っておらず、正解がな…">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
-    <meta property="og:title" content="Onlineb2B Proto - Ryo Simon">
-    <meta property="og:description" content="Onlineb2B Proto project by Ryo Simon.">
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
+    <meta property="og:title" content="OnlineB2B_Proto - Ryo Simon">
+    <meta property="og:description" content="コロナの状況下を踏まえ、独自に開発したOnlineB2Bシステム。 当時Music Unity 2020やその他オンラインDJイベントなど、様々なアーティストが自身のパフォーマンスのライブストリーミングを行なっていた。しかし、まだ数々のオンラインストリーミングがイベントとしてのフォーマットが整っておらず、正解がな…">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/onlineb2b_proto.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#onlineb2b-proto">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/onlineb2b/onlineb2b_1.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#onlineb2b-proto">
+    <meta http-equiv="refresh" content="0; url=./works.html#onlineb2b-proto">
+    <script>location.replace('./works.html#onlineb2b-proto');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- title -->
-        <!-- <div id="title">
-            <h1><a class="title" href="../index.html">Ryo Simon</a></h1>
-        </div> -->
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <h1>
-                OnlineB2B_Proto
-                <!-- 見出し　-->
-            </h1>
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="img_w2">
-                            <img src="../image/onlineb2b/onlineb2b_1.png" alt="poster" loading="lazy">
-                        </div>
-                    </div>
-
-                    <!-- <div class="swiper-slide">
-                        <div class="img_w2">
-                            <img src="../image/onlineb2b/onlineb2b_2.png" alt="poster" loading="lazy">
-                        </div>
-                    </div> -->
-
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <h3>
-                OnlineB2B_Proto
-                <!-- 副題　-->
-            </h3>
-
-            <div id="content_in">
-                <p>
-                    コロナの状況下を踏まえ、独自に開発したOnlineB2Bシステム。
-                    <br> 当時Music Unity 2020やその他オンラインDJイベントなど、様々なアーティストが自身のパフォーマンスのライブストリーミングを行なっていた。しかし、まだ数々のオンラインストリーミングがイベントとしてのフォーマットが整っておらず、正解がない状況下かつコロナの影響の最中で、DJとしてどのようなアプローチができるか考えた時、人と人の物理的な距離がありながらも、つながりとしての距離を感じさせないような、コロナ禍ならではのDJパフォーマンスを行いたいと考え開発に着手。<br>
-                    <br> まずプロトタイプとしてPioneer DJ社が提供するDJソフトであるrekordboxとMax8を用いて開発。現在はスタンドアローンで動作するプラットフォームを鋭意開発中。<br>
-                    <br> 使用している技術に関しては<a href="https://medium.com/computational-creativity-lab-at-keio-sfc/cc-lab-20%E6%98%A5-computational-creativity-lab-%E3%81%BE%E3%81%A8%E3%82%81-by-ryo-nishikado-a529740eb0b3">Medium記事</a>を参照ください。
-                </p>
-
-                <dt>Tool</a></dt>
-                <dd>
-                    
-                    <!-- 使用ソフト説明　-->
-                    Max8, rekordbox, Python
-                </dd>
-                </dl>
-
-                <dt>Link</dt>
-                <dd>
-                    <a class="list" href="https://medium.com/computational-creativity-lab-at-keio-sfc/cc-lab-20%E6%98%A5-computational-creativity-lab-%E3%81%BE%E3%81%A8%E3%82%81-by-ryo-nishikado-a529740eb0b3">Medium[技術説明]</a>,
-                    <a class="list" href="https://github.com/ryo-simon-mf/max-OnlineB2B#max-onlineb2b">GitHub</a>
-                </dd>
-                <br>
-
-            </div>
-            <hr>
-
-            <hr>
-
-            <p class="credit ">© 2019-2024 ryo-simon-mf</p>
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#onlineb2b-proto">OnlineB2B_Proto works page</a>…</p>
+</body>
 
 </html>

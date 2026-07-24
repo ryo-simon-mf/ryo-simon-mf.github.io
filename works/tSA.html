@@ -1,123 +1,35 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tsa - Ryo Simon</title>
+    <title>tSA[track Select Assistant] - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Tsa project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="多くのDJは自分がクラブなどに出演する際に、その日に流す曲などのセットリストをあらかじめ作ってからパフォーマンスに臨み、DJプレイ中に場の雰囲気を感じ取って自分のセットリストの曲を入れ替えるなどをする。もし、自分のDJとしてのデータを学習させたAIがあり、そのAIにセットリストを作らせた場合がどのような選曲をする…">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
-    <meta property="og:title" content="Tsa - Ryo Simon">
-    <meta property="og:description" content="Tsa project by Ryo Simon.">
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
+    <meta property="og:title" content="tSA[track Select Assistant] - Ryo Simon">
+    <meta property="og:description" content="多くのDJは自分がクラブなどに出演する際に、その日に流す曲などのセットリストをあらかじめ作ってからパフォーマンスに臨み、DJプレイ中に場の雰囲気を感じ取って自分のセットリストの曲を入れ替えるなどをする。もし、自分のDJとしてのデータを学習させたAIがあり、そのAIにセットリストを作らせた場合がどのような選曲をする…">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/tSA.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#t-s-a">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/tSA/tSA_1.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#t-s-a">
+    <meta http-equiv="refresh" content="0; url=./works.html#t-s-a">
+    <script>location.replace('./works.html#t-s-a');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- title -->
-        <!-- <div id="title">
-            <h1><a class="title" href="../index.html">Ryo Simon</a></h1>
-        </div> -->
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <!-- content title -->
-            <h1>
-                tSA[track Select Assistant]
-            </h1>
-
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="img_w2">
-                <img src="../image/tSA/tSA_1.png" alt="tSA_UI" loading="lazy">
-            </div>
-                    </div>
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <h3>
-                tSA[track Select Assistant]
-            </h3>
-            <div id="content_in">
-                
-                <p>多くのDJは自分がクラブなどに出演する際に、その日に流す曲などのセットリストをあらかじめ作ってからパフォーマンスに臨み、DJプレイ中に場の雰囲気を感じ取って自分のセットリストの曲を入れ替えるなどをする。もし、自分のDJとしてのデータを学習させたAIがあり、そのAIにセットリストを作らせた場合がどのような選曲をするか？今かけている曲と雰囲気を鑑みて、次はどのような選曲をするのか？この疑問に対しプロトタイプとして開発したのがこのtSA[track Select Assistant]である。DJ自身の曲のライブラリの特徴量をモデル化し、雰囲気や曲の類似度のパラメータから次の曲を選ぶものとなっている。本プロジェクトではモデル生成のアルゴリズム、ビジュアライズ、システム構築をプログラミングやツールなどを用いて実装した。
-                    <br><br> さらに細かい技術に関しては<a href="https://medium.com/computational-creativity-lab-at-keio-sfc/cc-lab-20%E6%98%A5-computational-creativity-lab-%E3%81%BE%E3%81%A8%E3%82%81-by-ryo-nishikado-a529740eb0b3">Medium</a>の記事を参照ください。
-                </p>
-
-                <br>
-                <dl>
-                    <dt>Co-create with</a></dt>
-                    <dd>Yuga Kobayashi, Ryo Hasegawa</dd>
-                </dl>
-                <br>
-                
-                <dt>Tool</a></dt>
-                <dd>Max8(Max for Live), Python, Node.js, JavaScript</dd>
-                </dl>
-                <br>
-
-                <br> <dt>Link</dt>
-                <dd>
-                    <a class="list" href="https://medium.com/computational-creativity-lab-at-keio-sfc/cc-lab-20%E6%98%A5-computational-creativity-lab-%E3%81%BE%E3%81%A8%E3%82%81-by-ryo-nishikado-a529740eb0b3">
-                    Medium
-                    </a>
-                    <a class="list" href="https://www.youtube.com/watch?v=sS2eaGtPJd4">
-                    Movie[demo] 
-                    </a>
-                </dd>
-                </dl>
-                <br>
-            </div>
-            
-            <hr>
-
-            <hr>
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#t-s-a">tSA[track Select Assistant] works page</a>…</p>
+</body>
 
 </html>

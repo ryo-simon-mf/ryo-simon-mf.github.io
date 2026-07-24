@@ -5,115 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Hapticguidingsuite - Ryo Simon</title>
+    <title>Haptic Guiding Suit - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Hapticguidingsuite project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="我々は徒歩で目的地に向かう際,フィーチャーフォンやスマートフォンをはじめとするモバイルデバイスが普及する以前は道順を憶える,地図を持参し現在地と対照させて移動するのが主で あった.しかし2020 年現在は,モバイルデバイスや通信の技術向上により,目的地に徒歩で向かう際にはナビゲーションシステムのアプリケーションを…">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
-    <meta property="og:title" content="Hapticguidingsuite - Ryo Simon">
-    <meta property="og:description" content="Hapticguidingsuite project by Ryo Simon.">
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
+    <meta property="og:title" content="Haptic Guiding Suit - Ryo Simon">
+    <meta property="og:description" content="我々は徒歩で目的地に向かう際,フィーチャーフォンやスマートフォンをはじめとするモバイルデバイスが普及する以前は道順を憶える,地図を持参し現在地と対照させて移動するのが主で あった.しかし2020 年現在は,モバイルデバイスや通信の技術向上により,目的地に徒歩で向かう際にはナビゲーションシステムのアプリケーションを…">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/HapticGuidingSuite.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#haptic-guiding-suite">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/hapticGuidingSuite/hgs_1.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#haptic-guiding-suite">
+    <meta http-equiv="refresh" content="0; url=./works.html#haptic-guiding-suite">
+    <script>location.replace('./works.html#haptic-guiding-suite');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- title -->
-        <!-- <div id="title">
-            <h1><a class="title" href="../index.html">Ryo Simon</a></h1>
-        </div> -->
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <h1>
-                Haptic Guiding Suit
-                <!-- 見出し　-->
-            </h1>
-
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="img_w2">
-                            <img src="../image/hapticGuidingSuite/hgs_1.png" alt="hgs_1" loading="lazy">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <h3>Haptic Guiding Suit</h3>
-            <!-- 副題　-->
-            <div id="content_in">
-                <p>
-                    <a>　我々は徒歩で目的地に向かう際,フィーチャーフォンやスマートフォンをはじめとするモバイルデバイスが普及する以前は道順を憶える,地図を持参し現在地と対照させて移動するのが主で あった.しかし2020 年現在は,モバイルデバイスや通信の技術向上により,目的地に徒歩で向かう際にはナビゲーションシステムのアプリケーションを用いて移動するのが主流となっている. 地図アプリケーションや音声ガイドアプリケーションが挙げられる.だが,以上のアプリケーションを使用する際には,歩行時に視覚および聴覚の二つの感覚どちらか,または同時に占有する こととなり,様々の事故を発生させる原因となる.実際に歩きスマホなどが社会問題になっているという事実があり,それが原因で発生した事故やトラブルが後をたたない.</a>
-                    <br>
-                    <a>　本研究では以上の問題を解決すべく,触覚が歩行時に他の感覚に比べ意識されることの少ないという観点からアプローチを行い,人工筋肉の特性を用いて触錯覚ではなく,力覚的な触覚アプ ローチにより,正確性のある新たなナビゲーション手法及びシステムを提案し,スーツ型のウェ アラブルデバイスとそれらを制御,実行するためのシステムとアプリケーションの開発を行っ た.また,アプリケーションの一部として以上のシステムを用いて,現在のコロナ状況下における 三密をさけるソーシャルディスタンスの推奨を踏まえて,新型コロナウイルス感染症対策となる ソーシャルディスタンスを保つ触覚歩行ナビシステムの開発を行った.</a>
-                    <dd></dd>
-
-                </p>
-
-                <dt>Grants</dt>
-                <dd>
-                    <a>2020年度山岸学生プロジェクト支援制度採択</a><a class="list" href="https://www.students.keio.ac.jp/sfc/other/research-grant/"> [LINK]</a>
-                </dd>
-                <br>
-
-                <dt>Award</dt>
-                <dd>
-                    <a>CB合同卒業プロジェクト発表会島津明人賞</a>
-                </dd>
-                <br>
-
-                <dt>Link</dt>
-                <dd>
-                    <a class="list" href="https://youtu.be/ropXBhGkfOc">
-                       Movie 
-                    </a>
-                </dd>
-                <br>
-            </div>
-            <hr>
-
-            <hr>
-
-            <p class="credit ">© 2019-2024 ryo-simon-mf</p>
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#haptic-guiding-suite">Haptic Guiding Suit works page</a>…</p>
+</body>
 
 </html>

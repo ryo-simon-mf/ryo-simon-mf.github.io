@@ -5,121 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Variableflavorremix - Ryo Simon</title>
+    <title>Variable Flavor Remix - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Variableflavorremix project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="~オーディエンスの視聴趣向に基づいたリミックス生成体験~ QRコードを読み込んでもらうことで、来場者それぞれのお気に入り曲をSpotifyから取得。取得した曲から自動でループ音源を抽出、さらに機械学習モデルによる音源分離を行うことで楽器ごとの音源に分離する。それらをMIDIパッドに読み込むことで、任意のタイミング…">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
-    <meta property="og:title" content="Variableflavorremix - Ryo Simon">
-    <meta property="og:description" content="Variableflavorremix project by Ryo Simon.">
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
+    <meta property="og:title" content="Variable Flavor Remix - Ryo Simon">
+    <meta property="og:description" content="~オーディエンスの視聴趣向に基づいたリミックス生成体験~ QRコードを読み込んでもらうことで、来場者それぞれのお気に入り曲をSpotifyから取得。取得した曲から自動でループ音源を抽出、さらに機械学習モデルによる音源分離を行うことで楽器ごとの音源に分離する。それらをMIDIパッドに読み込むことで、任意のタイミング…">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/VariableFlavorRemix.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#variable-flavor-remix">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/VariableFlavorRemix/VariableFlavorRemix_01.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#variable-flavor-remix">
+    <meta http-equiv="refresh" content="0; url=./works.html#variable-flavor-remix">
+    <script>location.replace('./works.html#variable-flavor-remix');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <h1>
-                <!-- Heading　-->
-                Variable Flavor Remix
-            </h1>
-
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="img_w2">
-                            <img src="../image/VariableFlavorRemix/VariableFlavorRemix_01.png" alt="VariableFlavorRemix_01" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="img_w2">
-                            <img src="../image/VariableFlavorRemix/VariableFlavorRemix_02.png" alt="VariableFlavorRemix_02" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <!-- Subheading　-->
-            <h3>Variable Flavor Remix</h3>
-            <div id="content_in">
-                <p>
-                    <a>~オーディエンスの視聴趣向に基づいたリミックス生成体験~</a><br>
-                    <a>QRコードを読み込んでもらうことで、来場者それぞれのお気に入り曲をSpotifyから取得。取得した曲から自動でループ音源を抽出、さらに機械学習モデルによる音源分離を行うことで楽器ごとの音源に分離する。それらをMIDIパッドに読み込むことで、任意のタイミングで再生することが可能。 他のオーディエンスの曲とのコラボレーションによる、その場、その時限りのリミックス作品を作成できる体験となる。</a>
-                    <dd></dd>
-
-                </p>
-
-                <dt>Credit</dt>
-                <dd>
-                    <a>Kai Obara[Direction]</a><br>
-                    <a>Dai Takanashi[Server Side, Background System]</a><br>
-                    <a>Ryo Hasegawa[Server Side, Background System]</a><br>
-                    <a>Ryo Nishikado(simon)[Visual]</a>
-                </dd><br>
-
-                <dt>Tool</dt>
-                <dd>
-                    Max8, Spotify API, Google Firebase, openFrameoworks
-                    <a class="list " href="">
-                    </a>
-                </dd>
-                </dl>
-                <br>
-
-                <dt>Exhibition</a></dt>
-                <dd><a class="list" href="https://alternative-dimension.cc/">CCLab Exhibition 2021 Alternative Dimension</a> [September 23-27,2021]</dd>
-                </dl>
-                <br>
-
-                <dt>Paper</a></dt>
-                <dd>
-                    <a class="list" href="https://www.interaction-ipsj.org/2022/catalog/#intaractive1_demo">情報処理学会インタラクション2022</a>[インタラクション/デモ]</dd>
-                </dl>
-                <br>
-
-            </div>
-            <hr>
-
-            <hr>
-
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#variable-flavor-remix">Variable Flavor Remix works page</a>…</p>
+</body>
 
 </html>

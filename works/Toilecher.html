@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <head>
@@ -8,104 +7,29 @@
 
     <title>Toilecher - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Toilecher project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="人間の健康に関心が寄せられているのと同様に、昨今ではペットの健康にも大きな関心が寄せられている。しかし、ペットと人間の共通言語が少ない現在、体調を把握する方法は人間に比べて非常に少ない。 そこでペットから発せられる視覚的情報の微々たる変化からを継続的にログを収集することで健康管理ができるのではないかと思い至った。…">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
     <meta property="og:title" content="Toilecher - Ryo Simon">
-    <meta property="og:description" content="Toilecher project by Ryo Simon.">
+    <meta property="og:description" content="人間の健康に関心が寄せられているのと同様に、昨今ではペットの健康にも大きな関心が寄せられている。しかし、ペットと人間の共通言語が少ない現在、体調を把握する方法は人間に比べて非常に少ない。 そこでペットから発せられる視覚的情報の微々たる変化からを継続的にログを収集することで健康管理ができるのではないかと思い至った。…">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/Toilecher.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#toilecher">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/toilecher/toilecher_1.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#toilecher">
+    <meta http-equiv="refresh" content="0; url=./works.html#toilecher">
+    <script>location.replace('./works.html#toilecher');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <!-- ニュース（中央カラム） -->
-            <h1>Toilecher</h1>
-
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="img_w">
-                            <img src="../image/toilecher/toilecher_1.jpg" alt="toilecher_1" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="img_w">
-                            <img src="../image/toilecher/toilecher_2.jpg" alt="toilecher_2" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="img_w">
-                            <img src="../image/toilecher/toilecher_3.jpg" alt="toilecher_3" loading="lazy">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom -->
-            <script src="../js/swiper/ownoption.js"></script>
-
-            <h3>Toilecher [トイレッチャー]</h3>
-            <div id="content_in">
-                
-                <p>人間の健康に関心が寄せられているのと同様に、昨今ではペットの健康にも大きな関心が寄せられている。しかし、ペットと人間の共通言語が少ない現在、体調を把握する方法は人間に比べて非常に少ない。
-                    <br>
-                    <br>そこでペットから発せられる視覚的情報の微々たる変化からを継続的にログを収集することで健康管理ができるのではないかと思い至った。センサーやコンピューターの小型化により、連続的な観察を行うことが昔に比べて容易になったからである。　そこで、小型コンピュータである「Raspberry Pi」とMicrosoft社が提供しているクラウドサービスのAzureで提供される画像認識サービスである「Custom Vision」を活用してペットの健康管理をするシステム及びプロダクトを製作。
-                </p>
-
-                <dt>Tool</a></dt>
-                <dd>Raspberry Pi 3B, Azure Custom Vision, Slack</dd>
-                </dl>
-                <br>
-
-                <dt>Co-create with</a></dt>
-                <dd>Kippei Wada</dd>
-                </dl>
-            </div>
-            
-            <hr>
-
-            <!-- <h3>Exhibition</h3>
-            <div id="content_in"> -->
-            
-            <hr>
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#toilecher">Toilecher works page</a>…</p>
+</body>
 
 </html>
