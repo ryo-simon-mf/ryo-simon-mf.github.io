@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>404 Not Found - Ryo Simon</title>
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Absolute (root-relative) paths so the page renders correctly no matter
+         which missing URL GitHub Pages served this 404 for. -->
+    <link rel="stylesheet" href="/css/min/common.css" type="text/css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg);
+            color: var(--color-text);
+        }
+
+        .nf-wrap {
+            padding: 2rem;
+            max-width: 32rem;
+        }
+
+        .nf-code {
+            font-family: var(--font-mono);
+            font-size: 4rem;
+            font-weight: var(--font-weight-medium);
+            line-height: 1;
+            margin: 0 0 1.25rem;
+            color: var(--color-accent);
+        }
+
+        .nf-msg {
+            font-family: var(--font-body);
+            font-size: var(--font-size-base);
+            line-height: var(--line-height-normal);
+            margin: 0 0 0.35rem;
+        }
+
+        .nf-msg-en {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-small);
+            color: var(--color-text-muted);
+            margin: 0 0 2rem;
+        }
+
+        .nf-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nf-links li {
+            font-family: var(--font-mono);
+            font-size: var(--font-size-base);
+            margin: 0.4rem 0;
+        }
+
+        .nf-links a {
+            color: var(--color-text);
+            text-decoration: none;
+        }
+
+        .nf-links a::before {
+            content: "> ";
+            color: var(--color-accent);
+        }
+
+        .nf-links a:hover {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+
+<body>
+    <main class="nf-wrap" role="main">
+        <p class="nf-code">404</p>
+        <p class="nf-msg">お探しのページは見つかりませんでした。</p>
+        <p class="nf-msg-en">The page you're looking for doesn't exist.</p>
+        <ul class="nf-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/works/works.html">Works</a></li>
+            <li><a href="/about/about.html">About</a></li>
+        </ul>
+    </main>
+</body>
+
+</html>
