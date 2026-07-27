@@ -52,6 +52,21 @@
     --paragraph-margin-bottom: 1em;
 }
 
+/* Swiper carousel: use the site accent instead of Swiper's default iOS blue.
+   Scoped to the container (not :root) so it wins over swiper.css regardless of
+   stylesheet load order — the nearest ancestor's custom-property value applies. */
+.swiper-container,
+.swiper {
+    --swiper-theme-color: var(--color-accent);
+}
+
+/* Horizontal rules: thin hairline in the site border color (was the browser
+   default inset/beveled gray) */
+hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+}
+
 /* ============================================
    Typography Foundation
    ============================================ */
