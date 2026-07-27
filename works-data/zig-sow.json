@@ -4,9 +4,9 @@
   "reading": "ジグソウ",
   "category": "code",
   "year": "2019",
-  "thumbnail": "../image/zigsow.png",
+  "thumbnail": "../image/zigsow.webp",
   "images": [
-    "../image/zigsow.png"
+    "../image/zigsow.webp"
   ],
   "description": "自作VJシステム。最終出力画面、4chミキサー、選択中の素材名などを表示するインフォメーションの大きく3つのUIを持つ。また、お気に入りの映像のプリセット保存読み込みが可能である。",
   "credit": null,

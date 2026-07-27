@@ -4,9 +4,9 @@
   "reading": "テキストトゥーシーケンサー",
   "category": "code",
   "year": "2019",
-  "thumbnail": "../image/Text2Seq.png",
+  "thumbnail": "../image/Text2Seq.webp",
   "images": [
-    "../image/Text2Seq.png"
+    "../image/Text2Seq.webp"
   ],
   "description": "入力したテキストを2進法の数列に変換し8chシーケンサーにする自作デバイス。<br>Ableton Live 10 SuiteのMax for LiveでのデバイスだがMIDIモードにすることでその他DAWでの使用も可能。",
   "credit": null,

@@ -3,9 +3,9 @@
   "title": "Morse_Code",
   "category": "code",
   "year": "2020",
-  "thumbnail": "../image/Morse_Code/Morse_Code_1.png",
+  "thumbnail": "../image/Morse_Code/Morse_Code_1.webp",
   "images": [
-    "../image/Morse_Code/Morse_Code_1.png"
+    "../image/Morse_Code/Morse_Code_1.webp"
   ],
   "description": "テキストからモールス信号を出力するアプリケーション。スタンドアローンのアプリケーションとして、またMIDI楽器として使用することができる。出力する波形をサイン波、ノコギリ波、三角波と矩形波に変更することも可能。",
   "credit": null,

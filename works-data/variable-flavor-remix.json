@@ -3,10 +3,10 @@
   "title": "Variable Flavor Remix",
   "category": "code",
   "year": "2021",
-  "thumbnail": "../image/VariableFlavorRemix/VariableFlavorRemix_01.png",
+  "thumbnail": "../image/VariableFlavorRemix/VariableFlavorRemix_01.webp",
   "images": [
-    "../image/VariableFlavorRemix/VariableFlavorRemix_01.png",
-    "../image/VariableFlavorRemix/VariableFlavorRemix_02.png"
+    "../image/VariableFlavorRemix/VariableFlavorRemix_01.webp",
+    "../image/VariableFlavorRemix/VariableFlavorRemix_02.webp"
   ],
   "description": "~オーディエンスの視聴趣向に基づいたリミックス生成体験~<br>QRコードを読み込んでもらうことで、来場者それぞれのお気に入り曲をSpotifyから取得。取得した曲から自動でループ音源を抽出、さらに機械学習モデルによる音源分離を行うことで楽器ごとの音源に分離する。それらをMIDIパッドに読み込むことで、任意のタイミングで再生することが可能。 他のオーディエンスの曲とのコラボレーションによる、その場、その時限りのリミックス作品を作成できる体験となる。",
   "credit": "Kai Obara[Direction]<br>Dai Takanashi[Server Side, Background System]<br>Ryo Hasegawa[Server Side, Background System]<br>Ryo Nishikado(simon)[Visual]",
