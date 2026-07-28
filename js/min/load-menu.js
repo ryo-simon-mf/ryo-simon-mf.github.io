@@ -74,10 +74,12 @@
         document.head.appendChild(spec);
     }
 
-    // Detect if we're at root level or in a subdirectory
-    const isRootLevel = window.location.pathname === '/' ||
-                       window.location.pathname.endsWith('/index.html') ||
-                       !window.location.pathname.includes('/');
+    // Detect if we're at root level or in a subdirectory.
+    // Must not use endsWith('/index.html'): that matched /<subdir>/index.html too,
+    // so such a page fetched ./includes/menu-content.html and 404'd, losing the
+    // whole sidebar. That is what happened to the (now removed) /cv/ page.
+    const path_ = window.location.pathname;
+    const isRootLevel = path_ === '/' || path_ === '/index.html' || !path_.includes('/');
 
     // Determine current page for highlighting active menu item
     const path = window.location.pathname;
@@ -85,14 +87,12 @@
 
     if (path.includes('/about/')) currentPage = 'about';
     else if (path.includes('/works/')) currentPage = 'works';
-    else if (path.includes('/Gallery/')) currentPage = 'gallery';
     else if (path.includes('/contact/')) currentPage = 'contact';
     else if (path.includes('/portfolio/')) currentPage = 'portfolio';
-    else if (path.includes('/cv/')) currentPage = 'cv';
 
     // Bump the version suffix whenever includes/menu-content.html changes
     // so cached copies from earlier in the session are discarded
-    const MENU_CACHE_KEY = 'menu-html-cache-v3';
+    const MENU_CACHE_KEY = 'menu-html-cache-v4';
 
     function renderMenu(html) {
         const menuDiv = document.getElementById('menu');

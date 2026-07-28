@@ -460,7 +460,9 @@ function initPageAnimations() {
     }
   });
 
-  // Fade in all iframes (for Gallery page)
+  // Fade in all iframes. No page ships one today (the Gallery page that used
+  // this was removed), but the loop is a no-op without them, so keep it for
+  // any future embed.
   const iframes = content.querySelectorAll('iframe');
   iframes.forEach((iframe, index) => {
     iframe.style.opacity = '0';

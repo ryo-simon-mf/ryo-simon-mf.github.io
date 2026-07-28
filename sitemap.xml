@@ -19,21 +19,12 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://ryo-simon-mf.github.io/Gallery/Gallery.html</loc>
-    <lastmod>2025-11-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://ryo-simon-mf.github.io/contact/contact.html</loc>
-    <lastmod>2025-11-18</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ryo-simon-mf.github.io/portfolio/portfolio.html</loc>
-    <lastmod>2025-11-18</lastmod>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
 </urlset>
+<!-- Gallery/ was removed from the site. portfolio.html still exists but is not
+     linked from the navigation, so it is intentionally left out of the sitemap;
+     re-add it if the menu entry is restored. -->
