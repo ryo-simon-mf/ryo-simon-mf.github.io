@@ -332,24 +332,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Filter button click handler
+    const FILTERS = ['all', 'code', 'object', 'design'];
+
+    // Mark the chosen button both visually and for assistive tech. aria-pressed
+    // describes a toggle's state, which is what these controls actually are.
+    function setActiveButton(filterValue) {
+        filterButtons.forEach(btn => {
+            const on = btn.getAttribute('data-filter') === filterValue;
+            btn.classList.toggle('active', on);
+            btn.setAttribute('aria-pressed', String(on));
+        });
+    }
+
+    // Reflect the filter in the URL so a reload or a shared link keeps it.
+    // replaceState, not pushState: filtering is not a navigation, and pushing
+    // would put an entry between the visitor and the page they arrived from.
+    function syncUrl(filterValue) {
+        if (!window.history || !history.replaceState) return;
+        const url = new URL(window.location.href);
+        if (filterValue === 'all') {
+            url.searchParams.delete('filter');
+        } else {
+            url.searchParams.set('filter', filterValue);
+        }
+        history.replaceState(null, '', url.pathname + url.search + url.hash);
+    }
+
     filterButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default anchor behavior
-
+        button.addEventListener('click', function() {
             const filterValue = this.getAttribute('data-filter');
-
-            // Update active state on filter buttons
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-
+            setActiveButton(filterValue);
             applyFilter(filterValue);
-
-            // Update count display
             updateFilterCount(filterValue);
+            syncUrl(filterValue);
         });
     });
 
-    // Initialize count display with "All" filter
-    updateFilterCount('all');
+    // Restore a filter passed in the URL. Applied through the reduced-motion
+    // path so the grid is simply in the right state on arrival, rather than
+    // playing a switch animation against the page's own reveal cascade.
+    const requested = new URLSearchParams(window.location.search).get('filter');
+    if (requested && FILTERS.includes(requested) && requested !== 'all') {
+        setActiveButton(requested);
+        imgWraps.forEach(item => {
+            const shown = item.getAttribute('data-category') === requested;
+            item.dataset.state = shown ? 'in' : 'out';
+            item.style.display = shown ? 'inline-block' : 'none';
+        });
+        if (window.reinitLazyLoad) window.reinitLazyLoad();
+        updateFilterCount(requested);
+    } else {
+        updateFilterCount('all');
+    }
 });

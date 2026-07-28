@@ -34,10 +34,36 @@ div#menu {
     line-height: var(--line-height-normal);
 }
 
+/* These are <button> elements so they are real toggle controls, but they must
+   look exactly like the inline links they replaced: strip the UA button styling,
+   inherit the surrounding type, and restate the black that .list:link used to
+   supply (a button never matches :link, so it would otherwise fall back to the
+   body colour). vertical-align:baseline keeps them on the text baseline -- a
+   button defaults to middle and would sit a pixel off from the " / " separators. */
 .filter-btn {
     transition: color 0.2s ease, background-color 0.2s ease;
     padding: 2px 4px;
     border-radius: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    background: none;
+    border: 0;
+    margin: 0;
+    font: inherit;
+    letter-spacing: inherit;
+    /* normal, not inherit: a button lays its content out as its own block, so an
+       inherited line-height (1.6) became the content height and made the row 4px
+       taller than the anchors it replaced. normal falls back to the font's own
+       metrics, which is what an inline anchor uses. */
+    line-height: normal;
+    color: #000000;
+    cursor: pointer;
+    vertical-align: baseline;
+    /* Must be inline, not the button default inline-block: on an inline box the
+       vertical padding does not contribute to the line box, which is what keeps
+       this row the same height as when these were anchors (inline-block pushed
+       it 24px -> 29.6px and nudged the count badge down 2px). */
+    display: inline;
 }
 
 .filter-btn:hover {
