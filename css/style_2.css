@@ -16,7 +16,6 @@ div#title {
 
 /* Subpage-specific: content_in with padding */
 div#content_in {
-    float: auto;
     padding: 15px 30px 15px 30px;
 }
 

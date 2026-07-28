@@ -477,46 +477,20 @@ function browseStripHtml(work) {
             </section>` : ''}`;
 }
 
-// Extract work ID from filename
+/**
+ * Work id for a thumbnail href, resolved from the `filename` field in
+ * index.json. Filenames and ids differ in inconsistent ways (tSA.html ->
+ * t-s-a, muses_ex_echoes.html -> muses-ex-echoes), so the pairing has to be
+ * declared somewhere; index.json keeps it next to the work it describes
+ * instead of in a table here that had to be edited for every new work.
+ */
 function extractWorkId(href) {
-  // Mapping from HTML filename to work ID
-  const filenameToId = {
-    'toki-shirube.html': 'toki-shirube',
-    'inochinokodou.html': 'inochinokodou',
-    'muses_ex_echoes.html': 'muses-ex-echoes',
-    'improvise_chain.html': 'improvise-chain',
-    'theplot_echo_mv.html': 'theplot-echo-mv',
-    'VariableFlavorRemix.html': 'variable-flavor-remix',
-    'AdaptiveYantra.html': 'adaptive-yantra',
-    'HapticGuidingSuite.html': 'haptic-guiding-suite',
-    'AiTellYouDjing.html': 'ai-tell-you-djing',
-    'Morse_Code.html': 'morse-code',
-    'mutek_jp_2020.html': 'mutek-jp-2020',
-    'playingtokyo_vol11.html': 'playingtokyo-vol11',
-    'solgasa_nextup_animation.html': 'solgasa-nextup-animation',
-    'tSA.html': 't-s-a',
-    'xMusicOnline0418.html': 'x-music-online0418',
-    'onlineb2b_proto.html': 'onlineb2b-proto',
-    'SequencingOfFutureConversation.html': 'sequencing-of-future-conversation',
-    'Text2Sequence.html': 'text2-sequence',
-    'ZigSow.html': 'zig-sow',
-    'Motion-Crossfader.html': 'motion-crossfader',
-    'Motion-Crossfader_ver.2.html': 'motion-crossfader-ver2',
-    'shikael.html': 'shikael',
-    'OriginalLogo.html': 'original-logo',
-    'sanskritlogo.html': 'sanskritlogo',
-    'Toilecher.html': 'toilecher',
-    'rfont.html': 'rfont',
-    'randb.html': 'randb',
-    'cfv.html': 'cfv',
-    'jpdd.html': 'jpdd',
-    'eyehaveyou.html': 'eyehaveyou',
-    'pourwater.html': 'pourwater',
-    'colorboxes.html': 'colorboxes'
-  };
-
   const filename = href.replace('./', '');
-  return filenameToId[filename] || filename.replace('.html', '');
+  const match = worksIndex.find(w => w.filename === filename);
+  if (match) return match.id;
+  // Before index.json resolves, or for a page not listed in it, fall back to
+  // the filename stem. Correct whenever the two already agree.
+  return filename.replace('.html', '');
 }
 
 // Handle hash change events (async to support lazy loading)

@@ -156,6 +156,15 @@ a {
    ============================================ */
 div#zentai {
     width: auto;
+    /* Deliberately NOT display:flow-root / clearfix, even though #content floats
+       and this container therefore collapses to zero height (which is why
+       document.body.scrollHeight reads 0 in WebKit; Chromium counts the overflow
+       and hides it).
+       Containing the float gives #zentai real height, which moves the static
+       position of #menu below it. #menu is position:fixed with top/left auto, so
+       it is placed AT its static position -- it jumped from y=8 to y=3041 on
+       works.html, i.e. the sidebar fell off the screen. Fixing the float needs
+       #menu given explicit offsets first. Nothing currently reads body height. */
 }
 
 div#title {

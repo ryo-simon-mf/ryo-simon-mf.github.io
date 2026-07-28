@@ -4,194 +4,226 @@
       "id": "toki-shirube",
       "title": "toki-shirube",
       "year": "2024",
-      "category": "object"
+      "category": "object",
+      "filename": "toki-shirube.html"
     },
     {
       "id": "inochinokodou",
       "title": "イノチのコドウ",
       "year": "2023",
-      "category": "code"
+      "category": "code",
+      "filename": "inochinokodou.html"
     },
     {
       "id": "muses-ex-echoes",
       "title": "Muses ex Echoes",
       "year": "2023",
-      "category": "code"
+      "category": "code",
+      "filename": "muses_ex_echoes.html"
     },
     {
       "id": "improvise-chain",
       "title": "Improvise±Chain",
       "year": "2022",
-      "category": "code"
+      "category": "code",
+      "filename": "improvise_chain.html"
     },
     {
       "id": "theplot-echo-mv",
       "title": "The plot / Echo MV",
       "year": "2022",
-      "category": "design"
+      "category": "design",
+      "filename": "theplot_echo_mv.html"
     },
     {
       "id": "variable-flavor-remix",
       "title": "Variable Flavor Remix",
       "year": "2021",
-      "category": "code"
+      "category": "code",
+      "filename": "VariableFlavorRemix.html"
     },
     {
       "id": "adaptive-yantra",
       "title": "Adaptive Yantra",
       "year": "2021",
-      "category": "code"
+      "category": "code",
+      "filename": "AdaptiveYantra.html"
     },
     {
       "id": "haptic-guiding-suite",
       "title": "Haptic Guiding Suit",
       "year": "2021",
-      "category": "code"
+      "category": "code",
+      "filename": "HapticGuidingSuite.html"
     },
     {
       "id": "ai-tell-you-djing",
       "title": "AI tell you Djing",
       "year": "2020",
-      "category": "code"
+      "category": "code",
+      "filename": "AiTellYouDjing.html"
     },
     {
       "id": "morse-code",
       "title": "Morse_Code",
       "year": "2020",
-      "category": "code"
+      "category": "code",
+      "filename": "Morse_Code.html"
     },
     {
       "id": "mutek-jp-2020",
       "title": "Mutek Digi Lab1 [Hearing Music Evolve]",
       "year": "2020",
-      "category": "code"
+      "category": "code",
+      "filename": "mutek_jp_2020.html"
     },
     {
       "id": "playingtokyo-vol11",
       "title": "PlayingTokyo vol.11",
       "year": "2020",
-      "category": "code"
+      "category": "code",
+      "filename": "playingtokyo_vol11.html"
     },
     {
       "id": "solgasa-nextup-animation",
       "title": "Solgasa Next Up: Live Event 2020",
       "year": "2020",
-      "category": "design"
+      "category": "design",
+      "filename": "solgasa_nextup_animation.html"
     },
     {
       "id": "t-s-a",
       "title": "tSA[track Select Assistant]",
       "year": "2020",
-      "category": "design"
+      "category": "design",
+      "filename": "tSA.html"
     },
     {
       "id": "x-music-online0418",
       "title": "xMusicOnline vol.0.0",
       "year": "2020",
-      "category": "design"
+      "category": "design",
+      "filename": "xMusicOnline0418.html"
     },
     {
       "id": "onlineb2b-proto",
       "title": "OnlineB2B_Proto",
       "year": "2020",
-      "category": "design"
+      "category": "design",
+      "filename": "onlineb2b_proto.html"
     },
     {
       "id": "sequencing-of-future-conversation",
       "title": "Sequencing of Future Conversation",
       "year": "2019",
-      "category": "code"
+      "category": "code",
+      "filename": "SequencingOfFutureConversation.html"
     },
     {
       "id": "text2-sequence",
       "title": "Text2Sequence",
       "year": "2019",
-      "category": "code"
+      "category": "code",
+      "filename": "Text2Sequence.html"
     },
     {
       "id": "zig-sow",
       "title": "ZigSow",
       "year": "2019",
-      "category": "code"
+      "category": "code",
+      "filename": "ZigSow.html"
     },
     {
       "id": "motion-crossfader",
       "title": "Motion Crossfader",
       "year": "2019",
-      "category": "code"
+      "category": "code",
+      "filename": "Motion-Crossfader.html"
     },
     {
       "id": "motion-crossfader-ver2",
       "title": "Motion Crossfader ver.2",
       "year": "2019",
-      "category": "code"
+      "category": "code",
+      "filename": "Motion-Crossfader_ver.2.html"
     },
     {
       "id": "shikael",
       "title": "Shikael",
       "year": "2019",
-      "category": "design"
+      "category": "design",
+      "filename": "shikael.html"
     },
     {
       "id": "original-logo",
       "title": "Logo",
       "year": "2018",
-      "category": "design"
+      "category": "design",
+      "filename": "OriginalLogo.html"
     },
     {
       "id": "sanskritlogo",
       "title": "Sanskrit Logo",
       "year": "2018",
-      "category": "design"
+      "category": "design",
+      "filename": "sanskritlogo.html"
     },
     {
       "id": "toilecher",
       "title": "Toilecher",
       "year": "2018",
-      "category": "object"
+      "category": "object",
+      "filename": "Toilecher.html"
     },
     {
       "id": "rfont",
       "title": "R Font",
       "year": "2018",
-      "category": "design"
+      "category": "design",
+      "filename": "rfont.html"
     },
     {
       "id": "randb",
       "title": "Red and Blue",
       "year": "2018",
-      "category": "code"
+      "category": "code",
+      "filename": "randb.html"
     },
     {
       "id": "cfv",
       "title": "Clear File Vase",
       "year": "2017",
-      "category": "object"
+      "category": "object",
+      "filename": "cfv.html"
     },
     {
       "id": "jpdd",
       "title": "Japanese Paper Door Display",
       "year": "2017",
-      "category": "object"
+      "category": "object",
+      "filename": "jpdd.html"
     },
     {
       "id": "eyehaveyou",
       "title": "Eye Have You",
       "year": "2017",
-      "category": "object"
+      "category": "object",
+      "filename": "eyehaveyou.html"
     },
     {
       "id": "pourwater",
       "title": "Pour Water",
       "year": "2017",
-      "category": "object"
+      "category": "object",
+      "filename": "pourwater.html"
     },
     {
       "id": "colorboxes",
       "title": "Color Boxes",
       "year": "2017",
-      "category": "code"
+      "category": "code",
+      "filename": "colorboxes.html"
     }
   ],
-  "description": "Work order for portfolio display with title, year and category metadata for thumbnail overlays."
+  "description": "Work order for portfolio display, with title/year/category for thumbnail overlays and filename to pair each work with its works/*.html redirect stub (the two differ: tSA.html -> t-s-a)."
 }
