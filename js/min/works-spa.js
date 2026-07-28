@@ -403,6 +403,7 @@ function extractWorkId(href) {
     'Text2Sequence.html': 'text2-sequence',
     'ZigSow.html': 'zig-sow',
     'Motion-Crossfader.html': 'motion-crossfader',
+    'Motion-Crossfader_ver.2.html': 'motion-crossfader-ver2',
     'shikael.html': 'shikael',
     'OriginalLogo.html': 'original-logo',
     'sanskritlogo.html': 'sanskritlogo',

@@ -1,0 +1,24 @@
+{
+  "id": "motion-crossfader-ver2",
+  "title": "Motion Crossfader ver.2",
+  "reading": "モーション・クロスフェーダー バージョン2",
+  "category": "code",
+  "year": "2019",
+  "thumbnail": "../image/motioncrossfader_ver2/motioncrossfader_ver2_1.webp",
+  "images": [
+    "../image/motioncrossfader_ver2/motioncrossfader_ver2_1.webp"
+  ],
+  "description": "x Music Exhibition Keio SFC x-Music Lab vol.0で展示した「Motion Crossfader」のアップデートバージョン<br> DJ要素をアップデートしたのとともにその場の雰囲気に合わせた油絵風エフェクトを付加。",
+  "credit": null,
+  "tools": "TouchDesigner, Ableton Live 10 Suite, Max/Msp, Posenet(TensorFlow), Node.js",
+  "link": null,
+  "exhibition": "2019<br>「自分らしく生きたい。」展 / 自分らしく生きるとっておきのヒントをお見せします [Oct 2,2019 - Oct 12.2019]",
+  "award": null,
+  "paper": null,
+  "grants": null,
+  "collaborators": "Yuga Kobayashi",
+  "performers": null,
+  "download": null,
+  "citation": null,
+  "related": null
+}

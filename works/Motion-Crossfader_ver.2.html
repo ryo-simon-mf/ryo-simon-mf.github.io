@@ -1,113 +1,35 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Motion Crossfader Ver.2 - Ryo Simon</title>
+    <title>Motion Crossfader ver.2 - Ryo Simon</title>
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Motion Crossfader Ver.2 project by Ryo Simon.">
-    <meta name="keywords" content="Ryo Simon, Ryo Nishikado, creative coding, interactive art, design">
+    <!-- This page has moved into the Works SPA. Kept as a lightweight redirect
+         so existing links and social-share previews resolve correctly. -->
+    <meta name="description" content="x Music Exhibition Keio SFC x-Music Lab vol.0で展示した「Motion Crossfader」のアップデートバージョン DJ要素をアップデートしたのとともにその場の雰囲気に合わせた油絵風エフェクトを付加。">
     <meta name="author" content="Ryo Nishikado">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, follow">
 
-    <!-- OGP Meta Tags -->
-    <meta property="og:title" content="Motion Crossfader Ver.2 - Ryo Simon">
-    <meta property="og:description" content="Motion Crossfader Ver.2 project by Ryo Simon.">
+    <!-- OGP Meta Tags (for social share previews, which do not follow the redirect) -->
+    <meta property="og:title" content="Motion Crossfader ver.2 - Ryo Simon">
+    <meta property="og:description" content="x Music Exhibition Keio SFC x-Music Lab vol.0で展示した「Motion Crossfader」のアップデートバージョン DJ要素をアップデートしたのとともにその場の雰囲気に合わせた油絵風エフェクトを付加。">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/Motion-Crossfader_ver.2.html">
-    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp">
+    <meta property="og:url" content="https://ryo-simon-mf.github.io/works/works.html#motion-crossfader-ver2">
+    <meta property="og:image" content="https://ryo-simon-mf.github.io/image/motioncrossfader_ver2/motioncrossfader_ver2_1.webp">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:creator" content="@ryo_simon_mf">
 
-    <!-- Fonts: preconnect + direct link. Was an @import inside common.css, which
-         could not begin fetching until that stylesheet had downloaded. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.min.css">
-
-    <!-- icon -->
-    <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper: loaded in body just before ownoption.js, not here (render-blocking) -->
-
-    <!-- p5.js -->
-    <script src="../js/p5.js/p5.min.js" defer></script>
-    <!-- own sketch -->
-    <script src="../js/p5.js/sketch_3.js" defer></script></head>
+    <!-- Canonical + redirect to the SPA entry -->
+    <link rel="canonical" href="https://ryo-simon-mf.github.io/works/works.html#motion-crossfader-ver2">
+    <meta http-equiv="refresh" content="0; url=./works.html#motion-crossfader-ver2">
+    <script>location.replace('./works.html#motion-crossfader-ver2');</script>
+</head>
 
 <body>
-    <div id="zentai">
-
-        <!-- title -->
-        <!-- <div id="title">
-            <h1><a class="title" href="../index.html">Ryo Simon</a></h1>
-        </div> -->
-
-        <!-- content  -->
-        <div id="content" role="main">
-            <br>
-            <!-- ニュース（中央カラム） -->
-            <h1>Motion Crossfader ver.2</h1>
-
-            <hr>
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="img_w">
-                <img src="../image/mitaka.jpeg" alt="Mitaka" loading="lazy">
-            </div>
-                    </div>
-                </div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
-            </div>
-
-            <!-- Original Custom (swiper must load synchronously right before its consumer) -->
-            <script src="../js/swiper/swiper.min.js"></script>
-            <script src="../js/swiper/ownoption.js"></script>
-            <h3>Motion Crossfader ver.2 [モーション・クロスフェーダー バージョン2]</h3>
-            <div id="content_in">
-                
-                <p>x Music Exhibition Keio SFC x-Music Lab vol.0で展示した「Motion Crossfader」のアップデートバージョン<br> DJ要素をアップデートしたのとともにその場の雰囲気に合わせた油絵風エフェクトを付加。
-                </p>
-
-                <dt>Tool</a></dt>
-                <dd>TouchDesigner, Ableton Live 10 Suite, Max/Msp, Posenet(TensorFlow), Node.js</dd>
-                </dl>
-                <br>
-
-                <dt>Co-create with</a></dt>
-                <dd>Yuga Kobayashi</dd>
-                </dl>
-            </div>
-            
-            <hr>
-
-            <h3>Exhibition</h3>
-            <div id="content_in">
-                
-                <dt>2019</dt>
-                <dd>「自分らしく生きたい。」展 / 自分らしく生きるとっておきのヒントをお見せします [Oct 2,2019 - Oct 12.2019]</dd>
-                </dl>
-
-            </div>
-            
-            <hr>
-            <br>
-        </div>
-
-        <!-- menu -->
-    <div id="menu" role="navigation">
-        <!-- Menu content loaded dynamically via load-menu.js -->
-    </div>
-    <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <p>Redirecting to <a href="./works.html#motion-crossfader-ver2">Motion Crossfader ver.2 works page</a>…</p>
+</body>
 
 </html>
