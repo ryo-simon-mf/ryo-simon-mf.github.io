@@ -4,6 +4,7 @@
 let worksData = {}; // Will be populated from JSON files
 let worksOrder = []; // Display order
 let worksIndex = []; // id/title/year/category straight from index.json
+let lastWorkId = null; // which work the grid was left from, to restore focus to
 let currentSwiper = null;
 
 // Hacker-style text animation
@@ -382,6 +383,36 @@ async function loadWork(workId) {
 }
 
 /**
+ * Announce a view change to screen readers. Swapping the grid for a detail view
+ * changes the whole page without a navigation, so nothing would otherwise be
+ * read out. The region is clipped rather than display:none -- hidden regions are
+ * not announced -- so it occupies no pixels.
+ */
+function announce(message) {
+  let region = document.getElementById('spa-live-region');
+  if (!region) {
+    region = document.createElement('div');
+    region.id = 'spa-live-region';
+    region.setAttribute('role', 'status');
+    region.setAttribute('aria-live', 'polite');
+    region.style.cssText = 'position:absolute;width:1px;height:1px;margin:-1px;' +
+      'padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap';
+    document.body.appendChild(region);
+  }
+  region.textContent = message;
+}
+
+/**
+ * Move focus without scrolling. preventScroll matters because the caller also
+ * runs its own smooth scroll to the top, and the two would fight.
+ */
+function focusQuietly(el) {
+  if (!el) return;
+  if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1');
+  el.focus({ preventScroll: true });
+}
+
+/**
  * Thumbnail URL for a work id, read out of the grid that is already in the DOM.
  * Avoids fetching each related work's JSON just to learn its thumbnail.
  */
@@ -696,6 +727,14 @@ function showWorksList() {
       currentSwiper.destroy(true, true);
       currentSwiper = null;
     }
+
+    // Put focus back on the thumbnail the visitor left from, so returning to the
+    // grid resumes where they were rather than at the top of the document.
+    const origin = lastWorkId && Array.from(document.querySelectorAll('.img_wrap a'))
+      .find(a => extractWorkId(a.getAttribute('href')) === lastWorkId);
+    if (origin) origin.focus({ preventScroll: true });
+    lastWorkId = null;
+    announce('作品一覧に戻りました');
   }
 }
 
@@ -1069,6 +1108,12 @@ ${swiperSlides}
 
   // Scroll to top
   window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Land keyboard focus on the heading of the view that just replaced the grid,
+  // so tabbing continues from here instead of restarting at the top of the page.
+  lastWorkId = workId;
+  focusQuietly(detailView.querySelector('.fixed-header-area h1'));
+  announce(`${work.title} の詳細を表示しました`);
 }
 
 // Initialize when DOM is ready

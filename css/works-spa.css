@@ -20,6 +20,16 @@
   color: var(--color-text-muted, #767676);
 }
 
+/* The SPA moves focus to this heading when the detail view replaces the grid, so
+   the change is announced and tab order continues from the new view. The heading
+   is not an interactive control, so it must not paint a focus ring -- the browser
+   otherwise draws its default outline whenever it decides focus is "visible",
+   which happens when a work is opened straight from a #hash URL. */
+#work-detail-view .fixed-header-area h1:focus,
+#work-detail-view .fixed-header-area h1:focus-visible {
+    outline: none;
+}
+
 /* Ensure p after h1 with float clears properly */
 #work-detail-view h1 + hr + p {
   clear: both;
