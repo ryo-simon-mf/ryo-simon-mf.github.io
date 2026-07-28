@@ -3,6 +3,7 @@
 
 let worksData = {}; // Will be populated from JSON files
 let worksOrder = []; // Display order
+let worksIndex = []; // id/title/year/category straight from index.json
 let currentSwiper = null;
 
 // Hacker-style text animation
@@ -304,6 +305,7 @@ async function initWorksSPA() {
     // Handle both old and new index.json formats
     if (indexData.works) {
       // New format with metadata
+      worksIndex = indexData.works;
       worksOrder = indexData.works.map(w => w.id);
       // Add year and category to thumbnails
       addMetadataToThumbnails(indexData.works);
@@ -377,6 +379,102 @@ async function loadWork(workId) {
     console.error(`Failed to load ${workId}.json:`, error);
     return null;
   }
+}
+
+/**
+ * Thumbnail URL for a work id, read out of the grid that is already in the DOM.
+ * Avoids fetching each related work's JSON just to learn its thumbnail.
+ */
+function thumbnailForWork(workId) {
+  for (const link of document.querySelectorAll('.img_wrap a')) {
+    if (extractWorkId(link.getAttribute('href')) !== workId) continue;
+    const img = link.querySelector('img');
+    // Before lazy-load swaps it in, the real URL still lives on data-src.
+    if (img) return img.dataset.src || img.getAttribute('src');
+  }
+  return null;
+}
+
+/**
+ * Up to `limit` works to show in the Related band: the author's own
+ * cross-references first, then same-category works to fill the row.
+ */
+function relatedWorksFor(work, limit = 3) {
+  const picked = [];
+  const take = (id) => {
+    if (id === work.id || picked.some(w => w.id === id)) return;
+    const meta = worksIndex.find(w => w.id === id);
+    if (meta) picked.push(meta);
+  };
+  // The prev/next arrows sit directly above the band, so a neighbour appearing
+  // as a card too just repeats itself. Author-written picks still win.
+  const { prev, next } = neighboursOf(work.id);
+  const isNeighbour = (id) => id === prev?.id || id === next?.id;
+
+  // work.related is a list of work ids. Older data used an HTML string; ignore
+  // that shape rather than injecting it into a thumbnail card.
+  if (Array.isArray(work.related)) work.related.forEach(take);
+
+  // Fill from the same category, nearest in display order first. Display order
+  // is roughly chronological, so neighbours come from the same period — and each
+  // work gets a different set, instead of every code work listing the same three.
+  const here = worksOrder.indexOf(work.id);
+  const sameCategory = worksIndex
+    .filter(w => w.category === work.category && w.id !== work.id)
+    .sort((a, b) => Math.abs(worksOrder.indexOf(a.id) - here) - Math.abs(worksOrder.indexOf(b.id) - here));
+  for (const candidate of sameCategory) {
+    if (picked.length >= limit) break;
+    if (!isNeighbour(candidate.id)) take(candidate.id);
+  }
+  // If skipping neighbours left the row short (tiny categories), allow them back.
+  for (const candidate of sameCategory) {
+    if (picked.length >= limit) break;
+    take(candidate.id);
+  }
+  return picked.slice(0, limit);
+}
+
+/** Prev/next neighbours in display order. Ends of the list simply have none. */
+function neighboursOf(workId) {
+  const i = worksOrder.indexOf(workId);
+  const at = (n) => (n >= 0 && n < worksOrder.length ? worksIndex.find(w => w.id === worksOrder[n]) : null);
+  return { prev: i > 0 ? at(i - 1) : null, next: i >= 0 ? at(i + 1) : null };
+}
+
+/** Markup for the browse strip at the foot of a work: prev/next + Related band. */
+function browseStripHtml(work) {
+  const { prev, next } = neighboursOf(work.id);
+  const related = relatedWorksFor(work);
+
+  const arrow = (w, dir) => {
+    if (!w) return '<span class="work-nav-slot"></span>';
+    const label = dir === 'prev' ? `← ${w.title}` : `${w.title} →`;
+    return `<a class="work-nav-link work-nav-${dir}" href="#${w.id}" data-work-id="${w.id}">
+              <span class="work-nav-title">${label}</span>
+              <span class="work-nav-year">${w.year}</span>
+            </a>`;
+  };
+
+  const card = (w) => {
+    const thumb = thumbnailForWork(w.id);
+    return `<a class="related-card" href="#${w.id}" data-work-id="${w.id}">
+              ${thumb ? `<img src="${thumb}" alt="${w.title}" loading="lazy">` : '<span class="related-card-noimg"></span>'}
+              <span class="related-card-year">${w.year}</span>
+              <span class="related-card-title">${w.title}</span>
+            </a>`;
+  };
+
+  return `
+            <nav class="work-nav" aria-label="Previous and next work">
+                ${arrow(prev, 'prev')}
+                ${arrow(next, 'next')}
+            </nav>
+            ${related.length ? `<section class="related-works" aria-label="Related works">
+                <h2 class="related-works-heading">Related</h2>
+                <div class="related-works-grid">
+                    ${related.map(card).join('')}
+                </div>
+            </section>` : ''}`;
 }
 
 // Extract work ID from filename
@@ -772,11 +870,6 @@ ${swiperSlides}
                     ${work.citation}
                 </dd>
                 <br>` : ''}
-                ${work.related ? `<dt>Related</dt>
-                <dd>
-                    ${work.related}
-                </dd>
-                <br>` : ''}
                 ${work.link ? `<dt>Link</dt>
                 <dd>
                     ${work.link}
@@ -786,6 +879,7 @@ ${swiperSlides}
 
             </div>
             <hr class="final-hr-1" style="opacity: 0;">
+            ${browseStripHtml(work)}
             <hr class="final-hr-2" style="opacity: 0;">
             <br>
   `);

@@ -28,7 +28,10 @@
 - **`performers`** (string | null): 演奏者・出演者
 - **`download`** (string | null): ダウンロードリンク
 - **`citation`** (string | null): 引用・掲載情報
-- **`related`** (string | null): 関連情報
+- **`related`** (array of work id | null): 作者が明示的に指定する関連作品。作品ID の配列で書く
+  （例 `["zig-sow", "t-s-a"]`）。詳細ページ末尾の Related 帯で先頭に並び、残りは同カテゴリの
+  近傍作品で3件まで自動補完される。**HTMLリンクを直書きしないこと** — 旧形式（`<a href="../works/X.html">`）は
+  リダイレクトスタブを経由して全ページリロードを起こし、大文字小文字の綴り違いで404にもなっていた
 - **`link`** (string | null): 外部リンク
 
 ## フィールド表示順序

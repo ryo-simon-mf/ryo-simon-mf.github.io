@@ -20,5 +20,7 @@
   "performers": null,
   "download": null,
   "citation": null,
-  "related": "<a href=\"../works/SequencingOfFutureConversation.html\">Sequencing of Future Conversation</a>"
+  "related": [
+    "sequencing-of-future-conversation"
+  ]
 }

@@ -68,6 +68,136 @@
   }
 }
 
+/* ============================================
+   Browse strip at the foot of a work detail:
+   prev/next arrows, then a Related band.
+   ============================================ */
+
+.work-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Holds the gap when a work is first or last, so the other side stays put. */
+.work-nav-slot {
+  flex: 1;
+}
+
+.work-nav-link {
+  flex: 1;
+  display: block;
+  text-decoration: none;
+  color: var(--color-text, #333);
+  transition: color 0.2s ease;
+}
+
+.work-nav-next {
+  text-align: right;
+}
+
+.work-nav-link:hover,
+.work-nav-link:focus-visible {
+  color: var(--color-accent, #006DD9);
+}
+
+.work-nav-title {
+  display: block;
+  font-size: var(--font-size-h4, 18px);
+  line-height: var(--line-height-normal, 1.6);
+}
+
+.work-nav-year {
+  display: block;
+  font-size: 0.8em;
+  color: var(--color-text-muted, #767676);
+}
+
+.related-works {
+  margin: 2rem 0 1rem;
+}
+
+.related-works-heading {
+  font-size: var(--font-size-h4, 18px);
+  font-weight: var(--font-weight-normal, 400);
+  color: var(--color-text-muted, #767676);
+  margin: 0 0 0.75rem;
+}
+
+.related-works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.related-card {
+  text-decoration: none;
+  color: var(--color-text, #333);
+}
+
+/* Same 4:3 letterbox as the main grid so the two read as one system. */
+.related-card img,
+.related-card-noimg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #000;
+  transition: opacity 0.3s ease;
+}
+
+.related-card:hover img,
+.related-card:focus-visible img {
+  opacity: 0.75;
+}
+
+.related-card-year {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.8em;
+  color: var(--color-text-muted, #767676);
+}
+
+.related-card-title {
+  display: block;
+  font-size: 0.9em;
+  line-height: var(--line-height-normal, 1.6);
+}
+
+.related-card:hover .related-card-title,
+.related-card:focus-visible .related-card-title {
+  color: var(--color-accent, #006DD9);
+}
+
+/* Narrow screens: keep the same 3-up band rather than introducing a second
+   layout, but tighten the type so titles stop wrapping to four lines, and stop
+   the two nav arrows from colliding when either title is long. */
+@media screen and (max-width: 767px) {
+  .work-nav {
+    gap: 0.75rem;
+  }
+
+  .work-nav-title {
+    font-size: 0.95rem;
+  }
+
+  .related-works-grid {
+    gap: 0.5rem;
+  }
+
+  .related-card-title {
+    font-size: 0.75em;
+    line-height: 1.4;
+  }
+
+  .related-card-year {
+    margin-top: 0.3rem;
+    font-size: 0.7em;
+  }
+}
+
 /* Typing cursor blink animation */
 @keyframes blink {
   0%, 49% { opacity: 1; }

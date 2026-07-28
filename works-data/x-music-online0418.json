@@ -19,5 +19,8 @@
   "performers": "Time table:<br>&emsp; Reo Anzai(Live set)<br>&emsp; Yuga B2B Ryo Hasegawa<br>&emsp; Nao Tokui(DJ)<br><br>VJ:<br>&emsp; CC lab.visual team",
   "download": null,
   "citation": null,
-  "related": null
+  "related": [
+    "zig-sow",
+    "onlineb2b-proto"
+  ]
 }

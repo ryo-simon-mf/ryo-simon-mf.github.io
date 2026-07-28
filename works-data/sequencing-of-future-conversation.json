@@ -20,5 +20,7 @@
   "performers": null,
   "download": null,
   "citation": null,
-  "related": "<a href=\"../works/Text2Sequence.html\">Text2Sequence</a>"
+  "related": [
+    "text2-sequence"
+  ]
 }
