@@ -26,18 +26,21 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ryo-simon-mf.github.io/about/about.html">
 
+    <!-- Fonts: preconnect + direct link. Was an @import inside common.css, which
+         could not begin fetching until that stylesheet had downloaded. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../css/min/common.css" type="text/css">
     <link rel="stylesheet" href="../css/min/style_2.css" type="text/css">
     <link rel="stylesheet" href="../css/min/images.css" type="text/css">
-    <link rel="stylesheet" href="../css/swiper/swiper.css">
+    <link rel="stylesheet" href="../css/swiper/swiper.min.css">
     <link rel="stylesheet" href="../css/min/about-fixed-header.css" type="text/css">
     <link rel="stylesheet" href="../css/min/mobile.css" type="text/css">
 
     <!-- icon -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper-->
-    <script src="../js/swiper/swiper.js"></script>
-    <!-- <script src="../js/swiper/ownoption.js"></script> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon-180x180.png">    <!-- swiper: loaded in body just before ownoption.js, not here (render-blocking) -->
 
     <!-- p5.js -->
     <script src="../js/p5.js/p5.min.js" defer></script>
@@ -94,7 +97,8 @@
                 <div class="swiper-button-next"></div>
             </div>
 
-            <!-- Original Custom -->
+            <!-- Original Custom (swiper must load synchronously right before its consumer) -->
+            <script src="../js/swiper/swiper.min.js"></script>
             <script src="../js/swiper/ownoption.js"></script>
 
             <hr class="swiper-divider" style="opacity: 0;">

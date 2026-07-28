@@ -26,6 +26,11 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ryo-simon-mf.github.io/contact/contact.html">
 
+    <!-- Fonts: preconnect + direct link. Was an @import inside common.css, which
+         could not begin fetching until that stylesheet had downloaded. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="../css/min/common.css" type="text/css">
     <link rel="stylesheet" href="../css/min/style_2.css" type="text/css">
     <link rel="stylesheet" href="../css/min/images.css" type="text/css">
@@ -41,7 +46,7 @@
     <script>document.documentElement.classList.add('pa-pending');setTimeout(function(){document.documentElement.classList.remove('pa-pending');},1600);</script>
 </head>
 
-<body>
+<body class="page-contact">
     <div id="zentai">
 
         <!-- title -->
@@ -57,21 +62,21 @@
                 <hr>
             </div>
 
-            <h3 style="opacity: 0;"><a class="list" href="https://twitter.com/ryo_simon_mf">Twitter</a>/
+            <h2 style="opacity: 0;"><a class="list" href="https://twitter.com/ryo_simon_mf">Twitter</a>/
                 <a class="list" href="https://www.facebook.com/ryo.nishikado?ref=bookmarks">Facebook</a>/
                 <a class="list" href="https://www.instagram.com/ryo_simon_mf/">Instagram</a>/
                 <a class="list" href="https://github.com/ryo-simon-mf">GitHub</a>/
-            </h3>
+            </h2>
 
             <hr style="opacity: 0;">
-            <h3 style="opacity: 0;">Mail</h3>
+            <h2 style="opacity: 0;">Mail</h2>
             <div id="content_in" style="opacity: 0;">
                 <p><a class="list" id="mail-link" href="#">ryosimon1108[at]gmail.com</a></p>
                 <p>※急用の場合、Twitter DM、又はMessengerをお使いください。</p>
 
             </div>
             <hr style="opacity: 0;">
-            <h3 style="opacity: 0;">Support</h3>
+            <h2 style="opacity: 0;">Support</h2>
             <div id="content_in" style="opacity: 0;">
                 <p>サポートしていただける方をお待ちしております。</p>
                 <p>Amazon Links</p>

@@ -453,7 +453,7 @@
         }
 
         .list:active {
-            color: #006DD9;
+            color: var(--color-accent);
         }
     }
 

@@ -27,6 +27,14 @@ div#menu {
 }
 
 /* Filter button styles */
+/* Contact section headings are h2 so the outline runs h1 -> h2 instead of skipping
+   a level, but they keep h3 metrics so the page looks exactly as before. Drop this
+   rule if these headings should actually read at h2 size (24px). */
+.page-contact #content h2 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-normal);
+}
+
 .filter-btn {
     transition: color 0.2s ease, background-color 0.2s ease;
     padding: 2px 4px;
@@ -34,15 +42,15 @@ div#menu {
 }
 
 .filter-btn:hover {
-    background-color: rgba(0, 109, 217, 0.1);
+    background-color: rgba(var(--color-accent-rgb), 0.1);
 }
 
 .filter-btn:active {
-    background-color: rgba(0, 109, 217, 0.2);
+    background-color: rgba(var(--color-accent-rgb), 0.2);
 }
 
 .filter-btn.active {
-    color: #006DD9;
+    color: var(--color-accent);
     font-weight: bold;
 }
 
