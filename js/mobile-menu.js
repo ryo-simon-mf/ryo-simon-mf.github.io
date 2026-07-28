@@ -24,11 +24,19 @@
         checkbox.id = 'menu-toggle';
         checkbox.setAttribute('aria-label', 'メニューを開閉');
 
-        // Create hamburger button
+        // Create hamburger button.
+        // A <label for> is only operable by pointer: the checkbox it drives is
+        // display:none so it cannot be focused, and a label answers to neither
+        // Enter nor Space. Expose it as a button and drive it from the keyboard
+        // below. The CSS keeps working off :checked, so nothing visual changes.
         const hamburger = document.createElement('label');
         hamburger.className = 'hamburger-btn';
         hamburger.setAttribute('for', 'menu-toggle');
         hamburger.setAttribute('aria-label', 'メニューボタン');
+        hamburger.setAttribute('role', 'button');
+        hamburger.setAttribute('tabindex', '0');
+        hamburger.setAttribute('aria-controls', 'menu');
+        hamburger.setAttribute('aria-expanded', 'false');
         hamburger.innerHTML = '<span></span><span></span><span></span>';
 
         // Create overlay
@@ -61,13 +69,33 @@
             });
         }
 
-        // Prevent body scroll when menu is open
+        // Prevent body scroll when menu is open, and keep aria-expanded honest
+        // however the menu was toggled (pointer, keyboard, or link click).
         checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+            document.body.style.overflow = this.checked ? 'hidden' : '';
+            hamburger.setAttribute('aria-expanded', String(this.checked));
+        });
+
+        function setOpen(open) {
+            if (checkbox.checked === open) return;
+            checkbox.checked = open;
+            // Assigning .checked in script fires no event, so tell the listener.
+            checkbox.dispatchEvent(new Event('change'));
+        }
+
+        // Enter and Space activate a button; preventDefault stops Space from
+        // scrolling and stops any click the browser might synthesize on the
+        // label, which would toggle a second time and cancel this one out.
+        hamburger.addEventListener('keydown', function(e) {
+            if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+            e.preventDefault();
+            setOpen(!checkbox.checked);
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key !== 'Escape' || !checkbox.checked) return;
+            setOpen(false);
+            hamburger.focus(); // don't strand focus inside the hidden menu
         });
     }
 
