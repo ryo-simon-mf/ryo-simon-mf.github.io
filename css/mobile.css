@@ -464,11 +464,18 @@
         line-height: 1.6;
     }
 
-    /* Mobile: Works filter buttons */
+    /* Mobile: Works filter buttons.
+       inline-flex + flex-start rather than inline-block: min-height makes the box
+       taller than its text for the 44px tap target, and a <button> centres its
+       content in that spare room. That lowered the button's baseline and dragged
+       the adjacent count badge down ~5px versus the anchors these replaced.
+       Taking over the alignment puts the text back at the top, as inline-block
+       did for an anchor, while keeping the tap target. */
     .filter-btn {
         padding: 8px 4px;
         margin: 0 2px;
-        display: inline-block;
+        display: inline-flex;
+        align-items: flex-start;
         min-height: 44px;
         line-height: 1.4;
     }
