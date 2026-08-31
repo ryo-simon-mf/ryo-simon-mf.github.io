@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="../css/min/images.css" type="text/css">
     <link rel="stylesheet" href="../css/swiper/swiper.min.css">
     <link rel="stylesheet" href="../css/min/about-fixed-header.css" type="text/css">
+    <link rel="stylesheet" href="../css/min/about-nav.css" type="text/css">
     <link rel="stylesheet" href="../css/min/mobile.css" type="text/css">
 
     <!-- icon -->
@@ -51,6 +52,17 @@
 
 <body>
     <a class="skip-link" href="#content">本文へスキップ / Skip to content</a>
+    <nav class="about-flyout" aria-label="Section navigation">
+        <span class="about-flyout-tab" aria-hidden="true">jump</span>
+        <ul class="about-flyout-list">
+            <li><a href="#education">Education</a></li>
+            <li><a href="#seminar">Seminar</a></li>
+            <li><a href="#grants">Grants</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#internship">Internship</a></li>
+            <li><a href="#exhibition">Exhibition</a></li>
+        </ul>
+    </nav>
     <div id="zentai">
 
         <!-- content  -->
@@ -143,7 +155,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Education</h3>
+            <h3 id="education" style="opacity: 0;">Education</h3>
             <div id="content_in" style="opacity: 0;">
                 
                 <dt><a class="list" href="https://www.sfc.keio.ac.jp/en/">Keio University / 慶應義塾大学</a></dt>
@@ -171,7 +183,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Seminar</h3>
+            <h3 id="seminar" style="opacity: 0;">Seminar</h3>
             <div id="content_in" style="opacity: 0;">
                 
                 <dt><a class="list" href="https://cclab.sfc.keio.ac.jp/">Computational Creativity lab / 徳井直生研究室</a></dt>
@@ -193,7 +205,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Grants</h3>
+            <h3 id="grants" style="opacity: 0;">Grants</h3>
 
             <div id="content_in" style="opacity: 0;">
                 <dt><a>森泰吉郎記念研究振興基金</a></dt>
@@ -215,7 +227,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Skills</h3>
+            <h3 id="skills" style="opacity: 0;">Skills</h3>
             <div id="content_in" style="opacity: 0;">
                 
                 <dt>Natural Languages</dt>
@@ -249,7 +261,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Internship</h3>
+            <h3 id="internship" style="opacity: 0;">Internship</h3>
             <div id="content_in" style="opacity: 0;">
                 
                 <dt>Hakuhodo Brain Circuit Summer[2021.8 - 2021.9]</dt>
@@ -274,7 +286,7 @@
             </div>
 
             <hr>
-            <h3 style="opacity: 0;">Exhibition / Award / Media Appearance</h3>
+            <h3 id="exhibition" style="opacity: 0;">Exhibition / Award / Media Appearance</h3>
             <div id="content_in" style="opacity: 0;">
                 
                 <dt>2024</dt>
@@ -584,6 +596,7 @@
             </div>
 
             <hr>
+            <div class="about-next"><span class="about-next-prompt">&gt; next:</span><a href="../works/works.html">[ Works ]</a><a href="../contact/contact.html">[ Contact ]</a></div>
             <br>
 
         </div>
@@ -624,6 +637,8 @@
     <script src="../js/min/page-animations.js"></script>
     <!-- Mobile Menu -->
     <script src="../js/min/mobile-menu.js"></script>
+    <!-- Section nav: year markers + flyout current-section highlight -->
+    <script src="../js/min/about-nav.js"></script>
 </body>
 
 </html>

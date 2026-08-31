@@ -1,0 +1,130 @@
+/**
+ * About Page - section navigation
+ *
+ * Right-edge flyout "jump" nav + bracketed year markers + closing action line.
+ * Loaded only by about/about.html. Companion script: js/about-nav.js
+ * (tags bare-year <dt>s and highlights the current section).
+ */
+
+/* Animated in-page jumps. common.css already forces
+   scroll-behavior: auto under prefers-reduced-motion. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Right-edge flyout nav: only the slim tab shows until the pointer
+   (or keyboard focus) reaches it, then the panel slides in. */
+.about-flyout {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 25;
+    display: flex;
+    align-items: stretch;
+    transform: translateY(-50%) translateX(calc(100% - 20px));
+    transition: transform 0.25s ease;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+}
+
+.about-flyout:hover,
+.about-flyout:focus-within {
+    transform: translateY(-50%) translateX(0);
+}
+
+.about-flyout-tab {
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border, #dfdfdf);
+    border-right: none;
+    writing-mode: vertical-rl;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--color-text, #1a1a1a);
+    user-select: none;
+}
+
+.about-flyout-list {
+    margin: 0;
+    padding: 14px 20px;
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border, #dfdfdf);
+}
+
+.about-flyout-list li {
+    margin: 0;
+    padding: 0;
+}
+
+.about-flyout-list a {
+    display: block;
+    padding: 4px 0;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Bracket style: [Education] */
+.about-flyout-list a::before { content: '['; }
+.about-flyout-list a::after { content: ']'; }
+
+.about-flyout-list a:hover,
+.about-flyout-list a:focus-visible,
+.about-flyout-list a.current {
+    color: var(--color-accent);
+}
+
+.about-flyout-list a.current {
+    font-weight: 700;
+}
+
+/* No hover on touch, and the tab would crowd a narrow viewport: the mobile
+   audience keeps the plain scroll (revisit if a mobile pattern is wanted) */
+@media (max-width: 767px) {
+    .about-flyout {
+        display: none;
+    }
+}
+
+/* Anchor targets stop clear of the fixed header */
+#content h3[id] {
+    scroll-margin-top: calc(var(--about-fixed-header-offset) + 24px);
+}
+
+/* Year markers: [2024], bold */
+#content dt.year-marker {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-weight: 700;
+    margin-top: 36px;
+}
+
+#content dt.year-marker::before { content: '['; }
+#content dt.year-marker::after { content: ']'; }
+
+/* Closing action line, terminal idiom */
+.about-next {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    margin: 4px 0 48px;
+}
+
+.about-next .about-next-prompt {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+.about-next a {
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-left: 14px;
+}
+
+.about-next a:hover {
+    text-decoration: underline;
+}
