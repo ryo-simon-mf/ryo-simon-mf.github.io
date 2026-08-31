@@ -26,6 +26,26 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://ryo-simon-mf.github.io/">
 
+    <!-- Structured data: Person -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ryo Simon",
+        "alternateName": "Ryo Nishikado",
+        "jobTitle": "Creative Technologist",
+        "description": "Creative Technologist / Artist / Researcher",
+        "url": "https://ryo-simon-mf.github.io/",
+        "image": "https://ryo-simon-mf.github.io/image/profile/2025_icon_basic.webp",
+        "sameAs": [
+            "https://twitter.com/ryo_simon_mf",
+            "https://www.facebook.com/ryo.nishikado",
+            "https://www.instagram.com/ryo_simon_mf/",
+            "https://github.com/ryo-simon-mf"
+        ]
+    }
+    </script>
+
     <!-- Fonts: preconnect + direct link. Was an @import inside common.css, which
          could not begin fetching until that stylesheet had downloaded. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +65,7 @@
     <script src="./js/p5.js/sketch_1.js" defer></script></head>
 
 <body class="page-index">
+    <a class="skip-link" href="#content">本文へスキップ / Skip to content</a>
     <div id="zentai">
 
         <!-- title -->
@@ -53,7 +74,17 @@
         </div> -->
 
         <!-- content  -->
-        <div id="content" role="main">
+        <div id="content" role="main" tabindex="-1">
+            <!-- Hero: terminal-style statement. #hero-type is the animated
+                 line (ja is server-rendered for crawlers/no-JS; hero-type.js
+                 cycles it through languages). Screen readers get the static
+                 .sr-only copy instead - the churn is never announced. -->
+            <div id="hero">
+                <p class="hero-line">
+                    <span class="sr-only"><span lang="ja">対象としたマテリアルやメディアの本来の姿や性質を、異なる視点で捉えて再構築する。</span> <span lang="en">Reconstructing the original form and nature of material and media from a different perspective.</span></span><span class="hero-prompt" aria-hidden="true">&gt; </span><span id="hero-type" lang="ja" aria-hidden="true">対象としたマテリアルやメディアの本来の姿や性質を、異なる視点で捉えて再構築する。</span><span class="hero-cursor" aria-hidden="true"></span>
+                </p>
+                <a class="list hero-works" href="./works/works.html">[ View Works ]</a>
+            </div>
         </div>
 
         <!-- menu -->
@@ -71,6 +102,8 @@
     <!-- Dynamic Menu Loader -->
     <script src="./js/min/load-menu.js"></script>
     <!-- Mobile Menu -->
-    <script src="./js/min/mobile-menu.js"></script></body>
+    <script src="./js/min/mobile-menu.js"></script>
+    <!-- Hero typewriter -->
+    <script src="./js/min/hero-type.js"></script></body>
 
 </html>
