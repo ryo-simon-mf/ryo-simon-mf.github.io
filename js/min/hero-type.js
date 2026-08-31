@@ -34,7 +34,7 @@
 
     var TYPE_MS = 55;    // per character while typing
     var ERASE_MS = 20;   // per character while erasing
-    var HOLD_MS = 3800;  // full sentence rest
+    var HOLD_MS = 2000;  // full sentence rest
     var GAP_MS = 450;    // empty-line rest before the next language
 
     // Array.from splits by code point, not UTF-16 unit, so no surrogate halves

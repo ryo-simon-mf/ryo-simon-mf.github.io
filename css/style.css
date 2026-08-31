@@ -31,22 +31,27 @@ div#menu {
 #hero {
     position: fixed;
     left: 2rem;
+    right: 2rem;
     bottom: 36px;
-    max-width: 340px;
     z-index: 5;
 }
 
 #hero .hero-line {
-    margin: 0 0 12px;
-    font-size: 12px;
+    margin: 0 0 10px;
+    /* One unwrapped line, like a real terminal. The longest translation is
+       ~111 monospace chars (fr); Plex Mono advances 0.6em per char, so the
+       size tracks the viewport (1.4vw - 1px keeps 111ch inside 100vw - 4rem)
+       and rests at 12px on wide screens. Hidden under 768px anyway. */
+    white-space: nowrap;
+    font-size: clamp(10px, 1.4vw - 1px, 12px);
+    /* 0, not the body's 0.8px: tracking adds ~90px across 111 chars and
+       overflowed the narrowest desktop; a terminal line is pure mono advance */
+    letter-spacing: 0;
     line-height: 1.9;
     color: #333;
     /* White halo keeps the line readable over the box-grid animation
        without laying a panel over it */
     text-shadow: 0 0 8px #fff, 0 0 16px #fff, 0 0 4px #fff;
-    /* Room for the longest translation (3 lines at 1.9 leading), so the
-       View Works link doesn't jump while the line types and erases */
-    min-height: calc(1.9em * 3);
 }
 
 #hero .hero-prompt {
