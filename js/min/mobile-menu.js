@@ -49,10 +49,14 @@
             checkbox.checked = false;
         });
 
-        // Insert elements at the beginning of body
-        document.body.insertBefore(checkbox, document.body.firstChild);
-        document.body.insertBefore(hamburger, document.body.firstChild.nextSibling);
-        document.body.insertBefore(overlay, document.body.firstChild.nextSibling.nextSibling);
+        // Insert elements at the beginning of body, but after the skip link
+        // when the page has one - it must stay the first tab stop, and the
+        // hamburger carries tabindex="0".
+        const skipLink = document.querySelector('body > .skip-link');
+        const anchor = skipLink ? skipLink.nextSibling : document.body.firstChild;
+        document.body.insertBefore(checkbox, anchor);
+        document.body.insertBefore(hamburger, anchor);
+        document.body.insertBefore(overlay, anchor);
 
         // Close menu when a menu link is clicked. Delegated to #menu
         // because the menu content is injected asynchronously by

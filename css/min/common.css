@@ -184,7 +184,41 @@ div#content_in {
 div#menu {
     width: 25%;
     float: left;
-    padding-top: 30px; /* Align with fixed header top spacing */
+    /* border-box is declared here, not assumed: the universal border-box reset
+       lives in style_2.css, which index.html does not load. Without it the
+       horizontal padding would push 25% + padding past 100% on the homepage
+       and wrap the float. */
+    box-sizing: border-box;
+    /* 30px top aligns with the fixed header top spacing; the horizontal padding
+       keeps the sidebar off the viewport edge (it used to sit at the body's
+       8px default margin). */
+    padding: 30px 1.5rem 0 2rem;
+}
+
+/* Skip link: first tab stop on content pages. Visually parked above the
+   viewport until keyboard focus lands on it; mouse users never see it. */
+.skip-link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10001;
+    padding: 10px 16px;
+    background-color: var(--color-accent);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    transform: translateY(-110%);
+}
+
+.skip-link:focus {
+    transform: none;
+}
+
+/* The skip link focuses #content (tabindex="-1") so tab order continues inside
+   the column; it is not an interactive control, so no ring around the whole
+   content area. */
+#content:focus {
+    outline: none;
 }
 
 /* ============================================

@@ -17,6 +17,11 @@ div#title {
 /* Subpage-specific: content_in with padding */
 div#content_in {
     padding: 15px 30px 15px 30px;
+    /* Cap the measure at ~42em of text (the 60px rides on top because the
+       universal reset below makes this border-box). Unbounded, a 1920px screen
+       ran 80-90 characters per line. Images/swiper/grid live outside
+       #content_in, so only running text is capped. */
+    max-width: calc(42em + 60px);
 }
 
 /* Subpage-specific: menu fixed to viewport */
@@ -85,6 +90,15 @@ div#menu {
     color: var(--color-text-muted);
     font-weight: normal;
     margin-left: 2px;
+}
+
+/* Embedded PDF viewer (portfolio): the element carries width="1380"
+   height="855", which overflowed every viewport narrower than ~1840px.
+   Cap it and keep the attribute pair's shape. */
+object[type="application/pdf"] {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1380 / 855;
 }
 
 /* Accessibility: Strikethrough for deprecated content */

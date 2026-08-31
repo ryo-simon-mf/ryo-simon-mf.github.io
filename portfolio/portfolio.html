@@ -31,9 +31,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap">
-    <link rel="stylesheet" href="../css/common.css" type="text/css">
-    <link rel="stylesheet" href="../css/style_2.css" type="text/css">
-    <link rel="stylesheet" href="../css/images.css" type="text/css">
+    <link rel="stylesheet" href="../css/min/common.css" type="text/css">
+    <link rel="stylesheet" href="../css/min/style_2.css" type="text/css">
+    <link rel="stylesheet" href="../css/min/images.css" type="text/css">
+    <link rel="stylesheet" href="../css/min/mobile.css" type="text/css">
 
     <!-- icon -->
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
@@ -42,7 +43,8 @@
     <!-- own sketch -->
     <script src="../js/p5.js/sketch_3.js" defer></script></head>
 
-<body>
+<body class="page-portfolio">
+    <a class="skip-link" href="#content">本文へスキップ / Skip to content</a>
     <div id="zentai">
 
         <!-- title -->
@@ -51,7 +53,7 @@
         </div> -->
 
         <!-- content  -->
-        <div id="content" role="main">
+        <div id="content" role="main" tabindex="-1">
             <!-- ニュース（中央カラム） -->
             <br>
             <h1>Portfolio</h1>
@@ -72,8 +74,36 @@
         <!-- menu -->
     <div id="menu" role="navigation">
         <!-- Menu content loaded dynamically via load-menu.js -->
+        <noscript>
+            <style>
+                /* JS無効時のみ有効。メニューは JS 注入 + JS 表示制御なので、
+                   モバイルのオーバーレイ隠しを解除して静的に見せる */
+                @media (max-width: 767px) {
+                    div#menu {
+                        position: static !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        width: auto !important;
+                        height: auto !important;
+                        max-height: none !important;
+                        display: block !important;
+                    }
+                }
+                /* reveal アニメーション用の inline opacity:0 は JS が解除する
+                   ため、JS無効時はここで打ち消す（無いと本文が全て不可視） */
+                [style*="opacity: 0"] { opacity: 1 !important; }
+            </style>
+            <ul class="nav-list">
+                <li><a class="list menu-link" href="../index.html">Home</a></li>
+                <li><a class="list menu-link" href="../about/about.html">About</a></li>
+                <li><a class="list menu-link" href="../works/works.html">Works</a></li>
+                <li><a class="list menu-link" href="../contact/contact.html">Contact</a></li>
+            </ul>
+        </noscript>
     </div>
     <!-- Dynamic Menu Loader -->
-    <script src="../js/load-menu.js"></script></body>
+    <script src="../js/min/load-menu.js"></script>
+    <!-- Mobile Menu -->
+    <script src="../js/min/mobile-menu.js"></script></body>
 
 </html>

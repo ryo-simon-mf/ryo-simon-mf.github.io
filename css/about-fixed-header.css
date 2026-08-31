@@ -5,17 +5,14 @@
  * Header area stays at top while content scrolls underneath.
  */
 
-/* CSS Custom Property for fixed header height */
 :root {
     /*
-     * Fixed header height calculation:
-     * - padding-top: 30px (replaces <br> tag + 10px top spacing)
-     * - h1 font-size: 24px + line-height + margins
-     * - <hr> element: 1px + margins
-     * - Internal spacing and padding
-     * Total: 90px (compact layout with top spacing)
+     * Clearance for content that scrolls under the fixed header.
+     * Measured header height (padding-top 30 + h1 + hr + padding-bottom 10 +
+     * border 1) is 107px; content starts 8px below the header's y-origin
+     * already (body margin), so 101px of margin keeps the previous ~2px gap.
      */
-    --about-fixed-header-height: 90px;
+    --about-fixed-header-offset: 101px;
 }
 
 /* Fixed header area - stays at top like menu */
@@ -27,11 +24,13 @@
     background-color: #ffffff;
     z-index: 8; /* Below menu (z-index: 10), above canvas */
     padding-top: 30px; /* Replace <br> tag with CSS padding + 10px top spacing */
-    /* Preserve exact spacing from original design */
+    /* Hairline at the scroll boundary so content is cut off on a crisp edge
+       instead of vanishing into the white background mid-glyph. */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
 }
 
 /* Swiper container - starts below fixed header */
 #content > .swiper-container {
-    /* Add top margin equal to fixed header height */
-    margin-top: var(--about-fixed-header-height);
+    margin-top: var(--about-fixed-header-offset);
 }

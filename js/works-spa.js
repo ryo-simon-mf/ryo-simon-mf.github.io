@@ -528,6 +528,13 @@ function extractWorkId(href) {
 async function handleHashChange() {
   const hash = window.location.hash.slice(1); // Remove #
 
+  // A fragment that is not a work id but IS a real element (e.g. the skip
+  // link's #content) is a plain in-page anchor: leave the current view alone
+  // instead of fetching works-data/<fragment>.json and resetting to the list.
+  if (hash && !worksOrder.includes(hash) && document.getElementById(hash)) {
+    return;
+  }
+
   if (hash) {
     // Show loading spinner while fetching data
     showLoadingSpinner();

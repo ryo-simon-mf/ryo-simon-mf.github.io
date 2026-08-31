@@ -383,8 +383,18 @@
         padding-top: 85px !important;
     }
 
-    /* Mobile: Remove desktop spacing for content after fixed header */
+    /* Portfolio has no .fixed-header-area: the 85px would be dead space above
+       its h1, so fall back to the base 15px (only the 40px hamburger floats
+       at the top right and the left-aligned heading never sits under it) */
+    body.page-portfolio div#content {
+        padding-top: 15px !important;
+    }
+
+    /* Mobile: Remove desktop spacing for content after fixed header
+       (h2:first-of-type is contact's first heading; the h3 variant is kept for
+       safety although no page uses it anymore) */
     #content > .swiper-container,
+    #content > h2:first-of-type,
     #content > h3:first-of-type,
     #content > .center-container {
         margin-top: 0 !important;

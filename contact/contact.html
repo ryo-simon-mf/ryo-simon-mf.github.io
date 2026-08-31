@@ -47,6 +47,7 @@
 </head>
 
 <body class="page-contact">
+    <a class="skip-link" href="#content">本文へスキップ / Skip to content</a>
     <div id="zentai">
 
         <!-- title -->
@@ -55,7 +56,7 @@
         </div> -->
 
         <!-- content  -->
-        <div id="content" role="main">
+        <div id="content" role="main" tabindex="-1">
             <!-- Fixed Header Area -->
             <div class="fixed-header-area">
                 <h1>Contact</h1>
@@ -97,6 +98,32 @@
         <!-- menu -->
     <div id="menu" role="navigation">
         <!-- Menu content loaded dynamically via load-menu.js -->
+        <noscript>
+            <style>
+                /* JS無効時のみ有効。メニューは JS 注入 + JS 表示制御なので、
+                   モバイルのオーバーレイ隠しを解除して静的に見せる */
+                @media (max-width: 767px) {
+                    div#menu {
+                        position: static !important;
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        width: auto !important;
+                        height: auto !important;
+                        max-height: none !important;
+                        display: block !important;
+                    }
+                }
+                /* reveal アニメーション用の inline opacity:0 は JS が解除する
+                   ため、JS無効時はここで打ち消す（無いと本文が全て不可視） */
+                [style*="opacity: 0"] { opacity: 1 !important; }
+            </style>
+            <ul class="nav-list">
+                <li><a class="list menu-link" href="../index.html">Home</a></li>
+                <li><a class="list menu-link" href="../about/about.html">About</a></li>
+                <li><a class="list menu-link" href="../works/works.html">Works</a></li>
+                <li><a class="list menu-link" href="../contact/contact.html">Contact</a></li>
+            </ul>
+        </noscript>
     </div>
     <!-- Assemble mailto link in JS (keeps raw HTML free of scrapable address) -->
     <script>

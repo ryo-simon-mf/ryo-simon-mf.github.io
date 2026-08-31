@@ -5,6 +5,16 @@
  * Header area stays at top while content scrolls underneath.
  */
 
+:root {
+    /*
+     * Clearance for content that scrolls under the fixed header.
+     * Measured header height (padding-top 30 + h1 + hr + padding-bottom 10 +
+     * border 1) is 107px; content starts 8px below the header's y-origin
+     * already (body margin), so 101px of margin keeps a ~2px gap.
+     */
+    --contact-fixed-header-offset: 101px;
+}
+
 /* Fixed header area - stays at top like menu */
 .fixed-header-area {
     position: fixed;
@@ -14,12 +24,17 @@
     background-color: #ffffff;
     z-index: 8; /* Below menu (z-index: 10), above canvas */
     padding-top: 30px; /* Replace <br> tag with CSS padding + 10px top spacing */
-    /* Preserve exact spacing from original design */
+    /* Hairline at the scroll boundary so content is cut off on a crisp edge
+       instead of vanishing into the white background mid-glyph. */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
 }
 
-/* First h3 - starts below fixed header */
-#content > h3:first-of-type {
-    /* Add top margin equal to fixed header height */
-    /* Height is calculated as: padding-top (30px) + h1 + spacing + <hr> */
-    margin-top: 90px;
+/* First heading - starts below fixed header.
+   h2, not h3: the section headings were promoted to h2 for outline order
+   (see .page-contact #content h2 in style_2.css). The old h3 selector matched
+   nothing after that change, so the SNS-links heading and "Mail" heading were
+   hidden underneath the fixed header. */
+#content > h2:first-of-type {
+    margin-top: var(--contact-fixed-header-offset);
 }
