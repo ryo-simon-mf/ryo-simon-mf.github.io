@@ -71,6 +71,17 @@ div#menu {
     display: inline;
 }
 
+/* Always read as controls: bracketed, in the site's terminal idiom */
+.filter-btn::before {
+    content: '[';
+    color: var(--color-text-muted);
+}
+
+.filter-btn::after {
+    content: ']';
+    color: var(--color-text-muted);
+}
+
 .filter-btn:hover {
     background-color: rgba(var(--color-accent-rgb), 0.1);
 }

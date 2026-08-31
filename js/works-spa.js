@@ -6,6 +6,9 @@ let worksOrder = []; // Display order
 let worksIndex = []; // id/title/year/category straight from index.json
 let lastWorkId = null; // which work the grid was left from, to restore focus to
 let currentSwiper = null;
+let gridShown = false; // list view is on screen. Tracked as state because a
+                       // computed-style sample of a tile misreads filtered
+                       // grids (filtered-out tiles sit at opacity 0).
 
 // Hacker-style text animation
 // Characters for glitch effect (binary + symbols)
@@ -301,6 +304,11 @@ async function initWorksSPA() {
   try {
     // Load index.json to get work order and metadata
     const indexResponse = await fetch('../works-data/index.json');
+    // A GitHub Pages 404 returns an HTML body and .json() throws a
+    // useless SyntaxError - fail loudly instead
+    if (!indexResponse.ok) {
+      throw new Error('index.json HTTP ' + indexResponse.status);
+    }
     const indexData = await indexResponse.json();
 
     // Handle both old and new index.json formats
@@ -335,8 +343,48 @@ async function initWorksSPA() {
         window.location.hash = workId;
       });
     });
+
+    // Warm the cache on intent: loadWork() caches into worksData, so a
+    // hovered/focused thumbnail's JSON is already local when the click lands.
+    // The 80ms dwell keeps a cursor sweep across the grid from firing a
+    // fetch per tile it passes.
+    document.querySelectorAll('.img_wrap a').forEach(link => {
+      let warmTimer = null;
+      const warm = () => {
+        const id = extractWorkId(link.getAttribute('href'));
+        if (id && worksOrder.includes(id)) loadWork(id);
+      };
+      link.addEventListener('pointerenter', () => {
+        warmTimer = setTimeout(warm, 80);
+      });
+      link.addEventListener('pointerleave', () => clearTimeout(warmTimer));
+      link.addEventListener('focus', warm);
+    });
+
+    // [ / ] step to the previous / next work while a detail is open
+    // (arrow keys belong to Swiper's keyboard module)
+    document.addEventListener('keydown', (e) => {
+      if (e.repeat) return; // key-repeat would stack detail builds
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.key !== '[' && e.key !== ']') return;
+      const t = document.activeElement && document.activeElement.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA') return;
+      const id = window.location.hash.slice(1);
+      const i = worksOrder.indexOf(id);
+      if (i === -1) return;
+      const n = e.key === '[' ? i - 1 : i + 1;
+      if (n >= 0 && n < worksOrder.length) window.location.hash = worksOrder[n];
+    });
   } catch (error) {
     console.error('Failed to initialize Works SPA:', error);
+    // Never leave the grid blank. Thumbnails ship with inline opacity:0
+    // and are only revealed on SPA success; on any failure (offline, 404,
+    // blocked fetch) reveal them so the page still degrades to plain links.
+    document.querySelectorAll('.img_wrap').forEach(item => {
+      item.style.opacity = '1';
+    });
+    gridShown = true;
+    if (window.reinitLazyLoad) window.reinitLazyLoad();
   }
 }
 
@@ -362,24 +410,34 @@ function addMetadataToThumbnails(worksMetadata) {
 }
 
 // Load a single work JSON file (lazy loading with cache)
+const worksLoading = {}; // in-flight fetches, so hover-then-click shares one request
+
 async function loadWork(workId) {
   // Return cached data if already loaded
   if (worksData[workId]) {
     return worksData[workId];
   }
-
-  try {
-    const response = await fetch(`../works-data/${workId}.json`);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-    }
-    const workData = await response.json();
-    worksData[workId] = workData; // Cache for future use
-    return workData;
-  } catch (error) {
-    console.error(`Failed to load ${workId}.json:`, error);
-    return null;
+  if (worksLoading[workId]) {
+    return worksLoading[workId];
   }
+
+  worksLoading[workId] = (async () => {
+    try {
+      const response = await fetch(`../works-data/${workId}.json`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      const workData = await response.json();
+      worksData[workId] = workData; // Cache for future use
+      return workData;
+    } catch (error) {
+      console.error(`Failed to load ${workId}.json:`, error);
+      return null;
+    } finally {
+      delete worksLoading[workId];
+    }
+  })();
+  return worksLoading[workId];
 }
 
 /**
@@ -743,6 +801,7 @@ function showWorksList() {
     lastWorkId = null;
     announce('作品一覧に戻りました');
   }
+  gridShown = true;
 }
 
 // Show work detail view
@@ -754,14 +813,16 @@ function showWorkDetail(workId) {
   // Update meta tags for SEO
   updateMetaTags(work);
 
-  // Fade out all thumbnails first
+  // Fade out all thumbnails first. On a deep link the grid was never
+  // shown - there is nothing on screen to fade, so skip the wait entirely.
   const thumbnails = document.querySelectorAll('.img_wrap');
+  const gridWasVisible = gridShown;
+  gridShown = false;
   thumbnails.forEach(item => {
-    item.style.transition = 'opacity 0.4s ease';
+    item.style.transition = 'opacity 0.25s ease';
     item.style.opacity = '0';
   });
 
-  // Wait for fade out animation to complete
   setTimeout(() => {
     // Hide ALL original content elements
     const elementsToHide = contentDiv.querySelectorAll(':scope > br, :scope > h1, :scope > hr, :scope > p');
@@ -781,12 +842,21 @@ function showWorkDetail(workId) {
 
     // Create detail view after fade out
     createDetailView(work, workId);
-  }, 400);
+  }, gridWasVisible ? 250 : 0);
 }
 
 // Create detail view HTML - EXACT copy of original structure
 function createDetailView(work, workId) {
   const contentDiv = document.getElementById('content');
+
+  // Work-to-work navigation (prev/next, [ ] keys) rebuilds the view without
+  // passing through showWorksList, which was previously the only place the
+  // old Swiper was destroyed - each hop leaked an instance with a live
+  // document-level keyboard listener.
+  if (currentSwiper) {
+    currentSwiper.destroy(true, true);
+    currentSwiper = null;
+  }
 
   // Remove existing detail view
   const existingDetail = document.getElementById('work-detail-view');
@@ -800,7 +870,7 @@ function createDetailView(work, workId) {
   const swiperSlides = work.images.map((img, i) => `
                     <div class="swiper-slide">
                         <div class="img_w2">
-                            <img src="${img}" alt="${work.title} ${i + 1}" loading="lazy">
+                            <img src="${img}" alt="${work.title} ${i + 1}" loading="${i === 0 ? 'eager' : 'lazy'}">
                         </div>
                     </div>`).join('');
 
@@ -906,6 +976,11 @@ ${swiperSlides}
 
   contentDiv.appendChild(detailView);
 
+  // fetchpriority is not in DOMPurify 3.0.6's default attribute allowlist,
+  // so set it as a property after insertion instead.
+  const firstSlideImg = detailView.querySelector('.swiper-slide img');
+  if (firstSlideImg) firstSlideImg.fetchPriority = 'high';
+
   // Use glitch effect for all works (toki-shirube pattern)
   const animationType = 'glitch';
 
@@ -950,147 +1025,108 @@ ${swiperSlides}
   const h3Element = detailView.querySelector('h3'); // h3 is outside content_in
 
   if (contentInDiv) {
-    // Set initial state: invisible but layout is preserved
+    // Set initial state: invisible but layout is preserved. Every reveal below
+    // is opacity/transform-only and the h3 reserves its typed height, so the
+    // block occupies its final space from the first frame - no line is ever
+    // added or removed while animating.
     contentInDiv.style.opacity = '0';
     if (h3Element) {
       h3Element.style.opacity = '0';
     }
 
     setTimeout(() => {
-      // Fade in sections
-      contentInDiv.style.transition = 'opacity 0.3s ease';
-      contentInDiv.style.opacity = '1';
-
-      // Get all elements to animate in order
+      // Collect the rows to cascade (description p, then dt/dd pairs)
       const descriptionP = contentInDiv.querySelector('p');
       const dlElement = contentInDiv.querySelector('dl');
-
-      // Create array of elements (excluding h3 for now)
       const elementsToAnimate = [];
-
-      if (descriptionP) elementsToAnimate.push({ element: descriptionP, type: 'p' });
-
-      // Add dt/dd pairs in order
+      if (descriptionP) elementsToAnimate.push(descriptionP);
       if (dlElement) {
-        const children = Array.from(dlElement.children);
-        children.forEach(child => {
+        Array.from(dlElement.children).forEach(child => {
           if (child.tagName === 'DT' || child.tagName === 'DD') {
-            elementsToAnimate.push({ element: child, type: child.tagName.toLowerCase() });
+            elementsToAnimate.push(child);
           }
         });
       }
 
-      // === h3: Real typewriter animation (character by character) ===
-      if (h3Element) {
-        const h3Text = h3Element.textContent;
-        h3Element.style.opacity = '1'; // Make h3 visible immediately
+      if (PREFERS_REDUCED_MOTION) {
+        contentInDiv.style.opacity = '1';
+        if (h3Element) h3Element.style.opacity = '1';
+        elementsToAnimate.forEach(el => { el.style.opacity = '1'; });
+      } else {
+        // Hide the rows in the same tick the container fades in, so nothing
+        // flashes. translateY is transform-only: it never reflows the page.
+        elementsToAnimate.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(8px)';
+          el.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        });
+        contentInDiv.style.transition = 'opacity 0.2s ease';
+        contentInDiv.style.opacity = '1';
 
-        if (PREFERS_REDUCED_MOTION) {
-          h3Element.textContent = h3Text;
-        } else {
+        // h3: real typewriter, with its fully-typed height reserved up front
+        // so a title that wraps can never change the line count while typing
+        if (h3Element) {
+          const h3Text = h3Element.textContent;
+          h3Element.style.minHeight = h3Element.offsetHeight + 'px';
+          h3Element.style.opacity = '1';
           h3Element.textContent = '';
-
-          // Typewriter animation for h3
           const startTime = performance.now();
-          const duration = 1000; // 1 second to type h3
-
+          const duration = 600;
           function typeH3(currentTime) {
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
             const charsToShow = Math.floor(h3Text.length * progress);
-
             if (progress < 1) {
-              h3Element.textContent = h3Text.substring(0, charsToShow) + '▌';
+              h3Element.textContent = h3Text.substring(0, charsToShow) + '\u258c';
               requestAnimationFrame(typeH3);
             } else {
-              h3Element.textContent = h3Text; // Complete
+              h3Element.textContent = h3Text;
             }
           }
-
           requestAnimationFrame(typeH3);
+        }
+
+        // Cascade the rows. The blinking cursor rides along absolutely
+        // positioned in the left padding, outside the text flow, so it can
+        // never push a character or add a line (the old in-flow cursor did).
+        elementsToAnimate.forEach((el, index) => {
+          setTimeout(() => {
+            el.style.position = 'relative';
+            const cursor = document.createElement('span');
+            cursor.className = 'typing-cursor-before';
+            cursor.textContent = '\u258c';
+            cursor.setAttribute('aria-hidden', 'true');
+            cursor.style.cssText =
+              'position:absolute; left:-1.1em; top:0; color:var(--color-accent, #006DD9); animation: blink 0.8s step-start infinite;';
+            el.appendChild(cursor);
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            setTimeout(() => { cursor.remove(); }, 450);
+          }, index * 90);
+        });
+
+        // Final HRs after the cascade settles
+        const finalHr1 = detailView.querySelector('.final-hr-1');
+        const finalHr2 = detailView.querySelector('.final-hr-2');
+        if (finalHr1 && finalHr2) {
+          finalHr1.style.transition = 'opacity 0.6s ease';
+          finalHr2.style.transition = 'opacity 0.6s ease';
+          const lastCascade = elementsToAnimate.length > 0
+            ? (elementsToAnimate.length - 1) * 90 + 300
+            : 0;
+          const settle = Math.max(600, lastCascade);
+          setTimeout(() => { finalHr1.style.opacity = '1'; }, settle + 100);
+          setTimeout(() => { finalHr2.style.opacity = '1'; }, settle + 300);
         }
       }
 
-      // === Other elements: Cascade reveal with cursor effect ===
       if (PREFERS_REDUCED_MOTION) {
-        // Show everything immediately - no cascade, no cursors
-        elementsToAnimate.forEach(({ element }) => {
-          element.style.opacity = '1';
-        });
-      } else {
-      // Hide all elements initially
-      elementsToAnimate.forEach(({ element }) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(10px)';
-        element.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-      });
-
-      // Reveal elements sequentially (starts at same time as h3 typewriter)
-      elementsToAnimate.forEach(({ element, type }, index) => {
-        setTimeout(() => {
-          // Add typing cursor before reveal
-          const cursor = document.createElement('span');
-          cursor.className = 'typing-cursor-before';
-          cursor.textContent = '▌';
-          cursor.style.cssText = 'opacity: 0; margin-right: 5px; color: #006DD9; animation: blink 0.8s step-start infinite;';
-
-          element.parentNode.insertBefore(cursor, element);
-
-          // Fade in cursor
-          setTimeout(() => {
-            cursor.style.opacity = '1';
-          }, 50);
-
-          // Reveal element after brief cursor display
-          setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-
-            // Remove cursor after element is revealed
-            setTimeout(() => {
-              cursor.style.opacity = '0';
-              setTimeout(() => cursor.remove(), 300);
-            }, 400);
-          }, 200);
-
-        }, index * 150); // Stagger delay: 150ms between elements
-      });
+        const finalHr1 = detailView.querySelector('.final-hr-1');
+        const finalHr2 = detailView.querySelector('.final-hr-2');
+        if (finalHr1) finalHr1.style.opacity = '1';
+        if (finalHr2) finalHr2.style.opacity = '1';
       }
-
-      // === Final HRs: Fade in after all animations complete ===
-      const finalHr1 = detailView.querySelector('.final-hr-1');
-      const finalHr2 = detailView.querySelector('.final-hr-2');
-
-      if (finalHr1 && finalHr2) {
-        // Hide initially
-        finalHr1.style.opacity = '0';
-        finalHr2.style.opacity = '0';
-        finalHr1.style.transition = 'opacity 0.6s ease';
-        finalHr2.style.transition = 'opacity 0.6s ease';
-
-        // Calculate when all animations finish
-        // h3 typewriter: 1000ms
-        // Last cascade element: (elementsToAnimate.length - 1) * 150 + 200 (cursor) + 400 (reveal)
-        const h3Duration = 1000;
-        const lastCascadeDelay = elementsToAnimate.length > 0
-          ? (elementsToAnimate.length - 1) * 150 + 600
-          : 0;
-        const totalAnimationTime = PREFERS_REDUCED_MOTION
-          ? 0
-          : Math.max(h3Duration, lastCascadeDelay);
-
-        // Fade in final HRs after all animations complete
-        setTimeout(() => {
-          finalHr1.style.opacity = '1';
-
-          // Second HR appears slightly after first
-          setTimeout(() => {
-            finalHr2.style.opacity = '1';
-          }, 200);
-        }, totalAnimationTime + 300); // 300ms buffer after animations
-      }
-
-    }, PREFERS_REDUCED_MOTION ? 0 : 900); // Start after title/year/category animations
+    }, PREFERS_REDUCED_MOTION ? 0 : 150);
   }
 
   // Initialize Swiper for detail view

@@ -4,6 +4,9 @@ let bm = 11.5; //box margin
 
 function setup() {
     // createCanvas(windowWidth / 5 - 100, 1100, WEBGL);
+    // 1x density: a decorative background does not need retina fill, and this
+    // cuts sustained GPU cost ~4x on 2x displays (1000 boxes redraw per frame)
+    pixelDensity(1);
     createCanvas(300, 1100, WEBGL);
     // canvas.parent('canvas');
 }

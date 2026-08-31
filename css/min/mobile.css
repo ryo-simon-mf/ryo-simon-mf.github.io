@@ -496,6 +496,13 @@
         word-spacing: -2px;
     }
 
+    /* The [All] brackets don't fit a 390px row: they wrap the filter line and
+       grow the fixed header down over the grid. Desktop-only decoration. */
+    .filter-btn::before,
+    .filter-btn::after {
+        content: none;
+    }
+
     /* Mobile: Table responsiveness */
     table {
         width: 100%;

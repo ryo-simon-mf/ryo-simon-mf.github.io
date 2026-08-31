@@ -96,16 +96,18 @@
     text-align: center;
 }
 
-/* Thumbnail metadata overlay - always visible record line (Year / Title) */
+/* Thumbnail metadata overlay - always visible record line (Year / Title).
+   Solid band, not a gradient - the one photographic fade in an otherwise
+   flat system. */
 .img_wrap::after {
     content: attr(data-year) "\A" attr(data-title);
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.55) 65%, transparent);
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    padding: 18px 12px 8px;
+    padding: 8px 12px;
     text-align: left;
     font-family: var(--font-mono);
     font-size: 12px;
@@ -115,4 +117,23 @@
     opacity: 1;
     transition: opacity 0.3s ease;
     pointer-events: none;
+}
+
+/* Hover/focus: the record line answers in the site's prompt idiom and the
+   tile takes a hairline accent keyline */
+.img_wrap:hover::after,
+.img_wrap:focus-within::after {
+    content: attr(data-year) "\A" "> " attr(data-title);
+}
+
+.img_wrap:hover,
+.img_wrap:focus-within {
+    outline: 1px solid var(--color-accent);
+    outline-offset: -1px;
+}
+
+/* Dim the tiles you are not pointing at (same grammar as the Related band).
+   Hover-only by nature: touch devices never match .center-container:hover. */
+.center-container:hover .img_wrap:not(:hover) img.lazy-loaded {
+    opacity: 0.5;
 }
