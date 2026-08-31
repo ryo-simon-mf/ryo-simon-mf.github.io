@@ -58,6 +58,13 @@ div#menu {
     color: var(--color-accent);
 }
 
+/* IME pre-edit (romaji composing into kana, before kanji conversion):
+   underlined the way real composition text is */
+#hero .ime-composing {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* Terminal block cursor, always blinking (steps(), so it snaps like a
    real terminal instead of fading) */
 #hero .hero-cursor {

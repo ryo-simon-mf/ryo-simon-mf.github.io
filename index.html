@@ -85,6 +85,19 @@
                 </p>
                 <a class="list hero-works" href="./works/works.html">[ View Works ]</a>
             </div>
+            <!-- Pre-paint clear: hero-type.js retypes the ja line from the
+                 first keystroke on landing, so empty the server-rendered text
+                 before it can flash (same conditions as the script itself:
+                 JS on, motion allowed). -->
+            <script>
+            (function () {
+                var t = document.getElementById('hero-type');
+                if (t && !(window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+                    t.textContent = '';
+                }
+            })();
+            </script>
         </div>
 
         <!-- menu -->
