@@ -4,12 +4,17 @@
  * Filters project thumbnails by category: All, Code, Object, Design
  * Vanilla JavaScript implementation (no jQuery dependency)
  *
- * Animation: concurrent cross choreography (Isotope-style)
+ * Animation: concurrent cross choreography with strict stacking
  * - leaving items are lifted out of the flow (position:absolute at their
- *   current spot) and fade out in place
- * - at the same time, staying items FLIP-slide axis-by-axis to their new
- *   grid position and entering items slide in
- * - the screen is never empty during a switch
+ *   current spot) and fade out in place, UNDER the live grid (z-index 1
+ *   vs 2), so a cell that is re-occupied always shows its new tile on top
+ * - staying items FLIP-glide axis-by-axis (horizontal leg, then vertical -
+ *   never diagonally) at one fixed linear velocity: every leg's duration
+ *   is its distance / MOVE_SPEED. Tiles may pass over each other while
+ *   BOTH are in motion; a stationary tile is never covered
+ * - entering items pop once the moves have essentially landed
+ * - genre-to-genre switches route through the All arrangement first,
+ *   chained on the real completion callback of the first leg
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -106,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         s.zIndex = '';
     }
 
-    function applyFilter(filterValue) {
+    function applyFilter(filterValue, onSettled) {
         const gen = ++animGen;
         const matches = item => filterValue === 'all' ||
             item.getAttribute('data-category') === filterValue;
@@ -125,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 el.style.opacity = '1';
             });
             if (window.reinitLazyLoad) window.reinitLazyLoad();
+            if (onSettled) setTimeout(onSettled, 0);
             return;
         }
 
@@ -189,7 +195,9 @@ document.addEventListener('DOMContentLoaded', function() {
             s.width = g.width + 'px';
             s.height = g.height + 'px';
             s.margin = '0';
-            s.zIndex = '2';
+            /* Under the live grid: when the reflowed grid puts another tile
+               in this spot, the new image must win the cell */
+            s.zIndex = '1';
         });
 
         // Entering items join the flow right away (hidden)
@@ -198,10 +206,12 @@ document.addEventListener('DOMContentLoaded', function() {
             item.dataset.state = 'in';
             item.style.display = 'inline-block';
             item.style.opacity = '0';
+            item.style.zIndex = '2';
         });
         staying.forEach(item => {
             item.dataset.state = 'in';
             item.style.opacity = '1';
+            item.style.zIndex = '2';
         });
 
         if (window.reinitLazyLoad) window.reinitLazyLoad();
@@ -220,104 +230,99 @@ document.addEventListener('DOMContentLoaded', function() {
             const dy = oldRect.top - newRect.top;
             if (dx || dy) {
                 item.style.transform = 'translate(' + dx + 'px, ' + dy + 'px)';
-                movers.push({ item: item, dx: dx, dy: dy, oldRect: oldRect });
+                movers.push({ item: item, dx: dx, dy: dy });
             }
         });
         entering.forEach(item => {
             item.style.transform = 'scale(0.86)';
         });
 
-
-        const AXIS_MS = 150;      // duration of one axis move
-        // Stagger between movers, capped so many movers don't stretch the
-        // whole slide phase (entering items wait for it to finish)
-        const STAGGER_MS = movers.length > 1
-            ? Math.min(40, 140 / (movers.length - 1))
-            : 0;
-        // Kinetic easings: slides overshoot and snap into place,
-        // entrances pop with a slight bounce, exits accelerate away
-        const EASING_SNAP = 'cubic-bezier(0.3, 1.4, 0.4, 1)';
+        // One fixed linear velocity for every leg of every move: a leg's
+        // duration is its distance / MOVE_SPEED, so short hops are quick and
+        // long hauls take proportionally longer - the switch's length varies
+        // with the genre, the movement speed never does.
+        const MOVE_SPEED = 7.2; // px per ms
+        const LEG_GAP_MS = 30;  // beat at the corner of an L move
+        const FADE_MS = 180;    // leaving fade
+        const POP_MS = 220;     // entering pop
         const EASING_POP = 'cubic-bezier(0.34, 1.56, 0.64, 1)';
-        const EASING_EJECT = 'cubic-bezier(0.55, 0, 0.8, 0.2)';
+
+        let maxMoveMs = 0;
+        movers.forEach(move => {
+            move.durX = move.dx ? Math.max(1, Math.round(Math.abs(move.dx) / MOVE_SPEED)) : 0;
+            move.durY = move.dy ? Math.max(1, Math.round(Math.abs(move.dy) / MOVE_SPEED)) : 0;
+            move.totalMs = move.durX + move.durY +
+                (move.durX && move.durY ? LEG_GAP_MS : 0);
+            maxMoveMs = Math.max(maxMoveMs, move.totalMs);
+        });
+
+        // Entrances begin just before the last mover lands
+        const enterStart = movers.length ? Math.max(0, maxMoveMs - 80) : 40;
+        const enterStagger = entering.length > 1
+            ? Math.min(24, 200 / (entering.length - 1))
+            : 0;
+        const enterEnd = entering.length
+            ? enterStart + (entering.length - 1) * enterStagger + POP_MS
+            : enterStart;
+        const settleMs = Math.max(FADE_MS, maxMoveMs, enterEnd);
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 if (gen !== animGen) return; // superseded by a newer click
 
-                // 1) Leaving items fade out in place (slight sink),
-                //    concurrently with everything else
-                leaveGeom.forEach((g, index) => {
-                    setTimeout(() => {
-                        if (gen !== animGen) return;
-                        g.item.style.transition = 'opacity 0.22s ease, transform 0.22s ' + EASING_EJECT;
-                        g.item.style.transform = 'translate(0px, 26px) scale(0.94)';
-                        g.item.style.opacity = '0';
-                    }, index * 15);
+                // 1) Leaving items fade out in place, under the live grid
+                leaveGeom.forEach(g => {
+                    g.item.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+                    g.item.style.opacity = '0';
                 });
 
-                // 2) Staying items: axis-by-axis slide (horizontal into the
-                //    new column, then vertical into the new row)
-                movers.forEach((move, index) => {
-                    setTimeout(() => {
+                // 2) Staying items glide axis-by-axis: into the new column
+                //    first, then into the new row - never diagonally
+                movers.forEach(move => {
+                    const runY = () => {
                         if (gen !== animGen) return;
-                        move.item.style.transition = 'transform ' + AXIS_MS + 'ms ' + EASING_SNAP;
-                        if (move.dx && move.dy) {
-                            move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
-                            setTimeout(() => {
-                                if (gen !== animGen) return;
-                                move.item.style.transform = '';
-                            }, AXIS_MS + 30);
-                        } else {
-                            move.item.style.transform = '';
-                        }
-                    }, index * STAGGER_MS);
+                        if (move.item.dataset.state !== 'in') return;
+                        move.item.style.transition = 'transform ' + move.durY + 'ms linear';
+                        move.item.style.transform = '';
+                    };
+                    if (move.durX && move.durY) {
+                        move.item.style.transition = 'transform ' + move.durX + 'ms linear';
+                        move.item.style.transform = 'translate(0px, ' + move.dy + 'px)';
+                        setTimeout(runY, move.durX + LEG_GAP_MS);
+                    } else if (move.durX) {
+                        move.item.style.transition = 'transform ' + move.durX + 'ms linear';
+                        move.item.style.transform = '';
+                    } else {
+                        runY();
+                    }
                 });
 
-                // 3) Entering items: two-act structure. If tiles are sliding,
-                //    wait until ALL slides have settled, then fill the empty
-                //    cells one by one. With no sliding tiles (disjoint genre
-                //    switch), enter right away alongside the outgoing fade.
-                let slidesDone = 80;
-                if (movers.length) {
-                    slidesDone = 0;
-                    movers.forEach((move, index) => {
-                        const travel = (move.dx && move.dy) ? AXIS_MS * 2 + 30 : AXIS_MS;
-                        slidesDone = Math.max(slidesDone, index * STAGGER_MS + travel);
-                    });
-                    // Soft crossfade between phases: entrances begin just
-                    // before the last slides finish
-                    slidesDone = Math.max(0, slidesDone - 130);
-                }
-                const enterStagger = entering.length > 1
-                    ? Math.min(30, 250 / (entering.length - 1))
-                    : 0;
+                // 3) Entering items pop once the moves have essentially landed
                 entering.forEach((item, index) => {
                     setTimeout(() => {
                         if (gen !== animGen) return;
-                        item.style.transition = 'opacity 0.18s ease, transform 0.3s ' + EASING_POP;
+                        if (item.dataset.state !== 'in') return;
+                        item.style.transition = 'opacity ' + Math.round(POP_MS * 0.8) + 'ms ease, transform ' + POP_MS + 'ms ' + EASING_POP;
                         item.style.transform = '';
                         item.style.opacity = '1';
-                    }, slidesDone + index * enterStagger);
+                    }, enterStart + index * enterStagger);
                 });
 
-                // 3.5) Tail rules fade back in once the new grid has settled
-                const exitEnd = leaveGeom.length
-                    ? (leaveGeom.length - 1) * 15 + 220
-                    : 0;
-                const enterEnd = entering.length
-                    ? slidesDone + (entering.length - 1) * enterStagger + 250
-                    : slidesDone;
+                // 3.5) Tail rules fade back in once the new grid has settled,
+                //      and the transient stacking is cleaned up
                 tailFadeInTimer = setTimeout(() => {
                     if (gen !== animGen) return;
                     tailEls.forEach(el => {
                         el.style.transition = 'opacity 0.3s ease';
                         el.style.opacity = '1';
                     });
-                }, Math.max(exitEnd, enterEnd) + 60);
+                    imgWraps.forEach(item => {
+                        if (item.dataset.state === 'in') item.style.zIndex = '';
+                    });
+                }, settleMs + 60);
 
                 // 4) Cleanup: actually hide leaving items once faded,
                 //    unless a quicker filter switch brought them back
-                const leaveDone = (leaveGeom.length ? (leaveGeom.length - 1) * 15 : 0) + 300;
                 setTimeout(() => {
                     if (gen !== animGen) return;
                     leaveGeom.forEach(g => {
@@ -327,7 +332,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         g.item.style.display = 'none';
                         g.item.style.opacity = '0';
                     });
-                }, leaveDone);
+                }, FADE_MS + 80);
+
+                // Real completion signal for the via-All sequencer
+                if (onSettled) {
+                    setTimeout(() => {
+                        if (gen !== animGen) return;
+                        onSettled();
+                    }, settleMs + 20);
+                }
             });
         });
     }
@@ -358,11 +371,43 @@ document.addEventListener('DOMContentLoaded', function() {
         history.replaceState(null, '', url.pathname + url.search + url.hash);
     }
 
+    // Genre-to-genre switches share no tiles, so a direct switch reads as
+    // "everything vanishes, everything pops". Route them through the All
+    // arrangement instead: expand to All, a beat, then collapse into the
+    // chosen genre. Chained on the real completion callback, never a timing
+    // estimate, so the collapse cannot start mid-expansion.
+    let currentFilter = 'all';
+    let phase2Timer = null;
+    const PHASE_HOLD_MS = 150;
+
+    function transitionFilter(filterValue) {
+        const from = currentFilter;
+        currentFilter = filterValue;
+        if (phase2Timer) {
+            clearTimeout(phase2Timer);
+            phase2Timer = null;
+        }
+        const viaAll = !prefersReducedMotion &&
+            from !== 'all' && filterValue !== 'all' && from !== filterValue;
+        if (!viaAll) {
+            applyFilter(filterValue);
+            return;
+        }
+        applyFilter('all', () => {
+            if (currentFilter !== filterValue) return;
+            phase2Timer = setTimeout(() => {
+                phase2Timer = null;
+                if (currentFilter !== filterValue) return;
+                applyFilter(filterValue);
+            }, PHASE_HOLD_MS);
+        });
+    }
+
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
             const filterValue = this.getAttribute('data-filter');
             setActiveButton(filterValue);
-            applyFilter(filterValue);
+            transitionFilter(filterValue);
             updateFilterCount(filterValue);
             syncUrl(filterValue);
         });
@@ -373,6 +418,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // playing a switch animation against the page's own reveal cascade.
     const requested = new URLSearchParams(window.location.search).get('filter');
     if (requested && FILTERS.includes(requested) && requested !== 'all') {
+        currentFilter = requested;
         setActiveButton(requested);
         imgWraps.forEach(item => {
             const shown = item.getAttribute('data-category') === requested;
