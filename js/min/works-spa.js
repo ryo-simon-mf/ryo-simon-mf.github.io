@@ -17,6 +17,19 @@ let gridShown = false; // list view is on screen. Tracked as state because a
 // Characters for glitch effect (binary + symbols)
 const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
 
+/**
+ * Run a callback once the page is actually on screen (load-menu.js holds it
+ * back past the page-transition crossfade). Falls back to running straight
+ * away if that script is missing.
+ */
+function onPagePresented(callback) {
+  if (typeof window.whenPagePresented === 'function') {
+    window.whenPagePresented(callback);
+  } else {
+    callback();
+  }
+}
+
 // Respect the user's motion preference (text effects and cascades are
 // skipped; final content is shown immediately)
 const PREFERS_REDUCED_MOTION = window.matchMedia &&
@@ -743,10 +756,14 @@ function showWorksList(announceMessage) {
       el.style.display = 'block';
     });
 
-    // Animate h1 back to "Works" with glitch effect
+    // Animate h1 back to "Works" with glitch effect.
+    // Held until the page is on screen: arriving from About or Contact, the
+    // page-transition crossfade used to cover the whole scramble, so the
+    // heading looked static. whenPagePresented resolves immediately once the
+    // crossfade is over, so returning here from a work detail is unaffected.
     const h1 = contentDiv.querySelector('h1');
     if (h1) {
-      animateTextTransition(h1, 'Works', 'glitch', 600);
+      onPagePresented(() => animateTextTransition(h1, 'Works', 'glitch', 600));
     }
 
     // Animate filter buttons with glitch effect
@@ -767,9 +784,11 @@ function showWorksList(announceMessage) {
         btn.textContent = initialText;
 
         // Animate to target text with glitch effect
-        setTimeout(() => {
-          animateTextGlitch(btn, targetText, 400);
-        }, 100 + index * 50);
+        onPagePresented(() => {
+          setTimeout(() => {
+            animateTextGlitch(btn, targetText, 400);
+          }, 100 + index * 50);
+        });
       });
     }
 

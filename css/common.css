@@ -332,12 +332,16 @@ button:focus-visible,
     navigation: auto;
 }
 
+/* 0.15s, not 0.3s: the crossfade covers the incoming page with a still
+   image of its first frame, so any text effect underneath it plays unseen.
+   Halving it keeps the transition while letting the heading animation start
+   promptly (js/load-menu.js whenPagePresented). */
 ::view-transition-old(root) {
-    animation-duration: 0.3s;
+    animation-duration: 0.15s;
 }
 
 ::view-transition-new(root) {
-    animation-duration: 0.3s;
+    animation-duration: 0.15s;
 }
 
 /* The sidebar is identical on every page: give it a persistent

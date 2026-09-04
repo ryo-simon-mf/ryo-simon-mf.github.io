@@ -19,6 +19,20 @@ const ANIMATION_DURATION = {
 const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
 
 /**
+ * Run a callback once the page is actually on screen. load-menu.js holds it
+ * back past the page-transition crossfade, which otherwise covered these
+ * effects from start to finish when arriving from another page. Falls back
+ * to running straight away if that script is missing.
+ */
+function onPagePresented(callback) {
+  if (typeof window.whenPagePresented === 'function') {
+    window.whenPagePresented(callback);
+  } else {
+    callback();
+  }
+}
+
+/**
  * Animate text with glitch effect
  * Random characters converge to target text
  * @param {HTMLElement} element - Element containing text to animate
@@ -264,9 +278,11 @@ function initPageAnimations() {
   if (h1) {
     const h1Text = h1.textContent.trim();
     // Don't clear text - animate from current text to same text
-    setTimeout(() => {
-      animateTextGlitch(h1, h1Text, ANIMATION_DURATION.SLOW);
-    }, 100);
+    onPagePresented(() => {
+      setTimeout(() => {
+        animateTextGlitch(h1, h1Text, ANIMATION_DURATION.SLOW);
+      }, 100);
+    });
   }
 
   // Fade in Swiper container (profile images) and the hr after it
@@ -312,10 +328,10 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          setTimeout(() => {
+          onPagePresented(() => setTimeout(() => {
             entry.target.style.opacity = '1';
             animateTextGlitch(entry.target, text, ANIMATION_DURATION.NORMAL);
-          }, 100);
+          }, 100));
         }
       });
     }, optionsFor(el));
@@ -339,13 +355,15 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          entry.target.style.opacity = '1';
 
-          aTags.forEach((aTag, index) => {
-            const text = aTag.textContent.trim();
-            setTimeout(() => {
-              animateTextGlitch(aTag, text, ANIMATION_DURATION.NORMAL);
-            }, index * 100);
+          onPagePresented(() => {
+            entry.target.style.opacity = '1';
+            aTags.forEach((aTag, index) => {
+              const text = aTag.textContent.trim();
+              setTimeout(() => {
+                animateTextGlitch(aTag, text, ANIMATION_DURATION.NORMAL);
+              }, index * 100);
+            });
           });
         }
       });
@@ -365,11 +383,11 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          setTimeout(() => {
+          onPagePresented(() => setTimeout(() => {
             entry.target.style.opacity = '1';
             entry.target.textContent = '';
             animateTextTypewriter(entry.target, h3Text, ANIMATION_DURATION.SLOW);
-          }, 100);
+          }, 100));
         }
       });
     }, optionsFor(h3));
