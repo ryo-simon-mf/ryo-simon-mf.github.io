@@ -137,3 +137,10 @@
 .center-container:hover .img_wrap:not(:hover) img.lazy-loaded {
     opacity: 0.5;
 }
+
+/* Keyboard focus scrolling a tile into view must clear the fixed header
+   (WCAG 2.4.11). The <a> is the focus target; the wrap is for anchors. */
+.img_wrap,
+.img_wrap a {
+    scroll-margin-top: calc(var(--works-fixed-header-offset, 145px) + 8px);
+}

@@ -9,6 +9,14 @@ function setup() {
     pixelDensity(1);
     createCanvas(300, 1100, WEBGL);
     // canvas.parent('canvas');
+    // Static frame for visitors who asked for reduced motion (WCAG 2.2.2), and
+    // no redraw while the tab is hidden. Visual output is otherwise unchanged.
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) noLoop();
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) noLoop();
+        else if (!reduceMotion) loop();
+    });
 }
 
 function draw() {

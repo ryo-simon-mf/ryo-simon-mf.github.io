@@ -73,11 +73,11 @@
                 <hr>
             </div>
 
-            <div class="swiper-container" style="opacity: 0;">
+            <div class="swiper-container" style="opacity: 0;" role="region" aria-roledescription="carousel" aria-label="Profile photos">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <div class="img_pro">
-                            <img src="../image/profile/2025_icon_basic.webp" alt="Ryo Simon profile photo 2025" loading="lazy">
+                            <img src="../image/profile/2025_icon_basic.webp" alt="Ryo Simon profile photo 2025" loading="eager" fetchpriority="high">
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
             <h2 style="opacity: 0;">Ryo Simon[Nishikado]</h2>
             <h3 style="opacity: 0;">
 
-                <a> Creative Technologist / Artist / Researcher</a>
+                <a lang="en"> Creative Technologist / Artist / Researcher</a>
                 <br>
 
                 <!-- 名称募集中 -->
@@ -136,7 +136,7 @@
                     </a>
                     
                     <br><br>
-                    <a>
+                    <a lang="en">
                         Born in 1998 in Tokyo, Japan.<br>
                         
                         <!-- Interested in tactile and audio, visual expression among the five senses that humans have, and works as a VJ, DJ, and sound engineer from the perspective of programming, design, and art. -->
@@ -602,7 +602,7 @@
         </div>
 
         <!-- menu -->
-    <div id="menu" role="navigation">
+    <div id="menu" role="navigation" aria-label="Main navigation">
         <!-- Menu content loaded dynamically via load-menu.js -->
         <noscript>
             <style>

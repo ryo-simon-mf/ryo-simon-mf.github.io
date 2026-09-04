@@ -4,6 +4,14 @@ let bm = 60; //box margin
 
 function setup() {
     createCanvas(windowWidth, windowHeight, WEBGL);
+    // Static frame for visitors who asked for reduced motion (WCAG 2.2.2), and
+    // no redraw while the tab is hidden. Visual output is otherwise unchanged.
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) noLoop();
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) noLoop();
+        else if (!reduceMotion) loop();
+    });
 }
 
 function draw() {

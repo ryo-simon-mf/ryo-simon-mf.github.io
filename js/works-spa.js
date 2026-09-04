@@ -373,8 +373,15 @@ async function initWorksSPA() {
       if (e.repeat) return; // key-repeat would stack detail builds
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (e.key !== '[' && e.key !== ']') return;
-      const t = document.activeElement && document.activeElement.tagName;
-      if (t === 'INPUT' || t === 'TEXTAREA') return;
+      const active = document.activeElement;
+      const t = active && active.tagName;
+      if (t === 'INPUT' || t === 'TEXTAREA' || (active && active.isContentEditable)) return;
+      // Single-character shortcuts stay scoped to the detail view (WCAG 2.1.4):
+      // focus lands on its heading when a work opens and leaves when the
+      // visitor tabs or clicks to the sidebar, so the keys cannot fire from
+      // elsewhere on the page (speech input, stray key presses).
+      const detail = document.getElementById('work-detail-view');
+      if (!detail || !active || !detail.contains(active)) return;
       const id = window.location.hash.slice(1);
       const order = browseOrder(id);
       const i = order.indexOf(id);
@@ -953,7 +960,7 @@ function createDetailView(work, workId) {
                 </p>
             </div>
 
-            <div class="swiper-container" style="opacity: 0;">
+            <div class="swiper-container" style="opacity: 0;" role="region" aria-roledescription="carousel" aria-label="${work.title} images">
                 <div class="swiper-wrapper">
 ${swiperSlides}
                 </div>
@@ -1204,6 +1211,9 @@ ${swiperSlides}
         enabled: true,
       }
     });
+    // loop:true clones the first/last slides; keep the copies out of the
+    // accessibility tree so a two-image work is not read as four
+    detailView.querySelectorAll('.swiper-slide-duplicate').forEach(s => s.setAttribute('aria-hidden', 'true'));
   }, 50);
 
   // Breadcrumb "Works" link returns to the grid. Entered from the grid in this
@@ -1222,7 +1232,8 @@ ${swiperSlides}
   });
 
   // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // JS-requested smooth scrolling overrides the reduced-motion CSS reset
+  window.scrollTo({ top: 0, behavior: PREFERS_REDUCED_MOTION ? 'auto' : 'smooth' });
 
   // Land keyboard focus on the heading of the view that just replaced the grid,
   // so tabbing continues from here instead of restarting at the top of the page.
