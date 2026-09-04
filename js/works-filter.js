@@ -60,8 +60,29 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Screen-reader summary of a filter switch (WCAG 4.1.3). The visible badge
+    // counts up frame by frame, so it is deliberately not a live region; the
+    // final figure is written here once per switch, after the count settles.
+    const FILTER_LABELS = { all: 'All', code: 'Code', object: 'Object', design: 'Design' };
+    let statusArmed = false; // the initial render is not a change
+    function announceCount(category, count) {
+        if (!statusArmed) return;
+        let region = document.getElementById('filter-status');
+        if (!region) {
+            region = document.createElement('div');
+            region.id = 'filter-status';
+            region.setAttribute('role', 'status');
+            region.setAttribute('aria-live', 'polite');
+            region.style.cssText = 'position:absolute;width:1px;height:1px;margin:-1px;' +
+                'padding:0;border:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap';
+            document.body.appendChild(region);
+        }
+        const label = FILTER_LABELS[category] || category;
+        region.textContent = `${label}: ${count} ${count === 1 ? 'work' : 'works'}`;
+    }
+
     // Animate count change
-    function animateCount(startValue, endValue, duration = 400) {
+    function animateCount(startValue, endValue, category, duration = 400) {
         const startTime = performance.now();
         const difference = endValue - startValue;
 
@@ -82,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 requestAnimationFrame(updateCount);
             } else {
                 currentCount = endValue;
+                announceCount(category, endValue);
             }
         }
 
@@ -91,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update filter count display with animation
     function updateFilterCount(category) {
         const newCount = countWorksByCategory(category);
-        animateCount(currentCount, newCount);
+        animateCount(currentCount, newCount, category);
     }
 
     const prefersReducedMotion = window.matchMedia &&
@@ -430,4 +452,5 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         updateFilterCount('all');
     }
+    statusArmed = true;
 });

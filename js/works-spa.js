@@ -6,6 +6,9 @@ let worksOrder = []; // Display order
 let worksIndex = []; // id/title/year/category straight from index.json
 let lastWorkId = null; // which work the grid was left from, to restore focus to
 let currentSwiper = null;
+let navGen = 0; // bumped per hash navigation; stale async work checks it and bails
+let directFromGrid = false; // the open detail was entered from the grid in this
+                            // document (so history.back() lands on the list)
 let gridShown = false; // list view is on screen. Tracked as state because a
                        // computed-style sample of a tile misreads filtered
                        // grids (filtered-out tiles sit at opacity 0).
@@ -329,6 +332,9 @@ async function initWorksSPA() {
     // Handle hash changes
     window.addEventListener('hashchange', handleHashChange);
 
+    // A not-found notice is stale as soon as the visitor filters the grid
+    document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', hideWorksNotice));
+
     // Handle initial load
     await handleHashChange();
 
@@ -370,10 +376,11 @@ async function initWorksSPA() {
       const t = document.activeElement && document.activeElement.tagName;
       if (t === 'INPUT' || t === 'TEXTAREA') return;
       const id = window.location.hash.slice(1);
-      const i = worksOrder.indexOf(id);
+      const order = browseOrder(id);
+      const i = order.indexOf(id);
       if (i === -1) return;
       const n = e.key === '[' ? i - 1 : i + 1;
-      if (n >= 0 && n < worksOrder.length) window.location.hash = worksOrder[n];
+      if (n >= 0 && n < order.length) window.location.hash = order[n];
     });
   } catch (error) {
     console.error('Failed to initialize Works SPA:', error);
@@ -523,10 +530,27 @@ function relatedWorksFor(work, limit = 3) {
   return picked.slice(0, limit);
 }
 
+/**
+ * Display order narrowed to the active filter, so Prev/Next and the [ ] keys
+ * never step onto a work the grid is currently hiding. A work outside the
+ * filter (deep link with a mismatched ?filter=) falls back to the full order.
+ */
+function browseOrder(workId) {
+  const active = document.querySelector('.filter-btn.active');
+  const filter = active ? active.getAttribute('data-filter') : 'all';
+  if (!filter || filter === 'all') return worksOrder;
+  const narrowed = worksOrder.filter(id => {
+    const w = worksIndex.find(x => x.id === id);
+    return w && w.category === filter;
+  });
+  return workId && !narrowed.includes(workId) ? worksOrder : narrowed;
+}
+
 /** Prev/next neighbours in display order. Ends of the list simply have none. */
 function neighboursOf(workId) {
-  const i = worksOrder.indexOf(workId);
-  const at = (n) => (n >= 0 && n < worksOrder.length ? worksIndex.find(w => w.id === worksOrder[n]) : null);
+  const order = browseOrder(workId);
+  const i = order.indexOf(workId);
+  const at = (n) => (n >= 0 && n < order.length ? worksIndex.find(w => w.id === order[n]) : null);
   return { prev: i > 0 ? at(i - 1) : null, next: i >= 0 ? at(i + 1) : null };
 }
 
@@ -584,6 +608,7 @@ function extractWorkId(href) {
 
 // Handle hash change events (async to support lazy loading)
 async function handleHashChange() {
+  const gen = ++navGen;
   const hash = window.location.hash.slice(1); // Remove #
 
   // A fragment that is not a work id but IS a real element (e.g. the skip
@@ -600,22 +625,57 @@ async function handleHashChange() {
     // Lazy load work data if not already cached
     const workData = await loadWork(hash);
 
+    // A newer navigation (rapid ] presses, Back/Forward) took over while this
+    // fetch was in flight: it owns the spinner and the view now.
+    if (gen !== navGen) return;
+
     // Hide spinner after data is loaded
     hideLoadingSpinner();
 
     if (workData) {
+      hideWorksNotice();
+      directFromGrid = gridShown;
       showWorkDetail(hash);
     } else {
-      // Work not found, show list
-      showWorksList();
+      // Unknown id or a failed fetch. Say so instead of silently showing the
+      // grid, and drop the dead fragment so reload/share/Back do not replay it.
+      const message = worksOrder.includes(hash)
+        ? `作品を読み込めませんでした: ${hash}`
+        : `作品が見つかりません: ${hash}`;
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      showWorksList(message);
+      showWorksNotice(message);
     }
   } else {
+    hideWorksNotice();
     showWorksList();
   }
 }
 
-// Show works list (grid view)
-function showWorksList() {
+/** One-line notice above the grid (terminal prompt style). */
+function showWorksNotice(message) {
+  let el = document.getElementById('works-notice');
+  if (!el) {
+    const grid = document.querySelector('.center-container');
+    if (!grid || !grid.parentNode) return;
+    el = document.createElement('div');
+    el.id = 'works-notice';
+    el.className = 'works-notice';
+    grid.parentNode.insertBefore(el, grid);
+  }
+  el.textContent = `> ${message}`;
+  el.hidden = false;
+}
+
+function hideWorksNotice() {
+  const el = document.getElementById('works-notice');
+  if (el) el.hidden = true;
+}
+
+// Show works list (grid view). announceMessage overrides the default
+// screen-reader text, e.g. when the list is shown because a work was not found.
+function showWorksList(announceMessage) {
+  const gen = navGen;
   const centerContainer = document.querySelector('.center-container');
   const contentDiv = document.getElementById('content');
   const detailView = document.getElementById('work-detail-view');
@@ -649,8 +709,11 @@ function showWorksList() {
       hr.style.opacity = '0';
     });
 
-    // Wait for fade out, then show list
+    // Wait for fade out, then show list - unless a newer navigation has
+    // already replaced this view, in which case removing it would tear down
+    // the detail that navigation just built.
     setTimeout(() => {
+      if (gen !== navGen) return;
       showWorksListAfterFadeOut();
     }, 400);
   } else {
@@ -799,7 +862,7 @@ function showWorksList() {
       .find(a => extractWorkId(a.getAttribute('href')) === lastWorkId);
     if (origin) origin.focus({ preventScroll: true });
     lastWorkId = null;
-    announce('作品一覧に戻りました');
+    announce(announceMessage || '作品一覧に戻りました');
   }
   gridShown = true;
 }
@@ -1143,10 +1206,19 @@ ${swiperSlides}
     });
   }, 50);
 
-  // Breadcrumb "Works" link returns to the grid
+  // Breadcrumb "Works" link returns to the grid. Entered from the grid in this
+  // document: step back to that history entry rather than pushing "#" on top
+  // of it, so Back afterwards leaves the page instead of reopening this work.
+  // Otherwise (deep link, or a hop via Prev/Next/Related) swap the current
+  // entry for the list URL in place.
   detailView.querySelector('.breadcrumb-works').addEventListener('click', (e) => {
     e.preventDefault();
-    window.location.hash = '';
+    if (directFromGrid) {
+      history.back();
+      return;
+    }
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    handleHashChange();
   });
 
   // Scroll to top

@@ -220,3 +220,12 @@
   font-weight: normal;
   animation: blink 0.8s step-start infinite;
 }
+
+/* One-line notice above the grid: unknown work id / failed fetch */
+.works-notice {
+    margin: 0 0 1rem;
+    color: var(--color-text-muted);
+}
+.works-notice[hidden] {
+    display: none;
+}
