@@ -35,6 +35,15 @@
     margin-top: var(--about-fixed-header-offset);
 }
 
+/* No measure cap on this page. style_2.css caps #content_in at 42em for
+   running prose (work descriptions), but the About text is a CV: one entry
+   per line, broken by hand with <br>. Under the cap those authored lines
+   wrapped a word short of their <br> and left 14 one-word orphan lines
+   ("る」", "perspective","). Loaded after style_2.css, so same selector wins. */
+div#content_in {
+    max-width: none;
+}
+
 /* The profile carousel sits on the running text's left edge (the 30px
    padding of #content_in) at half the text measure (21rem; the text is
    capped at 42rem), so photo, headings and text form one left-aligned
