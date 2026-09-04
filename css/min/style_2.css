@@ -14,14 +14,14 @@ div#title {
     z-index: 9;
 }
 
-/* Subpage-specific: content_in with padding */
+/* Subpage-specific: content_in with padding.
+   No max-width on the measure: the About CV and most work descriptions are
+   broken by hand with <br> for a wide line, and a 42em cap (Session 19, M3)
+   made those lines wrap a word short of their <br>, leaving one-word orphan
+   lines (About 14, Works 25 at 1440px). Removed 2026-09-04 at the user's
+   request; the column width is the measure again. */
 div#content_in {
     padding: 15px 30px 15px 30px;
-    /* Cap the measure at ~42em of text (the 60px rides on top because the
-       universal reset below makes this border-box). Unbounded, a 1920px screen
-       ran 80-90 characters per line. Images/swiper/grid live outside
-       #content_in, so only running text is capped. */
-    max-width: calc(42em + 60px);
 }
 
 /* Subpage-specific: menu fixed to viewport */

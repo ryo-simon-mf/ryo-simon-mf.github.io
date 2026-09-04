@@ -39,15 +39,6 @@
     margin-top: var(--about-fixed-header-offset);
 }
 
-/* No measure cap on this page. style_2.css caps #content_in at 42em for
-   running prose (work descriptions), but the About text is a CV: one entry
-   per line, broken by hand with <br>. Under the cap those authored lines
-   wrapped a word short of their <br> and left 14 one-word orphan lines
-   ("る」", "perspective","). Loaded after style_2.css, so same selector wins. */
-div#content_in {
-    max-width: none;
-}
-
 /* Desktop: the carousel spans the column; the photo is centred in it at a
    fixed 31.5rem (size chosen by the user, 2026-09-04) and the arrows sit at
    the column's outer edges, never over the photo. Mobile keeps its own
