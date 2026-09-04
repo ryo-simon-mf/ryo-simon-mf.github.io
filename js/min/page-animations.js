@@ -19,20 +19,6 @@ const ANIMATION_DURATION = {
 const GLITCH_CHARS = '01@#$%&*[]{}01010101><~^+=?/\\|';
 
 /**
- * Run a callback once the page is actually on screen. load-menu.js holds it
- * back past the page-transition crossfade, which otherwise covered these
- * effects from start to finish when arriving from another page. Falls back
- * to running straight away if that script is missing.
- */
-function onPagePresented(callback) {
-  if (typeof window.whenPagePresented === 'function') {
-    window.whenPagePresented(callback);
-  } else {
-    callback();
-  }
-}
-
-/**
  * Animate text with glitch effect
  * Random characters converge to target text
  * @param {HTMLElement} element - Element containing text to animate
@@ -49,9 +35,22 @@ function animateTextGlitch(element, targetText, duration = ANIMATION_DURATION.SL
   // Generate random delays for each character position (staggered effect)
   const charDelays = Array.from({ length: maxLength }, () => Math.random() * 0.5);
 
+  // Progress is the slower of wall-clock and frame count: while the page is
+  // still loading only a handful of frames render inside the run, and on
+  // wall-clock alone each of them lands at a much later progress, so the text
+  // jumps almost straight to its final glyphs. Gating on frames guarantees
+  // MIN_STEPS visible states however busy the page is. The 2x wall-clock cap
+  // stops a stalled page from holding the text hostage. (Same treatment as
+  // js/works-spa.js.)
+  const MIN_STEPS = 18;
+  let frame = 0;
+
   function update(currentTime) {
     const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    frame++;
+    const progress = elapsed > duration * 2
+      ? 1
+      : Math.min(elapsed / duration, frame / MIN_STEPS, 1);
 
     let result = '';
 
@@ -278,11 +277,9 @@ function initPageAnimations() {
   if (h1) {
     const h1Text = h1.textContent.trim();
     // Don't clear text - animate from current text to same text
-    onPagePresented(() => {
-      setTimeout(() => {
-        animateTextGlitch(h1, h1Text, ANIMATION_DURATION.SLOW);
-      }, 100);
-    });
+    setTimeout(() => {
+      animateTextGlitch(h1, h1Text, ANIMATION_DURATION.SLOW);
+    }, 100);
   }
 
   // Fade in Swiper container (profile images) and the hr after it
@@ -328,10 +325,10 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          onPagePresented(() => setTimeout(() => {
+          setTimeout(() => {
             entry.target.style.opacity = '1';
             animateTextGlitch(entry.target, text, ANIMATION_DURATION.NORMAL);
-          }, 100));
+          }, 100);
         }
       });
     }, optionsFor(el));
@@ -356,14 +353,12 @@ function initPageAnimations() {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
 
-          onPagePresented(() => {
-            entry.target.style.opacity = '1';
-            aTags.forEach((aTag, index) => {
-              const text = aTag.textContent.trim();
-              setTimeout(() => {
-                animateTextGlitch(aTag, text, ANIMATION_DURATION.NORMAL);
-              }, index * 100);
-            });
+          entry.target.style.opacity = '1';
+          aTags.forEach((aTag, index) => {
+            const text = aTag.textContent.trim();
+            setTimeout(() => {
+              animateTextGlitch(aTag, text, ANIMATION_DURATION.NORMAL);
+            }, index * 100);
           });
         }
       });
@@ -383,11 +378,11 @@ function initPageAnimations() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
-          onPagePresented(() => setTimeout(() => {
+          setTimeout(() => {
             entry.target.style.opacity = '1';
             entry.target.textContent = '';
             animateTextTypewriter(entry.target, h3Text, ANIMATION_DURATION.SLOW);
-          }, 100));
+          }, 100);
         }
       });
     }, optionsFor(h3));
