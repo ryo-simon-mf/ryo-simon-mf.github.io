@@ -53,9 +53,23 @@ function animateTextGlitch(element, targetText, duration = 800) {
   const CHURN = 0.5;           // lower = keeps re-rolling for longer
   const charDelays = Array.from({ length: maxLength }, () => Math.random() * DELAY_SPREAD);
 
+  // Progress is the slower of wall-clock and frame count. Arriving from
+  // another page the grid, p5 and Swiper are still loading, so only a handful
+  // of frames render inside the run; on wall-clock alone each of those frames
+  // lands at a much later progress and the text jumps almost straight to its
+  // final glyphs - the scramble looked calm exactly when the page was busy.
+  // Gating on frames guarantees MIN_STEPS visible states however slow the
+  // page is, stretching the run instead of skipping through it. The 2x
+  // wall-clock cap stops a badly stalled page from holding the text hostage.
+  const MIN_STEPS = 18;
+  let frame = 0;
+
   function update(currentTime) {
     const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    frame++;
+    const progress = elapsed > duration * 2
+      ? 1
+      : Math.min(elapsed / duration, frame / MIN_STEPS, 1);
 
     let result = '';
 
