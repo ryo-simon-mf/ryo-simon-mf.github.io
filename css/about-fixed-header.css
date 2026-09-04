@@ -34,3 +34,22 @@
 #content > .swiper-container {
     margin-top: var(--about-fixed-header-offset);
 }
+
+/* The profile carousel sits on the running text's left edge (the 30px
+   padding of #content_in) at half the text measure (21rem; the text is
+   capped at 42rem), so photo, headings and text form one left-aligned
+   column at every width. Before, the photo was 50% of the column and
+   centred while the text was capped and left-aligned, which drifted apart
+   on wide screens. Size chosen by the user (2026-09-04). Mobile keeps its
+   own rules. */
+@media (min-width: 768px) {
+    #content > .swiper-container {
+        width: 21rem;
+        max-width: calc(100% - 30px);
+        margin-left: 30px;
+    }
+
+    #content > .swiper-container .img_pro img {
+        width: 100%;
+    }
+}
