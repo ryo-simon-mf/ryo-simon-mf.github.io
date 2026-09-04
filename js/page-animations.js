@@ -170,23 +170,12 @@ function initPageAnimations() {
       return;
     }
 
-    // Play reveal animations only on the first visit per session.
-    // Repeat visits show content immediately - the View Transition
-    // crossfade (common.css) already covers the page change.
-    let isRevisit = false;
-    try {
-      const seenKey = 'pa-seen:' + window.location.pathname;
-      isRevisit = sessionStorage.getItem(seenKey) === '1';
-      sessionStorage.setItem(seenKey, '1');
-    } catch (e) {
-      // sessionStorage unavailable (private mode etc.) - treat as first visit
-    }
-
-    if (isRevisit) {
-      showAllContentImmediately();
-      releasePrePaintGuard();
-      return;
-    }
+    // The reveal plays on every visit, not just the first of a session.
+    // Session 16 had gated it on a sessionStorage flag so repeat visits showed
+    // content immediately, but that left About and Contact completely static
+    // while Works (works-spa.js, which has no such gate) kept glitching its
+    // heading on every view change. The user asked for the same treatment on
+    // all pages, so the gate is gone (2026-09-04).
 
     // Check if browser supports Intersection Observer
     if (!('IntersectionObserver' in window)) {
@@ -307,49 +296,34 @@ function initPageAnimations() {
   // This allows pages without swiper (like Contact) to start animations immediately
   const swiperFadeComplete = swiperContainer ? 900 : 100;
 
-  // Animate h2 with glitch effect using Intersection Observer
-  const h2 = content.querySelector('h2');
-  if (h2) {
-    const h2Text = h2.textContent.trim();
-    h2.style.opacity = '0';
-    h2.style.transition = 'opacity 0.6s ease';
+  // Glitch every h2 and h4 as it scrolls into view.
+  // These used to be querySelector (first match only) while the markup gives
+  // EVERY h2/h4 an inline opacity:0 - so any heading past the first had no
+  // handler to reveal it and stayed invisible for good. On Contact that hid
+  // the "Mail" and "Support" headings on every first visit, in production
+  // too; a repeat visit only looked fine because the old session gate called
+  // showAllContentImmediately(). Fixed 2026-09-04.
+  function glitchOnReveal(el) {
+    const text = el.textContent.trim();
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.6s ease';
 
-    const h2Observer = new IntersectionObserver((entries) => {
+    const obs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
           entry.target.dataset.animated = 'true';
           setTimeout(() => {
             entry.target.style.opacity = '1';
-            animateTextGlitch(entry.target, h2Text, ANIMATION_DURATION.NORMAL);
+            animateTextGlitch(entry.target, text, ANIMATION_DURATION.NORMAL);
           }, 100);
         }
       });
-    }, optionsFor(h2));
+    }, optionsFor(el));
 
-    h2Observer.observe(h2);
+    obs.observe(el);
   }
 
-  // Animate h4 with glitch effect using Intersection Observer
-  const h4 = content.querySelector('h4');
-  if (h4) {
-    const h4Text = h4.textContent.trim();
-    h4.style.opacity = '0';
-    h4.style.transition = 'opacity 0.6s ease';
-
-    const h4Observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.animated) {
-          entry.target.dataset.animated = 'true';
-          setTimeout(() => {
-            entry.target.style.opacity = '1';
-            animateTextGlitch(entry.target, h4Text, ANIMATION_DURATION.NORMAL);
-          }, 100);
-        }
-      });
-    }, optionsFor(h4));
-
-    h4Observer.observe(h4);
-  }
+  content.querySelectorAll('h2, h4').forEach(glitchOnReveal);
 
   // Animate h3 elements with Intersection Observer
   const h3Elements = content.querySelectorAll('h3');
