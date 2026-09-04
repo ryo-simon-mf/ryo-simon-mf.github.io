@@ -41,8 +41,17 @@ function animateTextGlitch(element, targetText, duration = 800) {
   const maxLength = Math.max(originalText.length, targetText.length);
   const startTime = performance.now();
 
-  // Generate random delays for each character position (staggered effect)
-  const charDelays = Array.from({ length: maxLength }, () => Math.random() * 0.5);
+  // Scramble intensity. Each character picks a random moment to start
+  // settling, then converges over SETTLE_WINDOW of the run. A character that
+  // has started settling still re-rolls with probability
+  // 1 - charProgress * CHURN, so it keeps flickering instead of locking onto
+  // its final glyph the moment it begins. The earlier values (spread 0.5,
+  // window 0.5, CHURN 1) let every glyph settle almost as soon as it started,
+  // which read as a couple of flickers rather than a scramble.
+  const DELAY_SPREAD = 0.65;   // latest point a character can start settling
+  const SETTLE_WINDOW = 0.35;  // how long a character takes to converge
+  const CHURN = 0.5;           // lower = keeps re-rolling for longer
+  const charDelays = Array.from({ length: maxLength }, () => Math.random() * DELAY_SPREAD);
 
   function update(currentTime) {
     const elapsed = currentTime - startTime;
@@ -51,11 +60,11 @@ function animateTextGlitch(element, targetText, duration = 800) {
     let result = '';
 
     for (let i = 0; i < maxLength; i++) {
-      const charProgress = Math.min(Math.max((progress - charDelays[i]) / 0.5, 0), 1);
+      const charProgress = Math.min(Math.max((progress - charDelays[i]) / SETTLE_WINDOW, 0), 1);
 
       if (charProgress < 1) {
         // Still transitioning - show random glitch character
-        if (Math.random() > charProgress) {
+        if (Math.random() > charProgress * CHURN) {
           result += GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
         } else {
           // Occasionally show the target character early
@@ -746,7 +755,11 @@ function showWorksList(announceMessage) {
     // Animate h1 back to "Works" with glitch effect
     const h1 = contentDiv.querySelector('h1');
     if (h1) {
-      animateTextTransition(h1, 'Works', 'glitch', 600);
+      // 900ms, not 600: arriving from another page the grid, p5 and Swiper are
+      // still loading, so only ~9 frames get rendered in 600ms and the scramble
+      // reads as a couple of flickers. A longer run spans past that burst and
+      // roughly doubles the number of visible steps.
+      animateTextTransition(h1, 'Works', 'glitch', 900);
     }
 
     // Animate filter buttons with glitch effect
