@@ -58,3 +58,15 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
+
+/* Keep the title line on screen. Slides are 85% of the column wide with
+   the height following the image's aspect ratio, so a 3:2 photo on a wide
+   window ran to ~800px and pushed the <h3> title below the fold. Cap the
+   slide image at the viewport height minus what sits around it (header
+   offset 153 + rules/gaps 42 + title row 32 + breathing room 33 = 260px);
+   taller images scale down inside that box, keeping their aspect ratio,
+   and the title is visible on every work. Floor for very short windows. */
+#work-detail-view .img_w2 img {
+    max-height: max(360px, calc(100vh - 260px));
+    object-fit: contain;
+}
