@@ -30,8 +30,12 @@
     border-bottom: 1px solid var(--color-border);
 }
 
-/* Swiper container - starts below fixed header */
-#content > .swiper-container {
+/* Profile carousel - starts below fixed header. .profile-carousel wraps the
+   Swiper container and its two arrows and is the arrows' positioning
+   context: they live outside .swiper-container so its overflow:hidden
+   cannot clip them. */
+#content > .profile-carousel {
+    position: relative;
     margin-top: var(--about-fixed-header-offset);
 }
 
@@ -44,21 +48,21 @@ div#content_in {
     max-width: none;
 }
 
-/* The profile carousel sits on the running text's left edge (the 30px
-   padding of #content_in) at half the text measure (21rem; the text is
-   capped at 42rem), so photo, headings and text form one left-aligned
-   column at every width. Before, the photo was 50% of the column and
-   centred while the text was capped and left-aligned, which drifted apart
-   on wide screens. Size chosen by the user (2026-09-04). Mobile keeps its
-   own rules. */
+/* Desktop: the carousel spans the column; the photo is centred in it at a
+   fixed 31.5rem (size chosen by the user, 2026-09-04) and the arrows sit at
+   the column's outer edges, never over the photo. Mobile keeps its own
+   rules (mobile.css). */
 @media (min-width: 768px) {
-    #content > .swiper-container {
-        width: 21rem;
-        max-width: calc(100% - 30px);
-        margin-left: 30px;
+    #content > .profile-carousel .img_pro img {
+        width: 31.5rem;
+        max-width: calc(100% - 70px); /* room for a 27px arrow + gap each side */
     }
 
-    #content > .swiper-container .img_pro img {
-        width: 100%;
+    #content > .profile-carousel .swiper-button-prev {
+        left: 0;
+    }
+
+    #content > .profile-carousel .swiper-button-next {
+        right: 0;
     }
 }

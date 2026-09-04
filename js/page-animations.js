@@ -118,7 +118,7 @@ function showAllContentImmediately() {
   });
 
   // Show swiper
-  const swiper = content.querySelector('.swiper-container');
+  const swiper = content.querySelector('.profile-carousel, .swiper-container');
   if (swiper) {
     swiper.style.opacity = '1';
   }
@@ -209,7 +209,7 @@ function initPageAnimations() {
     });
 
     // Show swiper and all hrs
-    const swiper = content.querySelector('.swiper-container');
+    const swiper = content.querySelector('.profile-carousel, .swiper-container');
     if (swiper) swiper.style.opacity = '1';
 
     const hrs = content.querySelectorAll('hr');
@@ -281,7 +281,7 @@ function initPageAnimations() {
   }
 
   // Fade in Swiper container (profile images) and the hr after it
-  const swiperContainer = content.querySelector('.swiper-container');
+  const swiperContainer = content.querySelector('.profile-carousel, .swiper-container');
 
   if (swiperContainer) {
     swiperContainer.style.opacity = '0';

@@ -394,6 +394,8 @@
        (h2:first-of-type is contact's first heading; the h3 variant is kept for
        safety although no page uses it anymore) */
     #content > .swiper-container,
+    #content > .profile-carousel,
+    #content > .profile-carousel > .swiper-container,
     #content > h2:first-of-type,
     #content > h3:first-of-type,
     #content > .center-container {
