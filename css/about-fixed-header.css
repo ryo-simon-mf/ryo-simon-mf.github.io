@@ -40,13 +40,22 @@
 }
 
 /* Desktop: the carousel spans the column; the photo is centred in it at a
-   fixed 31.5rem (size chosen by the user, 2026-09-04) and the arrows sit at
-   the column's outer edges, never over the photo. Mobile keeps its own
-   rules (mobile.css). */
+   third of the window height (size chosen by the user, 2026-09-04) and the
+   arrows sit at the column's outer edges, never over the photo. All five
+   profile photos are square, so a shared height also gives a shared width
+   and the column does not jump between slides. On a tall narrow window the
+   max-width wins and the browser scales the height with it, keeping the
+   photo square. Mobile keeps its own rules (mobile.css).
+   The size is set on width, not height: with `height` set and `max-width`
+   clamping, Chrome keeps the height and squashes the width (456x467 on a
+   768x1400 window). Because the photos are square, driving width and
+   leaving height auto gives the same third-of-the-window size and stays
+   square under either constraint. */
 @media (min-width: 768px) {
     #content > .profile-carousel .img_pro img {
-        width: 31.5rem;
-        max-width: calc(100% - 70px); /* room for a 27px arrow + gap each side */
+        /* 70px keeps room for a 27px arrow plus a gap on each side */
+        width: min(33.3333vh, 100% - 70px);
+        height: auto;
     }
 
     #content > .profile-carousel .swiper-button-prev {
