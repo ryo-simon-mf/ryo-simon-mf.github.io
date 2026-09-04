@@ -67,7 +67,7 @@
         spec.textContent = JSON.stringify({
             prefetch: [{
                 source: 'document',
-                where: { href_matches: '/*' },
+                where: { and: [ { href_matches: '/*' }, { not: { href_matches: '/*.pdf' } } ] },
                 eagerness: 'moderate'
             }]
         });
