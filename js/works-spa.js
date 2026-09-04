@@ -763,7 +763,9 @@ function showWorksList(announceMessage) {
     // crossfade is over, so returning here from a work detail is unaffected.
     const h1 = contentDiv.querySelector('h1');
     if (h1) {
-      onPagePresented(() => animateTextTransition(h1, 'Works', 'glitch', 600));
+      // 800ms, the same as the About and Contact headings (page-animations.js
+      // ANIMATION_DURATION.SLOW). At 600ms this one read as a brief flicker.
+      onPagePresented(() => animateTextTransition(h1, 'Works', 'glitch', 800));
     }
 
     // Animate filter buttons with glitch effect
